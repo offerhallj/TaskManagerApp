@@ -3,16 +3,16 @@ export declare class Task {
     title: string;
     description: string;
     createdDate: Date;
-    dueDate: Date | undefined;
+    dueDate: Date;
     status: TaskStatus;
     priority: TaskPriority;
     user: string;
     constructor(title: string, description: string, dueDate: Date, priority: TaskPriority, user: string);
 }
 export declare enum TaskStatus {
-    ToDo = 0,
-    InProgress = 1,
-    Complete = 2
+    ToDo = "To do",
+    InProgress = "In Progress",
+    Complete = "Complete"
 }
 export declare enum TaskPriority {
     Low = "Low",

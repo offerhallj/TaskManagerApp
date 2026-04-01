@@ -3,6 +3,7 @@ export class Task {
         this.title = "";
         this.description = "";
         this.createdDate = new Date();
+        this.dueDate = new Date();
         this.status = TaskStatus.ToDo;
         this.priority = TaskPriority.Low;
         this.user = "";
@@ -15,9 +16,9 @@ export class Task {
 }
 export var TaskStatus;
 (function (TaskStatus) {
-    TaskStatus[TaskStatus["ToDo"] = 0] = "ToDo";
-    TaskStatus[TaskStatus["InProgress"] = 1] = "InProgress";
-    TaskStatus[TaskStatus["Complete"] = 2] = "Complete";
+    TaskStatus["ToDo"] = "To do";
+    TaskStatus["InProgress"] = "In Progress";
+    TaskStatus["Complete"] = "Complete";
 })(TaskStatus || (TaskStatus = {}));
 export var TaskPriority;
 (function (TaskPriority) {

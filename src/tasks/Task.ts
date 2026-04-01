@@ -3,7 +3,7 @@ export class Task {
     public title: string = "";
     public description: string = "";
     public createdDate: Date = new Date();
-    public dueDate: Date | undefined;
+    public dueDate: Date = new Date();
     public status: TaskStatus = TaskStatus.ToDo;
     public priority: TaskPriority = TaskPriority.Low;
     public user: string = "";
@@ -18,7 +18,7 @@ export class Task {
 }
 
 export enum TaskStatus {
-    ToDo, InProgress, Complete
+    ToDo = "To do", InProgress = "In Progress", Complete = "Complete"
 }
 
 export enum TaskPriority {

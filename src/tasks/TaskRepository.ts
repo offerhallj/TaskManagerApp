@@ -59,16 +59,18 @@ export class TaskRepository extends Repository<TaskRepository> {
 
         const objectStore = this.getObjectStore(TASK_TABLE, "readonly");
         const cursorRequest = objectStore?.openCursor();
+        const tasks: Task[] = [];
     
         cursorRequest?.addEventListener("success", (e) => {
-            let cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
+            const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
             if (cursor) {
-                // Access the current record
-                console.log(cursor.value);
-    
-                // Move to the next record
+                const task: Task = cursor.value as Task;
+                if (task != undefined && task.user == user) tasks.push(task);
                 cursor.continue();
+                return;
             }
+
+            callback(true, tasks);
         });
     }
 }

@@ -9,18 +9,48 @@ class TaskView {
     }
     createHTMLElement() {
         let tr = document.createElement("tr");
+        tr.appendChild(this.createCellForValue(this._task.title));
+        tr.appendChild(this.createCellForValue(this._task.description));
+        tr.appendChild(this.createCellForValue(this._task.dueDate.getDate().toString()));
+        tr.appendChild(this.createCellForValue(this._task.priority));
+        tr.appendChild(this.createCellForValue(this._task.status));
         return tr;
     }
+    createCellForValue(val) {
+        let td = document.createElement("td");
+        td.textContent = val;
+        return td;
+    }
+    get Element() {
+        return this._element;
+    }
 }
+/** Retrieve all tasks for the current user from the database, convert them to taskViews, and draw them */
 function getAllTasks() {
-    service.getAllTasks(() => {
+    service.getAllTasks((result, tasks) => {
+        if (result == false) {
+            console.log("Error: Failed to retrieve tasks");
+            return;
+        }
+        // once we've got all of the tasks, create the taskviews
+        for (let task of tasks) {
+            taskViews.push(new TaskView(task));
+        }
+        drawTaskViews();
     });
+}
+function drawTaskViews() {
+    console.log("he");
+    taskBody.innerHTML = "";
+    for (let task of taskViews) {
+        taskBody.appendChild(task.Element);
+    }
 }
 function createTask(e) {
     e.preventDefault();
     service.createNewTask(createTitleInput.value, createDescriptionInput.value, createDueInput.value, createPriorityInput.value, () => { });
 }
-const tasks = [];
+const taskViews = [];
 const service = TaskService.Instance;
 const createTitleInput = document.getElementById("create-title");
 const createDescriptionInput = document.getElementById("create-description");
