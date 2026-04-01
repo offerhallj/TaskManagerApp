@@ -10,6 +10,10 @@ export function validateLogin(): void {
 }
 
 function isLoggedInReponse(result: boolean) {
+    // if the user is authenticated, do nothing
+    if (result == true) return;
+
+    // otherwise, redirect to the login page
     // redirect code was sourced from here
     // https://stackoverflow.com/questions/503093/how-do-i-redirect-to-another-webpage
     window.location.replace("/static/login.html");

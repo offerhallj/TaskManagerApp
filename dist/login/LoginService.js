@@ -57,7 +57,6 @@ export class LoginService {
         const vals = cookie.split(",");
         const username = (_a = vals[0]) === null || _a === void 0 ? void 0 : _a.split(":")[1];
         const token = (_b = vals[1]) === null || _b === void 0 ? void 0 : _b.split(":")[1];
-        console.log(`Username: ${username}; Token: ${token}`);
         repo.validateAuthenticationToken(username, token, callback);
     }
 }

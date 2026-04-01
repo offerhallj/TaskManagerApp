@@ -131,7 +131,10 @@ export class UserRepository {
     public validateAuthenticationToken(username: string, token: string, callback: (result: boolean) => void) {
         // if the database is not open, add the method call to delayedExecution so that it can be executed once the database is ready,
         // then return
+        
+        console.log("call");
         if (!this._dbIsOpen) {
+            console.log("delay");
             this._delayedExecution.push(() => this.validateAuthenticationToken(username, token, callback));
             return;
         }
@@ -140,19 +143,11 @@ export class UserRepository {
         const objectStore = transaction?.objectStore(USER_TABLE);
         const index = objectStore?.index("username");
         const query = index?.get(username);
-        console.log(this._db);
-
-        console.log(transaction);
-        console.log(objectStore);
-        console.log(index);
-        console.log(query);
-
         console.log(username + " " + token);
 
         query?.addEventListener("success", () => {
-            console.log("h");
             let user: User = query.result as User;
-            console.log(user.activeToken + " " + token);
+            console.log(user.activeToken == token);
             callback(user.activeToken == token);
         })
 

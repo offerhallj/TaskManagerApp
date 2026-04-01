@@ -105,10 +105,12 @@ export class UserRepository {
     }
     /** Determine whether the token assigned to this user in the database matches the username and token pair provided */
     validateAuthenticationToken(username, token, callback) {
-        var _a;
         // if the database is not open, add the method call to delayedExecution so that it can be executed once the database is ready,
         // then return
+        var _a;
+        console.log("call");
         if (!this._dbIsOpen) {
+            console.log("delay");
             this._delayedExecution.push(() => this.validateAuthenticationToken(username, token, callback));
             return;
         }
@@ -116,16 +118,10 @@ export class UserRepository {
         const objectStore = transaction === null || transaction === void 0 ? void 0 : transaction.objectStore(USER_TABLE);
         const index = objectStore === null || objectStore === void 0 ? void 0 : objectStore.index("username");
         const query = index === null || index === void 0 ? void 0 : index.get(username);
-        console.log(this._db);
-        console.log(transaction);
-        console.log(objectStore);
-        console.log(index);
-        console.log(query);
         console.log(username + " " + token);
         query === null || query === void 0 ? void 0 : query.addEventListener("success", () => {
-            console.log("h");
             let user = query.result;
-            console.log(user.activeToken + " " + token);
+            console.log(user.activeToken == token);
             callback(user.activeToken == token);
         });
         query === null || query === void 0 ? void 0 : query.addEventListener("error", () => {

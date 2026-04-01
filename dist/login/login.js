@@ -19,6 +19,7 @@ function createUser(e) {
 function createAccountAndLoginResponse(result) {
     if (!result)
         console.log("failed to create the account");
+    loginResponse(result);
 }
 function login(e) {
     e.preventDefault();
@@ -28,5 +29,6 @@ function login(e) {
 function loginResponse(result) {
     if (!result)
         console.log("failed to login");
+    window.location.replace("/static/index.html");
 }
 //# sourceMappingURL=login.js.map

@@ -23,6 +23,7 @@ function createUser(e: SubmitEvent) {
 /** Handle the result of the createUser operation */
 function createAccountAndLoginResponse(result: boolean) {
     if (!result) console.log("failed to create the account");
+    loginResponse(result);
 }
 
 function login(e: SubmitEvent) {
@@ -33,4 +34,5 @@ function login(e: SubmitEvent) {
 /** Handle the result of the createUser operation */
 function loginResponse(result: boolean) {
     if (!result) console.log("failed to login");
+    window.location.replace("/static/index.html");
 }
