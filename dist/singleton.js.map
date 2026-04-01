@@ -1,0 +1,1 @@
+{"version":3,"file":"singleton.js","sourceRoot":"","sources":["../src/singleton.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,SAAS;IAGlB,wFAAwF;IACxF,wGAAwG;IACxG,MAAM,CAAC,WAAW,CAAI,IAAkB;QACpC,IAAI,CAAC,SAAS,CAAC,SAAS,EAAE,CAAC;YACvB,SAAS,CAAC,SAAS,GAAG,IAAI,IAAI,CAAC;QACnC,CAAC;QAED,OAAO,SAAS,CAAC,SAAS,CAAC;IAC/B,CAAC;CACJ"}

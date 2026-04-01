@@ -9,6 +9,7 @@ export declare class Task {
 }
 export declare enum TaskStatus {
     NotStarted = 0,
-    Started = 1
+    InProgress = 1,
+    Complete = 2
 }
 //# sourceMappingURL=Task.d.ts.map

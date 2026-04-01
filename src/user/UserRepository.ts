@@ -1,21 +1,15 @@
 import { User } from "../../dist/user/User.js";
+import { Repository } from "../repository.js";
 
 const USER_TABLE = "user_table";
 
-export class UserRepository {
-    private static _intance: UserRepository;
-    private _db: IDBDatabase | undefined;
-    private _dbIsOpen: boolean = false;
-
-    /** If a database function is called before the database is open, add the function to this list and invoke it once the database is opened */
-    private readonly _delayedExecution: (() => void)[] = []; 
-
+export class UserRepository extends Repository<UserRepository> {
     static get Instance(): UserRepository {
-        if (UserRepository._intance == null) UserRepository._intance = new UserRepository();
-        return UserRepository._intance;
+        return this.getInstance<UserRepository>(UserRepository);
     }
     
     constructor() {
+        super();
         this.openDatabase();
     }
     
@@ -57,15 +51,6 @@ export class UserRepository {
 
             this.perfomDelayedExecution();
         });
-    }
-
-    /** Execute any functions which were delayed due to the database not being open at the time the function was called */
-    private perfomDelayedExecution() {
-        for (let fun of this._delayedExecution) {
-            fun();
-        }
-
-        this._delayedExecution.splice(0, this._delayedExecution.length - 1);
     }
 
     // I realized in my testing that returning a value from this method wasn't working because the value was being returned before the database finished processing
@@ -111,7 +96,11 @@ export class UserRepository {
         
         query?.addEventListener("success", () => {
             let user: User = query.result as User;
-            if (user.password == password) {
+            if (user == undefined || user.password != password) {
+                callback(false, "");
+            }
+
+            else {
                 const token = this.createToken();
                 user.activeToken = token;
                 
@@ -119,10 +108,6 @@ export class UserRepository {
                 // https://stackoverflow.com/questions/11217309/how-do-i-update-data-in-indexeddb
                 objectStore?.put(user);
                 callback(true, token);
-            }
-
-            else {
-                callback(false, "");
             }
         })
     }

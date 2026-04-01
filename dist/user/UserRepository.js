@@ -1,15 +1,12 @@
 import { User } from "../../dist/user/User.js";
+import { Repository } from "../repository.js";
 const USER_TABLE = "user_table";
-export class UserRepository {
+export class UserRepository extends Repository {
     static get Instance() {
-        if (UserRepository._intance == null)
-            UserRepository._intance = new UserRepository();
-        return UserRepository._intance;
+        return this.getInstance(UserRepository);
     }
     constructor() {
-        this._dbIsOpen = false;
-        /** If a database function is called before the database is open, add the function to this list and invoke it once the database is opened */
-        this._delayedExecution = [];
+        super();
         this.openDatabase();
     }
     // I used this article to help get started with IndexedDB
@@ -43,13 +40,6 @@ export class UserRepository {
             this._dbIsOpen = true;
             this.perfomDelayedExecution();
         });
-    }
-    /** Execute any functions which were delayed due to the database not being open at the time the function was called */
-    perfomDelayedExecution() {
-        for (let fun of this._delayedExecution) {
-            fun();
-        }
-        this._delayedExecution.splice(0, this._delayedExecution.length - 1);
     }
     // I realized in my testing that returning a value from this method wasn't working because the value was being returned before the database finished processing
     // rather than returning a value, I decided to implement a callback so I can handle the result when the database is finished 
@@ -90,16 +80,16 @@ export class UserRepository {
         const query = index === null || index === void 0 ? void 0 : index.get(username);
         query === null || query === void 0 ? void 0 : query.addEventListener("success", () => {
             let user = query.result;
-            if (user.password == password) {
+            if (user == undefined || user.password != password) {
+                callback(false, "");
+            }
+            else {
                 const token = this.createToken();
                 user.activeToken = token;
                 // I got the put code from this post on stack overflow to set the token value in the database after the login
                 // https://stackoverflow.com/questions/11217309/how-do-i-update-data-in-indexeddb
                 objectStore === null || objectStore === void 0 ? void 0 : objectStore.put(user);
                 callback(true, token);
-            }
-            else {
-                callback(false, "");
             }
         });
     }

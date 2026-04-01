@@ -12,6 +12,7 @@ export class Task {
 export var TaskStatus;
 (function (TaskStatus) {
     TaskStatus[TaskStatus["NotStarted"] = 0] = "NotStarted";
-    TaskStatus[TaskStatus["Started"] = 1] = "Started";
+    TaskStatus[TaskStatus["InProgress"] = 1] = "InProgress";
+    TaskStatus[TaskStatus["Complete"] = 2] = "Complete";
 })(TaskStatus || (TaskStatus = {}));
 //# sourceMappingURL=Task.js.map
