@@ -64,7 +64,12 @@ export class UserRepository {
         query === null || query === void 0 ? void 0 : query.addEventListener("success", () => {
             let user = query.result;
             if (user.password == password) {
-                callback(true, this.createToken());
+                const token = this.createToken();
+                user.activeToken = token;
+                // I got the put code from this post on stack overflow to set the token value in the database after the login
+                // https://stackoverflow.com/questions/11217309/how-do-i-update-data-in-indexeddb
+                objectStore === null || objectStore === void 0 ? void 0 : objectStore.put(user);
+                callback(true, token);
             }
             else {
                 callback(false, "");
