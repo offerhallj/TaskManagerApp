@@ -14,5 +14,7 @@ export declare class LoginService {
     private getAuthenticationCookie;
     /** Compares the value of the authentication cookie against the value stored for the user in the database to determine if the login is valid */
     private validateAuthenticationCookie;
+    /** Get the username of the current user */
+    getCurrentUser(): string | undefined;
 }
 //# sourceMappingURL=LoginService.d.ts.map

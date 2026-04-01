@@ -64,5 +64,14 @@ export class LoginService {
         const token = (_b = vals[1]) === null || _b === void 0 ? void 0 : _b.split(":")[1];
         repo.validateAuthenticationToken(username, token, callback);
     }
+    /** Get the username of the current user */
+    getCurrentUser() {
+        var _a;
+        const token = this.getAuthenticationCookie();
+        if (token == null || token == undefined)
+            return undefined;
+        const vals = token.split(",");
+        return (_a = vals[0]) === null || _a === void 0 ? void 0 : _a.split(":")[1];
+    }
 }
 //# sourceMappingURL=LoginService.js.map

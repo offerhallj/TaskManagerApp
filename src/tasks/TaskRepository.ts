@@ -18,12 +18,13 @@ export class TaskRepository extends Repository<TaskRepository> {
 
     createTable(callback: () => void): void {
         const table = this._db?.createObjectStore(TASK_TABLE, { keyPath: "id", autoIncrement:true});
-        table?.createIndex("title", "title", { unique: true});
+        table?.createIndex("title", "title", { unique: false});
         table?.createIndex("description", "description", { unique: false});
-        table?.createIndex("createdDate", "createdDate", { unique: true});
+        table?.createIndex("createdDate", "createdDate", { unique: false});
         table?.createIndex("dueDate", "dueDate", { unique: false});
         table?.createIndex("status", "status", { unique: false});
         table?.createIndex("priority", "priority", { unique: false});
+        table?.createIndex("user", "user", { unique: false});
         callback();
     }
 
@@ -37,7 +38,7 @@ export class TaskRepository extends Repository<TaskRepository> {
         const transaction = this._db?.transaction([TASK_TABLE], "readwrite");
         const objectStore = transaction?.objectStore(TASK_TABLE);
         const query = objectStore?.add(newTask);
-
+        
         query?.addEventListener("success", () => {
             callback(true);
         });

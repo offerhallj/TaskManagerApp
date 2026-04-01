@@ -6,12 +6,14 @@ export class Task {
     public dueDate: Date | undefined;
     public status: TaskStatus = TaskStatus.ToDo;
     public priority: TaskPriority = TaskPriority.Low;
+    public user: string = "";
 
-    constructor(title: string, description: string, dueDate: Date, priority: TaskPriority) {
+    constructor(title: string, description: string, dueDate: Date, priority: TaskPriority, user: string) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.user = user;
     }
 }
 

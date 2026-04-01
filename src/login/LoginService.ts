@@ -68,4 +68,12 @@ export class LoginService {
         const token = vals[1]?.split(":")[1];
         repo.validateAuthenticationToken(username!, token!, callback);
     }
+
+    /** Get the username of the current user */
+    public getCurrentUser(): string | undefined {
+        const token = this.getAuthenticationCookie();
+        if (token == null || token == undefined) return undefined;
+        const vals = token.split(",");
+        return vals[0]?.split(":")[1];
+    }
 }

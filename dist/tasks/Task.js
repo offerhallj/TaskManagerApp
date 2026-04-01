@@ -1,14 +1,16 @@
 export class Task {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, user) {
         this.title = "";
         this.description = "";
         this.createdDate = new Date();
         this.status = TaskStatus.ToDo;
         this.priority = TaskPriority.Low;
+        this.user = "";
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.user = user;
     }
 }
 export var TaskStatus;

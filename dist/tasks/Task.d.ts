@@ -6,7 +6,8 @@ export declare class Task {
     dueDate: Date | undefined;
     status: TaskStatus;
     priority: TaskPriority;
-    constructor(title: string, description: string, dueDate: Date, priority: TaskPriority);
+    user: string;
+    constructor(title: string, description: string, dueDate: Date, priority: TaskPriority, user: string);
 }
 export declare enum TaskStatus {
     ToDo = 0,
