@@ -1,5 +1,5 @@
 import { Task, TaskPriority, TaskStatus } from "../../dist/tasks/Task.js";
-import { TaskRepository } from "../../dist/tasks/TaskRepository";
+import { TaskRepository } from "../../dist/tasks/TaskRepository.js";
 
 const repo = TaskRepository.Instance;
 
@@ -13,5 +13,6 @@ export class TaskService {
 
     public createNewTask(title: string, description: string, due: string, priority: string, callback: (result: boolean) => void) {
         const newTask = new Task(title, description, new Date(due), <TaskPriority> priority);
+        repo.createTask(newTask, callback);
     }
 }

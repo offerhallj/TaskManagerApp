@@ -1,4 +1,4 @@
-import { TaskService } from "../../dist/tasks/TaskService";
+import { TaskService } from "../../dist/tasks/TaskService.js";
 
 const service = TaskService.Instance;
 const createTitleInput = document.getElementById("create-title") as HTMLInputElement;
@@ -8,7 +8,9 @@ const createPriorityInput = document.getElementById("create-priority") as HTMLIn
 
 document.getElementById("create-task")?.addEventListener("submit", createTask)
 
-function createTask() {
+function createTask(e: SubmitEvent) {
+    e.preventDefault();
+
     service.createNewTask(
         createTitleInput.value,
         createDescriptionInput.value,

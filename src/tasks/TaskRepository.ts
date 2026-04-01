@@ -1,4 +1,5 @@
 import { Repository } from "../../dist/repository.js";
+import { Task } from "../../dist/tasks/Task.js";
 
 const TASK_TABLE = "task_table"
 
@@ -24,5 +25,25 @@ export class TaskRepository extends Repository<TaskRepository> {
         table?.createIndex("status", "status", { unique: false});
         table?.createIndex("priority", "priority", { unique: false});
         callback();
+    }
+
+    public createTask(newTask: Task, callback: (result: boolean) => void) {
+        if (!this._dbIsOpen) {
+            this._delayedExecution.push(() => this.createTask(newTask, callback));
+            return;
+        }
+
+        // perform the database transaction
+        const transaction = this._db?.transaction([TASK_TABLE], "readwrite");
+        const objectStore = transaction?.objectStore(TASK_TABLE);
+        const query = objectStore?.add(newTask);
+
+        query?.addEventListener("success", () => {
+            callback(true);
+        });
+
+        query?.addEventListener("error", () => {
+            callback(false);
+        })
     }
 }
