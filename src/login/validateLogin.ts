@@ -6,11 +6,12 @@ export function validateLogin(): void {
     let url = window.location.href.split("/");
     let page = url[url.length - 1];
     if (page == "login.html") return;
+    LoginService.Intance.isLoggedIn(isLoggedInReponse);
+}
 
-    if (!LoginService.Intance.isLoggedIn()) {
-        // redirect code was sourced from here
-        // https://stackoverflow.com/questions/503093/how-do-i-redirect-to-another-webpage
-        window.location.replace("/static/login.html");
-    }
+function isLoggedInReponse(result: boolean) {
+    // redirect code was sourced from here
+    // https://stackoverflow.com/questions/503093/how-do-i-redirect-to-another-webpage
+    window.location.replace("/static/login.html");
 }
 

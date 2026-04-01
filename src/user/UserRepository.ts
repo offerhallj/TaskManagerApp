@@ -5,7 +5,11 @@ const USER_TABLE = "user_table";
 export class UserRepository {
     private static _intance: UserRepository;
     private _db: IDBDatabase | undefined;
-    
+    private _dbIsOpen: boolean = false;
+
+    /** If a database function is called before the database is open, add the function to this list and invoke it once the database is opened */
+    private readonly _delayedExecution: (() => void)[] = []; 
+
     static get Instance(): UserRepository {
         if (UserRepository._intance == null) UserRepository._intance = new UserRepository();
         return UserRepository._intance;
@@ -29,6 +33,8 @@ export class UserRepository {
         request.addEventListener("success", () => {
             console.log("Successfully opened database");    
             this._db = request.result;
+            this._dbIsOpen = true;
+            this.perfomDelayedExecution();
             }
         );
     
@@ -47,14 +53,32 @@ export class UserRepository {
             table?.createIndex("password", "password", { unique: false});
             table?.createIndex("email", "email", { unique: true});
             table?.createIndex("activeToken", "activeToken", { unique: false});
+            this._dbIsOpen = true;
+
+            this.perfomDelayedExecution();
         });
-    
+    }
+
+    /** Execute any functions which were delayed due to the database not being open at the time the function was called */
+    private perfomDelayedExecution() {
+        for (let fun of this._delayedExecution) {
+            fun();
+        }
+
+        this._delayedExecution.splice(0, this._delayedExecution.length - 1);
     }
 
     // I realized in my testing that returning a value from this method wasn't working because the value was being returned before the database finished processing
     // rather than returning a value, I decided to implement a callback so I can handle the result when the database is finished 
     /** Attempt to add a user to the database and invoke the callback with the result and authorization token */
     public createUser(newUser: User, callback: (result: boolean) => void) {
+        // if the database is not open, add the method call to delayedExecution so that it can be executed once the database is ready,
+        // then return
+        if (!this._dbIsOpen) {
+            this._delayedExecution.push(() => this.createUser(newUser, callback));
+            return;
+        }
+
         // perform the database transaction
         const transaction = this._db?.transaction([USER_TABLE], "readwrite");
         const objectStore = transaction?.objectStore(USER_TABLE);
@@ -71,13 +95,20 @@ export class UserRepository {
         })
     }
  
-
+    /** Determine whether the username and password pair match the information in the database and return an authentication token if so */
     public validateLoginCredentials(username: string, password: string, callback: (result: boolean, auth: string) => void) {
+        // if the database is not open, add the method call to delayedExecution so that it can be executed once the database is ready,
+        // then return
+        if (!this._dbIsOpen) {
+            this._delayedExecution.push(() => this.validateLoginCredentials(username, password, callback));
+            return;
+        }
+
         const transaction = this._db?.transaction([USER_TABLE], "readwrite");
         const objectStore = transaction?.objectStore(USER_TABLE);
         const index = objectStore?.index("username");
         const query = index?.get(username);
-
+        
         query?.addEventListener("success", () => {
             let user: User = query.result as User;
             if (user.password == password) {
@@ -94,6 +125,40 @@ export class UserRepository {
                 callback(false, "");
             }
         })
+    }
+
+    /** Determine whether the token assigned to this user in the database matches the username and token pair provided */
+    public validateAuthenticationToken(username: string, token: string, callback: (result: boolean) => void) {
+        // if the database is not open, add the method call to delayedExecution so that it can be executed once the database is ready,
+        // then return
+        if (!this._dbIsOpen) {
+            this._delayedExecution.push(() => this.validateAuthenticationToken(username, token, callback));
+            return;
+        }
+        
+        const transaction = this._db?.transaction([USER_TABLE], "readonly");
+        const objectStore = transaction?.objectStore(USER_TABLE);
+        const index = objectStore?.index("username");
+        const query = index?.get(username);
+        console.log(this._db);
+
+        console.log(transaction);
+        console.log(objectStore);
+        console.log(index);
+        console.log(query);
+
+        console.log(username + " " + token);
+
+        query?.addEventListener("success", () => {
+            console.log("h");
+            let user: User = query.result as User;
+            console.log(user.activeToken + " " + token);
+            callback(user.activeToken == token);
+        })
+
+        query?.addEventListener("error", () => {
+            console.log("err0r");
+        });
     }
 
     private createToken(): string {

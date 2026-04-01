@@ -1,7 +1,7 @@
 import { UserRepository } from "../../dist/user/UserRepository.js";
 import { User } from "../../dist/user/User.js";
 
-const AUTHENTICATION_COOKIE: string = "auth"
+const AUTHENTICATION: string = "auth"
 const repo = UserRepository.Instance;
 
 export class LoginService {
@@ -26,8 +26,8 @@ export class LoginService {
     logIn(username: string, password: string, callback: (result: boolean) => void) {
         repo.validateLoginCredentials(username, password, (result, auth) => {
             if (result) {
+                document.cookie = `${AUTHENTICATION}=user:${username},token:${auth};max-age=10000`;
                 callback(true);
-                document.cookie = `${AUTHENTICATION_COOKIE}=${auth};max-age=10000`;
             }
 
             else {
@@ -37,26 +37,30 @@ export class LoginService {
     }
 
     /** Determines whether a user is currently logged in by getting and validating the authentication cookie */
-    isLoggedIn(): boolean {
+    isLoggedIn(callback: (result: boolean) => void) {
         let cookie = this.getAuthenticationCookie();
-        if (cookie == undefined) return false;
-        return this.validateAuthenticationCookie(cookie);
+        if (cookie == undefined) callback(false);
+        else this.validateAuthenticationCookie(cookie, callback);
     }
 
-    /** Returns the value stored at AUTHENtICATION_COOKIE or undefined if the cookie is not found */
+    /** Returns the value stored at AUTHENtICATION or undefined if the cookie is not found */
     private getAuthenticationCookie(): string | undefined{
         const cookie = document.cookie;
         const cookies = cookie.split(";");
         for (let c of cookies) {
             let [key, value] = c.split("=");
-            if (key == AUTHENTICATION_COOKIE) return value;
+            if (key == AUTHENTICATION) return value;
         }
         
         return undefined;
     }
 
     /** Compares the value of the authentication cookie against the value stored for the user in the database to determine if the login is valid */
-    private validateAuthenticationCookie(cookie: string): boolean {
-        return true;
+    private validateAuthenticationCookie(cookie: string, callback: (result: boolean) => void) {
+        const vals = cookie.split(",");
+        const username = vals[0]?.split(":")[1];
+        const token = vals[1]?.split(":")[1];
+        console.log(`Username: ${username}; Token: ${token}`);
+        repo.validateAuthenticationToken(username!, token!, callback);
     }
 }

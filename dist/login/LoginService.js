@@ -1,6 +1,6 @@
 import { UserRepository } from "../../dist/user/UserRepository.js";
 import { User } from "../../dist/user/User.js";
-const AUTHENTICATION_COOKIE = "auth";
+const AUTHENTICATION = "auth";
 const repo = UserRepository.Instance;
 export class LoginService {
     static get Intance() {
@@ -24,8 +24,8 @@ export class LoginService {
     logIn(username, password, callback) {
         repo.validateLoginCredentials(username, password, (result, auth) => {
             if (result) {
+                document.cookie = `${AUTHENTICATION}=user:${username},token:${auth};max-age=10000`;
                 callback(true);
-                document.cookie = `${AUTHENTICATION_COOKIE}=${auth};max-age=10000`;
             }
             else {
                 callback(false);
@@ -33,26 +33,32 @@ export class LoginService {
         });
     }
     /** Determines whether a user is currently logged in by getting and validating the authentication cookie */
-    isLoggedIn() {
+    isLoggedIn(callback) {
         let cookie = this.getAuthenticationCookie();
         if (cookie == undefined)
-            return false;
-        return this.validateAuthenticationCookie(cookie);
+            callback(false);
+        else
+            this.validateAuthenticationCookie(cookie, callback);
     }
-    /** Returns the value stored at AUTHENtICATION_COOKIE or undefined if the cookie is not found */
+    /** Returns the value stored at AUTHENtICATION or undefined if the cookie is not found */
     getAuthenticationCookie() {
         const cookie = document.cookie;
         const cookies = cookie.split(";");
         for (let c of cookies) {
             let [key, value] = c.split("=");
-            if (key == AUTHENTICATION_COOKIE)
+            if (key == AUTHENTICATION)
                 return value;
         }
         return undefined;
     }
     /** Compares the value of the authentication cookie against the value stored for the user in the database to determine if the login is valid */
-    validateAuthenticationCookie(cookie) {
-        return true;
+    validateAuthenticationCookie(cookie, callback) {
+        var _a, _b;
+        const vals = cookie.split(",");
+        const username = (_a = vals[0]) === null || _a === void 0 ? void 0 : _a.split(":")[1];
+        const token = (_b = vals[1]) === null || _b === void 0 ? void 0 : _b.split(":")[1];
+        console.log(`Username: ${username}; Token: ${token}`);
+        repo.validateAuthenticationToken(username, token, callback);
     }
 }
 //# sourceMappingURL=LoginService.js.map
