@@ -153,6 +153,7 @@ export class UserRepository {
 
         query?.addEventListener("error", () => {
             console.log("err0r");
+            callback(false);
         });
     }
 

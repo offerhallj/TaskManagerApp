@@ -126,6 +126,7 @@ export class UserRepository {
         });
         query === null || query === void 0 ? void 0 : query.addEventListener("error", () => {
             console.log("err0r");
+            callback(false);
         });
     }
     createToken() {

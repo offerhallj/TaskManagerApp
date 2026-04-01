@@ -2,10 +2,6 @@ import { LoginService } from "../../dist/login/LoginService.js";
 
 /** Validate that the user is logged in and redirect to login.html if not */
 export function validateLogin(): void {
-    // determine whether we're already on the login page
-    let url = window.location.href.split("/");
-    let page = url[url.length - 1];
-    if (page == "login.html") return;
     LoginService.Intance.isLoggedIn(isLoggedInReponse);
 }
 
@@ -19,3 +15,4 @@ function isLoggedInReponse(result: boolean) {
     window.location.replace("/static/login.html");
 }
 
+validateLogin();
