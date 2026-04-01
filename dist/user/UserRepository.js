@@ -77,7 +77,8 @@ export class UserRepository {
         });
     }
     createToken() {
-        return "token";
+        // https://stackoverflow.com/questions/43837659/guid-uuid-in-typescript-node-js-app
+        return crypto.randomUUID();
     }
 }
 //# sourceMappingURL=UserRepository.js.map

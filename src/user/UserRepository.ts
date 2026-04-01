@@ -97,6 +97,7 @@ export class UserRepository {
     }
 
     private createToken(): string {
-        return "token";
+        // https://stackoverflow.com/questions/43837659/guid-uuid-in-typescript-node-js-app
+        return crypto.randomUUID();
     }
 }
