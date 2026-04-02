@@ -7,7 +7,9 @@ export class OverdueTaskElement extends TaskElement {
         this.Element = this.create();
     }
     create() {
-        const innerElement = this.Element;
+        console.log(this._innerTaskElement);
+        const innerElement = this._innerTaskElement.Element;
+        innerElement.classList.add("overdue");
         return innerElement;
     }
 }

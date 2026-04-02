@@ -4,7 +4,8 @@ export class TaskElement {
     set onDelete(callback) { this.delete = callback; }
     constructor(task) {
         this.Task = task;
-        this.Element = this.create();
+        // I realized that calling the create method in the constructor here was causing issues with the create method in overduetaskelements
+        // so I've had to override the constructor in all of the children
     }
     createCellForValue(val) {
         let td = document.createElement("td");

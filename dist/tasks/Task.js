@@ -31,7 +31,7 @@ export class Task {
             return "";
     }
     get isOverdue() {
-        return false;
+        return new Date() > this.dueDate;
     }
 }
 export var TaskStatus;

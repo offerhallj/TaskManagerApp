@@ -1,6 +1,12 @@
 import { TaskElement } from "./TaskElement.js";
+import { Task } from "../tasks/Task.js";
 
 export class BasicTaskElement extends TaskElement {
+    constructor(task: Task) {
+        super(task);
+        this.Element = this.create();
+    }
+
     public create(): HTMLElement {
         const tr = document.createElement("tr");
         tr.appendChild(this.createCellForValue(this.Task.title));

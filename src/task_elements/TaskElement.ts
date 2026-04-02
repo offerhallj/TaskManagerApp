@@ -3,17 +3,17 @@ import { Task } from "../tasks/Task.js";
 
 export abstract class TaskElement implements UIElement {
     public readonly Task: Task;
-    Element: HTMLElement;
+    Element!: HTMLElement;
     
     protected edit!: ((element: TaskElement) => void);
     protected delete!: ((element: TaskElement) => void);
     public set onEdit(callback: (element: TaskElement) => void) { this.edit = callback; }
     public set onDelete(callback: (element: TaskElement) => void) { this.delete = callback; }
 
-
     constructor(task: Task) {
         this.Task = task;
-        this.Element = this.create();
+        // I realized that calling the create method in the constructor here was causing issues with the create method in overduetaskelements
+        // so I've had to override the constructor in all of the children
     }
 
     abstract create(): HTMLElement;

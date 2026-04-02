@@ -33,7 +33,7 @@ export class Task {
     }
 
     public get isOverdue(): boolean {
-        return false;
+        return new Date() > this.dueDate;
     }
 }
 
