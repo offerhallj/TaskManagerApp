@@ -1,5 +1,5 @@
-import { User } from "../../dist/user/User.js";
 import { Repository } from "../repository.js";
+import { User } from "./User.js";
 export declare class UserRepository extends Repository<UserRepository> {
     private static _instance;
     static get Instance(): UserRepository;

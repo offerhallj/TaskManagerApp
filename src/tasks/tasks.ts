@@ -1,6 +1,5 @@
 import { TaskElementFactory, TaskElementType } from "../task_elements/TaskElementFactory.js";
-import { TaskElement } from "../../dist/task_elements/TaskElement.js";
-// import { TaskService } from "../../dist/tasks/TaskService.js";
+import { TaskElement } from "../task_elements/TaskElement.js";
 import { TaskService } from "./TaskService.js";
 
 const factory = new TaskElementFactory(TaskElementType.Basic, editTask, deleteTask);

@@ -1,6 +1,6 @@
-import { BasicTaskElement } from "../../dist/task_elements/BasicTaskElement.js";
-import { TaskElement } from "../../dist/task_elements/TaskElement.js";
-import { Task } from "../../dist/tasks/Task.js";
+import { BasicTaskElement } from "./BasicTaskElement.js";
+import { TaskElement } from "./TaskElement.js";
+import { Task } from "../tasks/Task.js";
 
 export class TaskElementFactory {
     private _type: TaskElementType;

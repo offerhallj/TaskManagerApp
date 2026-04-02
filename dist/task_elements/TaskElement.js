@@ -1,4 +1,4 @@
-import { Task } from "../../dist/tasks/Task.js";
+import { Task } from "../tasks/Task.js";
 export class TaskElement {
     set onEdit(callback) { this.edit = callback; }
     set onDelete(callback) { this.delete = callback; }

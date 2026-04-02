@@ -1,6 +1,6 @@
 var _a, _b;
-import { LoginService } from "../../dist/login/LoginService.js";
-import { User } from "../../dist/user/User.js";
+import { LoginService } from "./LoginService.js";
+import { User } from "../user/User.js";
 const loginService = LoginService.Instance;
 const createUsernameInput = document.querySelector("#create-account-form #username");
 const createPasswordInput = document.querySelector("#create-account-form #password");

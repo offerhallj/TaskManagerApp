@@ -1,5 +1,5 @@
-import { Repository } from "../../dist/repository.js";
-import { Task } from "../../dist/tasks/Task.js";
+import { Repository } from "../repository.js";
+import { Task } from "../tasks/Task.js";
 const TASK_TABLE = "task_table";
 export class TaskRepository extends Repository {
     static get Instance() {

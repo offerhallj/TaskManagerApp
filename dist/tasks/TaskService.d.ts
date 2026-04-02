@@ -1,4 +1,4 @@
-import { Task } from "../../dist/tasks/Task.js";
+import { Task } from "./Task.js";
 export declare class TaskService {
     private static _instance;
     static get Instance(): TaskService;

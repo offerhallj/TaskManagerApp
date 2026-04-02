@@ -1,4 +1,4 @@
-import { TaskElement } from "../../dist/task_elements/TaskElement.js";
+import { TaskElement } from "./TaskElement.js";
 
 export class BasicTaskElement extends TaskElement {
     public create(): HTMLElement {

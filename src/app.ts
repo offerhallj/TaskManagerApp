@@ -1,4 +1,4 @@
-import { LoginService } from "../dist/login/LoginService.js";
+import { LoginService } from "./login/LoginService.js";
 
 const logService = LoginService.Instance;
 

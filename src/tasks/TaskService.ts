@@ -1,6 +1,6 @@
-import { Task, TaskPriority } from "../../dist/tasks/Task.js";
-import { TaskRepository } from "../../dist/tasks/TaskRepository.js";
-import { LoginService } from "../../dist/login/LoginService.js";
+import { LoginService } from "../login/LoginService.js";
+import { TaskRepository } from "./TaskRepository.js";
+import { Task, TaskPriority } from "./Task.js";
 
 const repo = TaskRepository.Instance;
 const logService = LoginService.Instance;

@@ -1,4 +1,4 @@
-import { LoginService } from "../../dist/login/LoginService.js";
+import { LoginService } from "./LoginService.js";
 /** Validate that the user is logged in and redirect to login.html if not */
 export function validateLogin() {
     LoginService.Instance.isLoggedIn(isLoggedInReponse);

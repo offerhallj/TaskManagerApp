@@ -1,5 +1,5 @@
-import { TaskElement } from "../../dist/task_elements/TaskElement.js";
-import { Task } from "../../dist/tasks/Task.js";
+import { TaskElement } from "./TaskElement.js";
+import { Task } from "../tasks/Task.js";
 export declare class TaskElementFactory {
     private _type;
     private _onEdit;

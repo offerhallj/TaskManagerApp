@@ -1,5 +1,5 @@
-import type { UIElement } from "../../dist/interfaces/UIElement.js";
-import { Task } from "../../dist/tasks/Task.js";
+import type { UIElement } from "../interfaces/UIElement.js";
+import { Task } from "../tasks/Task.js";
 
 export abstract class TaskElement implements UIElement {
     public readonly Task: Task;

@@ -1,5 +1,5 @@
-import { Observable } from "../../dist/interfaces/Observable.js";
-import { Task } from "../../dist/tasks/Task.js";
+import { Observable } from "../interfaces/Observable.js";
+import { Task } from "./Task.js";
 export class TaskViewModel extends Observable {
     constructor() {
         super(...arguments);

@@ -1,5 +1,5 @@
-import { UserRepository } from "../../dist/user/UserRepository.js";
-import { User } from "../../dist/user/User.js";
+import { UserRepository } from "../user/UserRepository.js";
+import { User } from "../user/User.js";
 const AUTHENTICATION = "auth";
 const repo = UserRepository.Instance;
 export class LoginService {
