@@ -42,7 +42,11 @@ export class Task {
     }
 
     public get isOverdue(): boolean {
-        return new Date() > this.dueDate;
+        const date = new Date();
+        if (date.getFullYear() < this.dueDate.getFullYear()) return false;
+        if (date.getMonth() < this.dueDate.getMonth()) return false;
+        if (date.getDay() <= this.dueDate.getDay()) return false;
+        return true;
     }
 
     public getTagList(): string[] {

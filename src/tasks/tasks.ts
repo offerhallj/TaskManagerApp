@@ -53,7 +53,7 @@ function deleteTask(taskElement: TaskElement) {
     service.deleteTask(taskElement.Task, r => {
         if (r == true) {
             const element = taskElement.Element;
-            taskBody.removeChild(element);
+            tableFactory.Body.removeChild(element);
             const index = taskElements.indexOf(taskElement);
             if (index >= 0) taskElements.splice(index, 1);
         }
@@ -73,7 +73,6 @@ const taskElements: TaskElement[] = [];
 const tableFactory = new TaskTableFactory(TaskDisplayType.Detailed);
 const elementFactory = new TaskElementFactory(TaskDisplayType.Detailed, editTask, deleteTask);
 
-const taskBody = document.getElementById("task-table-body") as HTMLElement;
 const taskTableContainer = document.getElementById("task-table-container") as HTMLElement;
 
 document.getElementById("new-task")?.addEventListener("click", () => createTask());

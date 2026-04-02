@@ -34,7 +34,14 @@ export class Task {
         return `${year}-${month}-${day}`;
     }
     get isOverdue() {
-        return new Date() > this.dueDate;
+        const date = new Date();
+        if (date.getFullYear() < this.dueDate.getFullYear())
+            return false;
+        if (date.getMonth() < this.dueDate.getMonth())
+            return false;
+        if (date.getDay() <= this.dueDate.getDay())
+            return false;
+        return true;
     }
     getTagList() {
         return this.tags.split(",");
