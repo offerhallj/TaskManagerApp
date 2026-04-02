@@ -5,6 +5,7 @@ import { TaskService } from "./TaskService.js";
 const factory = new TaskElementFactory(TaskElementType.Basic, editTask, deleteTask);
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() {
+    taskElements.splice(0, taskElements.length);
     service.getAllTasks((result, tasks) => {
         if (result == false) {
             console.log("Error: Failed to retrieve tasks");
@@ -46,15 +47,19 @@ function editTask(taskElement) {
     let task = taskElement.Task;
     if (task.id != undefined)
         editIDInput.value = task.id.toString();
+    editUserInput.value = task.user;
     editTitleInput.value = task.title;
     editDescriptionInput.value = task.description;
     editDueInput.value = task.getFormattedDate();
     editPriorityInput.value = task.priority;
-    editUserInput.value = task.user;
 }
 function saveTask(e) {
     e.preventDefault();
-    service.editTask(parseInt(editIDInput.value), editTitleInput.value, editDescriptionInput.value, editDueInput.value, editPriorityInput.value, editUserInput.value, () => { });
+    console.log(editIDInput.value);
+    console.log(editUserInput.value);
+    service.editTask(parseInt(editIDInput.value), editTitleInput.value, editDescriptionInput.value, editDueInput.value, editPriorityInput.value, editUserInput.value, () => {
+        getAllTasks();
+    });
 }
 function deleteTask(taskElement) {
     service.deleteTask(taskElement.Task, r => {

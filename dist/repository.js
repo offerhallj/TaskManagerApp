@@ -30,10 +30,7 @@ export class Repository {
             this._db.onerror = () => {
                 console.error('Error loading database.');
             };
-            this.createTable(() => {
-                this._dbIsOpen = true;
-                this.perfomDelayedExecution();
-            });
+            this.createTable();
         });
     }
     /** Get the objectstore for the provided table using the provided transaction method */

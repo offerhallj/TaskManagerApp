@@ -11,7 +11,7 @@ export class TaskRepository extends Repository {
         super();
         this.openDatabase(TASK_TABLE, 1);
     }
-    createTable(callback) {
+    createTable() {
         var _a;
         const table = (_a = this._db) === null || _a === void 0 ? void 0 : _a.createObjectStore(TASK_TABLE, { keyPath: "id", autoIncrement: true });
         table === null || table === void 0 ? void 0 : table.createIndex("title", "title", { unique: false });
@@ -21,7 +21,6 @@ export class TaskRepository extends Repository {
         table === null || table === void 0 ? void 0 : table.createIndex("status", "status", { unique: false });
         table === null || table === void 0 ? void 0 : table.createIndex("priority", "priority", { unique: false });
         table === null || table === void 0 ? void 0 : table.createIndex("user", "user", { unique: false });
-        callback();
     }
     /** Add a new task to the database */
     createTask(newTask, callback) {

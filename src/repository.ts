@@ -40,11 +40,7 @@ export abstract class Repository<T> {
                 console.error('Error loading database.');
             };
 
-            this.createTable(() => {
-                this._dbIsOpen = true;
-                this.perfomDelayedExecution();
-            });
-
+            this.createTable();
         });
     }
 
@@ -54,5 +50,5 @@ export abstract class Repository<T> {
         return transaction?.objectStore(table); 
     }
 
-    abstract createTable(callback: () => void): void;
+    abstract createTable(): void;
 }

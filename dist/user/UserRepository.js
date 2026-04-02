@@ -13,14 +13,13 @@ export class UserRepository extends Repository {
         super();
         this.openDatabase(USER_TABLE, 1);
     }
-    createTable(callback) {
+    createTable() {
         var _a;
         const table = (_a = this._db) === null || _a === void 0 ? void 0 : _a.createObjectStore(USER_TABLE, { keyPath: "id", autoIncrement: true });
         table === null || table === void 0 ? void 0 : table.createIndex("username", "username", { unique: true });
         table === null || table === void 0 ? void 0 : table.createIndex("password", "password", { unique: false });
         table === null || table === void 0 ? void 0 : table.createIndex("email", "email", { unique: true });
         table === null || table === void 0 ? void 0 : table.createIndex("activeToken", "activeToken", { unique: false });
-        callback();
     }
     // I realized in my testing that returning a value from this method wasn't working because the value was being returned before the database finished processing
     // rather than returning a value, I decided to implement a callback so I can handle the result when the database is finished 

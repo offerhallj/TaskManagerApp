@@ -1,4 +1,4 @@
-import { User } from "../../dist/user/User.js";
+import { User } from "../user/User.js";
 export declare class LoginService {
     private static _instance;
     static get Instance(): LoginService;

@@ -17,13 +17,12 @@ export class UserRepository extends Repository<UserRepository> {
         this.openDatabase(USER_TABLE, 1);
     }
 
-    override createTable(callback: () => void): void {
+    override createTable(): void {
         const table = this._db?.createObjectStore(USER_TABLE, { keyPath: "id", autoIncrement:true});
         table?.createIndex("username", "username", { unique: true});
         table?.createIndex("password", "password", { unique: false});
         table?.createIndex("email", "email", { unique: true});
         table?.createIndex("activeToken", "activeToken", { unique: false});
-        callback();
     }
 
     // I realized in my testing that returning a value from this method wasn't working because the value was being returned before the database finished processing
