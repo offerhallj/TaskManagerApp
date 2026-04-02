@@ -35,4 +35,14 @@ export class TaskElementFactory {
         if (task.isOverdue) { newElement = new OverdueTaskElement(newElement); }
         return newElement;
     }
+
+    /** Convert an existing list of taskElements to a new list according to the current display type */
+    public convertElements(taskElements: TaskElement[]): TaskElement[] {
+        const newElements: TaskElement[] = [];
+        for (let element of taskElements) {
+            newElements.push(this.create(element.Task));
+        }
+
+        return newElements;
+    }
 }

@@ -5,8 +5,6 @@ import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() {
-    taskTableContainer.innerHTML = "";
-    taskTableContainer.appendChild(tableFactory.Element);
     taskElements.splice(0, taskElements.length);
     service.getAllTasks((result, tasks) => {
         if (result == false) {
@@ -23,7 +21,9 @@ function getAllTasks() {
 }
 /** All all taskElements to the task table body */
 function drawTaskElements() {
-    const body = tableFactory.Body;
+    taskTableContainer.innerHTML = "";
+    taskTableContainer.appendChild(taskTable.Element);
+    const body = taskTable.Body;
     body.innerHTML = "";
     for (let task of taskElements) {
         body.appendChild(task.Element);
@@ -31,7 +31,7 @@ function drawTaskElements() {
 }
 /** Add a single taskElement to the task table body  */
 function drawTaskElement(taskElement) {
-    tableFactory.Body.appendChild(taskElement.Element);
+    taskTable.Body.appendChild(taskElement.Element);
 }
 /** Navigate to the taskform with the current task selected */
 function editTask(taskElement) {
@@ -46,7 +46,7 @@ function deleteTask(taskElement) {
     service.deleteTask(taskElement.Task, r => {
         if (r == true) {
             const element = taskElement.Element;
-            tableFactory.Body.removeChild(element);
+            taskTable.Body.removeChild(element);
             const index = taskElements.indexOf(taskElement);
             if (index >= 0)
                 taskElements.splice(index, 1);
@@ -59,11 +59,24 @@ function createTask() {
     sessionStorage.setItem("id", "-1");
     window.location.replace("/static/taskform.html");
 }
+function changeTableDisplay(type) {
+    console.log(type);
+    tableFactory.setDisplayType(type);
+    elementFactory.setDisplayType(type);
+    taskTable = tableFactory.create();
+    console.log(taskElements);
+    taskElements = elementFactory.convertElements(taskElements);
+    console.log(taskElements);
+    drawTaskElements();
+}
 const service = TaskService.Instance;
-const taskElements = [];
-const tableFactory = new TaskTableFactory(TaskDisplayType.Detailed);
-const elementFactory = new TaskElementFactory(TaskDisplayType.Detailed, editTask, deleteTask);
+let taskElements = [];
+const tableFactory = new TaskTableFactory(TaskDisplayType.Basic);
+const elementFactory = new TaskElementFactory(TaskDisplayType.Basic, editTask, deleteTask);
+let taskTable = tableFactory.create();
 const taskTableContainer = document.getElementById("task-table-container");
+document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
+document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));
 document.getElementById("new-task")?.addEventListener("click", () => createTask());
 getAllTasks();
 //# sourceMappingURL=tasks.js.map

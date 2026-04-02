@@ -28,5 +28,13 @@ export class TaskElementFactory {
         }
         return newElement;
     }
+    /** Convert an existing list of taskElements to a new list according to the current display type */
+    convertElements(taskElements) {
+        const newElements = [];
+        for (let element of taskElements) {
+            newElements.push(this.create(element.Task));
+        }
+        return newElements;
+    }
 }
 //# sourceMappingURL=TaskElementFactory.js.map
