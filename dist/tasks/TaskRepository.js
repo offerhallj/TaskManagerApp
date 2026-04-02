@@ -1,5 +1,6 @@
 import { Repository } from "../../dist/repository.js";
 import { Task } from "../../dist/tasks/Task.js";
+import { TaskStatus } from "./Task.js";
 const TASK_TABLE = "task_table";
 export class TaskRepository extends Repository {
     static get Instance() {
@@ -41,6 +42,7 @@ export class TaskRepository extends Repository {
     }
     // I used this article to figure out how to use cursors in indexedDB to iterate over the table
     // https://medium.com/@kamresh485/a-comprehensive-guide-to-cursors-in-indexeddb-navigating-and-manipulating-data-with-ease-2793a2e01ba3
+    /** Retrieve all tasks from the database which were created by the provided user */
     getAllTasksForUser(user, callback) {
         if (!this._dbIsOpen) {
             this._delayedExecution.push(() => this.getAllTasksForUser(user, callback));
@@ -52,15 +54,34 @@ export class TaskRepository extends Repository {
         cursorRequest === null || cursorRequest === void 0 ? void 0 : cursorRequest.addEventListener("success", (e) => {
             const cursor = e.target.result;
             if (cursor) {
-                const task = cursor.value;
-                if (task != undefined && task.user == user)
+                const raw = cursor.value;
+                if (raw != undefined && raw.user == user) {
+                    const task = new Task(raw.title, raw.description, raw.dueDate, raw.priority, raw.user);
                     tasks.push(task);
+                }
                 cursor.continue();
                 return;
             }
             callback(true, tasks);
         });
     }
+    // I referenced this post on stackoverflow to implement the update method
+    // https://stackoverflow.com/questions/11217309/how-do-i-update-data-in-indexeddb
+    updateTask(task, callback) {
+        if (!this._dbIsOpen) {
+            this._delayedExecution.push(() => this.updateTask(task, callback));
+            return;
+        }
+        const objectStore = this.getObjectStore(TASK_TABLE, "readwrite");
+        const request = objectStore === null || objectStore === void 0 ? void 0 : objectStore.put(task);
+        request === null || request === void 0 ? void 0 : request.addEventListener("success", () => {
+            callback(true);
+        });
+        request === null || request === void 0 ? void 0 : request.addEventListener("error", () => {
+            callback(false);
+        });
+    }
+    /** Remove the task with the given ID from the database */
     deleteTask(taskID, callback) {
         const objectStore = this.getObjectStore(TASK_TABLE, "readwrite");
         const query = objectStore === null || objectStore === void 0 ? void 0 : objectStore.delete(taskID);

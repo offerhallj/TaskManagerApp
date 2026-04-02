@@ -15,16 +15,24 @@ class TaskView {
         const tr = document.createElement("tr");
         tr.appendChild(this.createCellForValue(this._task.title));
         tr.appendChild(this.createCellForValue(this._task.description));
-        tr.appendChild(this.createCellForValue(this._task.dueDate.getDate().toString()));
+        tr.appendChild(this.createCellForValue(this._task.dueDate.toDateString()));
         tr.appendChild(this.createCellForValue(this._task.priority));
         tr.appendChild(this.createCellForValue(this._task.status));
         const buttonCell = document.createElement("td");
-        let deleteButton = document.createElement("button");
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", () => populateEditOptions(this._task));
+
+
+        const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => service.deleteTask(this._task, (r) => {
             if (r) deleteTaskView(this);
+            else console.log("Error: Could not delete the task.");
         }));
 
+        buttonCell.appendChild(editButton);
         buttonCell.appendChild(deleteButton);
         tr.appendChild(buttonCell);
         return tr;
@@ -35,8 +43,6 @@ class TaskView {
         td.textContent = val;
         return td;
     }
-
-    // private createButton
 
     public get Element(): HTMLElement {
         return this._element;
@@ -73,6 +79,14 @@ function drawTaskView(taskview: TaskView) {
     taskBody.appendChild(taskview.Element);
 }
 
+function populateEditOptions(task: Task) {
+    if (task.id != undefined) editIDInput.value = task.id.toString();
+    editTitleInput.value = task.title;
+    editDescriptionInput.value = task.description;
+    console.log(task);
+    editDueInput.value = task.getFormattedDate();
+}
+
 function createTask(e: SubmitEvent) {
     e.preventDefault();
     
@@ -94,6 +108,12 @@ function createTask(e: SubmitEvent) {
     )
 }
 
+function saveTask(e: SubmitEvent) {
+    e.preventDefault();
+
+
+}
+
 function deleteTaskView(taskView: TaskView) {
     const element = taskView.Element;
     taskBody.removeChild(element);
@@ -109,7 +129,14 @@ const createDescriptionInput = document.getElementById("create-description") as 
 const createDueInput = document.getElementById("create-duedate") as HTMLInputElement;
 const createPriorityInput = document.getElementById("create-priority") as HTMLInputElement;
 
+const editIDInput = document.getElementById("edit-id") as HTMLInputElement;
+const editTitleInput = document.getElementById("edit-title") as HTMLInputElement;
+const editDescriptionInput = document.getElementById("edit-description") as HTMLInputElement;
+const editDueInput = document.getElementById("edit-duedate") as HTMLInputElement;
+const editPriorityInput = document.getElementById("edit-priority") as HTMLInputElement;
+
 const taskBody = document.getElementById("task-table-body") as HTMLElement;
 
 document.getElementById("create-task")?.addEventListener("submit", createTask)
+document.getElementById("edit-task")?.addEventListener("submit", saveTask)
 getAllTasks();

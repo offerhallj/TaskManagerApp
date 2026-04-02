@@ -16,6 +16,7 @@ export class TaskService {
             callback(false, undefined);
             return;
         }
+        console.log(new Date(due));
         const newTask = new Task(title, description, new Date(due), priority, user);
         repo.createTask(newTask, (r) => callback(r, newTask));
     }
@@ -28,6 +29,10 @@ export class TaskService {
         }
         repo.getAllTasksForUser(user, callback);
     }
+    editTask(task, callback) {
+        repo.updateTask(task, callback);
+    }
+    /** Remove a task from the database */
     deleteTask(task, callback) {
         if (task.id == undefined) {
             callback(false);

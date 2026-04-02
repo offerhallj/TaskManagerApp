@@ -36,7 +36,6 @@ class TaskView {
         td.textContent = val;
         return td;
     }
-    // private createButton
     get Element() {
         return this._element;
     }
@@ -71,7 +70,8 @@ function populateEditOptions(task) {
         editIDInput.value = task.id.toString();
     editTitleInput.value = task.title;
     editDescriptionInput.value = task.description;
-    editDueInput.value = task.dueDate.toDateString();
+    console.log(task);
+    editDueInput.value = task.getFormattedDate();
 }
 function createTask(e) {
     e.preventDefault();

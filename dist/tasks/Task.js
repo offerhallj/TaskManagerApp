@@ -14,6 +14,15 @@ export class Task {
         this.priority = priority;
         this.user = user;
     }
+    // I used this post to help convert the date
+    // https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
+    getFormattedDate() {
+        const formattedDate = this.dueDate.toISOString().split('T')[0];
+        if (formattedDate != undefined)
+            return formattedDate;
+        else
+            return "";
+    }
 }
 export var TaskStatus;
 (function (TaskStatus) {

@@ -19,6 +19,7 @@ export class TaskService {
         const user = this.getUser();
         if(user == undefined) { callback(false, undefined); return; }
 
+        console.log(new Date(due));
         const newTask = new Task(title, description, new Date(due), <TaskPriority> priority, user);
 
         repo.createTask(newTask, (r) => callback(r, newTask));
@@ -32,6 +33,12 @@ export class TaskService {
         repo.getAllTasksForUser(user, callback);
     }
 
+
+    public editTask(task: Task, callback: (result: boolean) => void) {
+        repo.updateTask(task, callback);
+    }
+
+    /** Remove a task from the database */
     public deleteTask(task: Task , callback: (result: boolean) => void) {
         if (task.id == undefined) { callback(false); return; }
         const taskID: number = task.id;

@@ -8,6 +8,7 @@ export declare class Task {
     priority: TaskPriority;
     user: string;
     constructor(title: string, description: string, dueDate: Date, priority: TaskPriority, user: string);
+    getFormattedDate(): string;
 }
 export declare enum TaskStatus {
     ToDo = "To do",
