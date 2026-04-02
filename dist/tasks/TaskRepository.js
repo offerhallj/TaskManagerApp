@@ -57,6 +57,7 @@ export class TaskRepository extends Repository {
                 const raw = cursor.value;
                 if (raw != undefined && raw.user == user) {
                     const task = new Task(raw.title, raw.description, raw.dueDate, raw.priority, raw.user);
+                    task.id = raw.id;
                     tasks.push(task);
                 }
                 cursor.continue();

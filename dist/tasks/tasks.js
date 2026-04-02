@@ -2,7 +2,7 @@ var _a, _b;
 import { TaskService } from "../../dist/tasks/TaskService.js";
 import { Task } from "../../dist/tasks/Task.js";
 /** An instance of a task displayed in the UI */
-class TaskView {
+class TaskElement {
     constructor(task) {
         this._task = task;
         this._element = this.createHTMLElement();
@@ -22,7 +22,7 @@ class TaskView {
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => service.deleteTask(this._task, (r) => {
             if (r)
-                deleteTaskView(this);
+                deleteTaskElement(this);
             else
                 console.log("Error: Could not delete the task.");
         }));
@@ -40,38 +40,42 @@ class TaskView {
         return this._element;
     }
 }
-/** Retrieve all tasks for the current user from the database, convert them to taskViews, and draw them */
+/** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() {
     service.getAllTasks((result, tasks) => {
         if (result == false) {
             console.log("Error: Failed to retrieve tasks");
             return;
         }
-        // once we've got all of the tasks, create the taskviews
+        // once we've got all of the tasks, create the taskElements
         for (let task of tasks) {
-            taskViews.push(new TaskView(task));
+            taskElements.push(new TaskElement(task));
         }
-        drawTaskViews();
+        drawTaskElements();
     });
 }
-/** Display all taskViews in the task table body */
-function drawTaskViews() {
+/** Display all taskElements in the task table body */
+function drawTaskElements() {
     console.log("he");
     taskBody.innerHTML = "";
-    for (let task of taskViews) {
+    for (let task of taskElements) {
         taskBody.appendChild(task.Element);
     }
 }
-function drawTaskView(taskview) {
-    taskBody.appendChild(taskview.Element);
+function drawTaskElement(taskElement) {
+    taskBody.appendChild(taskElement.Element);
 }
 function populateEditOptions(task) {
     if (task.id != undefined)
         editIDInput.value = task.id.toString();
     editTitleInput.value = task.title;
     editDescriptionInput.value = task.description;
-    console.log(task);
     editDueInput.value = task.getFormattedDate();
+    editPriorityInput.value = task.priority;
+}
+function edtiTask(e) {
+    e.preventDefault();
+    // service.editTask()
 }
 function createTask(e) {
     e.preventDefault();
@@ -80,23 +84,23 @@ function createTask(e) {
             console.log("Error: task could not be created!");
             return;
         }
-        const newTaskView = new TaskView(newTask);
-        taskViews.push(newTaskView);
-        drawTaskView(newTaskView);
+        const newTaskElement = new TaskElement(newTask);
+        taskElements.push(newTaskElement);
+        drawTaskElement(newTaskElement);
     });
 }
 function saveTask(e) {
     e.preventDefault();
 }
-function deleteTaskView(taskView) {
-    const element = taskView.Element;
+function deleteTaskElement(taskElement) {
+    const element = taskElement.Element;
     taskBody.removeChild(element);
-    const index = taskViews.indexOf(taskView);
+    const index = taskElements.indexOf(taskElement);
     if (index >= 0)
-        taskViews.splice(index, 1);
+        taskElements.splice(index, 1);
 }
 const service = TaskService.Instance;
-const taskViews = [];
+const taskElements = [];
 const createTitleInput = document.getElementById("create-title");
 const createDescriptionInput = document.getElementById("create-description");
 const createDueInput = document.getElementById("create-duedate");

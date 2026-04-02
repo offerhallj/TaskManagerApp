@@ -74,7 +74,8 @@ export class TaskRepository extends Repository<TaskRepository> {
                         raw.priority,
                         raw.user
                     );
-                    
+
+                    task.id = raw.id;
                     tasks.push(task);
                 }
 
