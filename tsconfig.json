@@ -10,6 +10,9 @@
     "module": "esnext",
     "target": "es6",
     "types": [],
+    "allowJs": false,
+
+
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -41,4 +44,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
+  "exclude": ["dist","./dist","./dist/**/*"]
 }

@@ -1,6 +1,5 @@
 import { Repository } from "../../dist/repository.js";
 import { Task } from "../../dist/tasks/Task.js";
-import { TaskStatus } from "./Task.js";
 
 const TASK_TABLE = "task_table"
 

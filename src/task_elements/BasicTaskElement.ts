@@ -14,7 +14,6 @@ export class BasicTaskElement extends TaskElement {
         editButton.textContent = "Edit";
         editButton.addEventListener("click", () => this.edit(this));
 
-
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => this.delete(this));
