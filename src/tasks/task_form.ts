@@ -36,6 +36,7 @@ function populateEditFields(task: Task) {
     priorityInput.value = task.priority;
     createdDate.value = task.formattedCreatedDate;
     statusInput.value = task.status;
+    tagsInput.value = task.tags;
 }
 
 /** Create a new task and add it to the view */
@@ -47,6 +48,7 @@ function createTask(e: SubmitEvent) {
         descriptionInput.value,
         dueInput.value,
         priorityInput.value,
+        tagsInput.value,
         (result, newTask) => { 
             if (result) redirect();
         }
@@ -65,11 +67,16 @@ function saveTask(e: SubmitEvent) {
         dueInput.value,
         priorityInput.value,
         userInput.value,
+        tagsInput.value,
         (result) => {
             if (result) redirect();
         }
     )    
 
+}
+
+/** */
+function parseTags() {
 }
 
 /** Redirect to the tasks page */
@@ -87,6 +94,9 @@ const dueInput = document.getElementById("duedate") as HTMLInputElement;
 const createdDate = document.getElementById("createdate") as HTMLInputElement;
 const priorityInput = document.getElementById("priority") as HTMLInputElement;
 const statusInput = document.getElementById("status") as HTMLInputElement;
+const tagsInput = document.getElementById("tags") as HTMLInputElement;
+tagsInput.addEventListener("input", parseTags);
+
 
 document.querySelector("form")?.addEventListener("submit", (e) => {
     const id = getCachedID();

@@ -58,20 +58,18 @@ export class LoginService {
     }
     /** Compares the value of the authentication cookie against the value stored for the user in the database to determine if the login is valid */
     validateAuthenticationCookie(cookie, callback) {
-        var _a, _b;
         const vals = cookie.split(",");
-        const username = (_a = vals[0]) === null || _a === void 0 ? void 0 : _a.split(":")[1];
-        const token = (_b = vals[1]) === null || _b === void 0 ? void 0 : _b.split(":")[1];
+        const username = vals[0]?.split(":")[1];
+        const token = vals[1]?.split(":")[1];
         repo.validateAuthenticationToken(username, token, callback);
     }
     /** Get the username of the current user */
     getCurrentUser() {
-        var _a;
         const token = this.getAuthenticationCookie();
         if (token == null || token == undefined)
             return undefined;
         const vals = token.split(",");
-        return (_a = vals[0]) === null || _a === void 0 ? void 0 : _a.split(":")[1];
+        return vals[0]?.split(":")[1];
     }
 }
 //# sourceMappingURL=LoginService.js.map

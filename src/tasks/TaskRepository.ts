@@ -25,6 +25,7 @@ export class TaskRepository extends Repository<TaskRepository> {
         table?.createIndex("status", "status", { unique: false});
         table?.createIndex("priority", "priority", { unique: false});
         table?.createIndex("user", "user", { unique: false});
+        table?.createIndex("tags", "tags", { unique: false});
     }
 
     /** Add a new task to the database */
@@ -111,7 +112,8 @@ export class TaskRepository extends Repository<TaskRepository> {
                 task.description,
                 task.dueDate,
                 task.priority,
-                task.user
+                task.user,
+                task.tags
             );
 
             newTask.createdDate = task.createdDate;

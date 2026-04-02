@@ -29,10 +29,10 @@ export class TaskElementFactory {
             default: newElement = new BasicTaskElement(task)        
         }
 
-        if (task.isOverdue) { newElement = new OverdueTaskElement(newElement); }
-
         newElement.onEdit = this._onEdit;
         newElement.onDelete = this._onDelete;
+
+        if (task.isOverdue) { newElement = new OverdueTaskElement(newElement); }
         return newElement;
     }
 }

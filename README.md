@@ -24,3 +24,7 @@
 TODO:
 Create a factory to draw the task table
 Create an overdue task element for when a task is overdue
+Add a filter to filer out completed tasks (filter by progress) as well
+Save and reload "views" (table type, filters, etc.);
+    Optionally: implement notifications when new tasks are added to those views
+I could also add tags to tasks

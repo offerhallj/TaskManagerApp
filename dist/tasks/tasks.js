@@ -1,4 +1,3 @@
-var _a;
 import { TaskTableFactory, TaskDisplayType } from "../task_tables/TaskTableFactory.js";
 import { TaskElementFactory } from "../task_elements/TaskElementFactory.js";
 import { TaskElement } from "../task_elements/TaskElement.js";
@@ -66,6 +65,6 @@ const tableFactory = new TaskTableFactory(TaskDisplayType.Detailed);
 const elementFactory = new TaskElementFactory(TaskDisplayType.Detailed, editTask, deleteTask);
 const taskBody = document.getElementById("task-table-body");
 const taskTableContainer = document.getElementById("task-table-container");
-(_a = document.getElementById("new-task")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => createTask());
+document.getElementById("new-task")?.addEventListener("click", () => createTask());
 getAllTasks();
 //# sourceMappingURL=tasks.js.map

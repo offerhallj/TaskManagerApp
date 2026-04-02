@@ -8,7 +8,10 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "esnext",
-    "target": "es6",
+
+    // updated the target because padstart wasn't working
+    // https://stackoverflow.com/questions/52293010/typescript-tells-me-property-padstart-does-not-exist-on-type-string-why
+    "target": "es2020",
     "types": [],
     "allowJs": false,
 

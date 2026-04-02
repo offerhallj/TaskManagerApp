@@ -21,11 +21,11 @@ export class TaskElementFactory {
                 break;
             default: newElement = new BasicTaskElement(task);
         }
+        newElement.onEdit = this._onEdit;
+        newElement.onDelete = this._onDelete;
         if (task.isOverdue) {
             newElement = new OverdueTaskElement(newElement);
         }
-        newElement.onEdit = this._onEdit;
-        newElement.onDelete = this._onDelete;
         return newElement;
     }
 }

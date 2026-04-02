@@ -12,15 +12,15 @@ export class TaskRepository extends Repository {
         this.openDatabase(TASK_TABLE, 1);
     }
     createTable() {
-        var _a;
-        const table = (_a = this._db) === null || _a === void 0 ? void 0 : _a.createObjectStore(TASK_TABLE, { keyPath: "id", autoIncrement: true });
-        table === null || table === void 0 ? void 0 : table.createIndex("title", "title", { unique: false });
-        table === null || table === void 0 ? void 0 : table.createIndex("description", "description", { unique: false });
-        table === null || table === void 0 ? void 0 : table.createIndex("createdDate", "createdDate", { unique: false });
-        table === null || table === void 0 ? void 0 : table.createIndex("dueDate", "dueDate", { unique: false });
-        table === null || table === void 0 ? void 0 : table.createIndex("status", "status", { unique: false });
-        table === null || table === void 0 ? void 0 : table.createIndex("priority", "priority", { unique: false });
-        table === null || table === void 0 ? void 0 : table.createIndex("user", "user", { unique: false });
+        const table = this._db?.createObjectStore(TASK_TABLE, { keyPath: "id", autoIncrement: true });
+        table?.createIndex("title", "title", { unique: false });
+        table?.createIndex("description", "description", { unique: false });
+        table?.createIndex("createdDate", "createdDate", { unique: false });
+        table?.createIndex("dueDate", "dueDate", { unique: false });
+        table?.createIndex("status", "status", { unique: false });
+        table?.createIndex("priority", "priority", { unique: false });
+        table?.createIndex("user", "user", { unique: false });
+        table?.createIndex("tags", "tags", { unique: false });
     }
     /** Add a new task to the database */
     createTask(newTask, callback) {
@@ -30,12 +30,12 @@ export class TaskRepository extends Repository {
         }
         // perform the database transaction
         const objectStore = this.getObjectStore(TASK_TABLE, "readwrite");
-        const query = objectStore === null || objectStore === void 0 ? void 0 : objectStore.add(newTask);
-        query === null || query === void 0 ? void 0 : query.addEventListener("success", () => {
+        const query = objectStore?.add(newTask);
+        query?.addEventListener("success", () => {
             console.log(query.result);
             callback(true, parseInt(query.result.toString()));
         });
-        query === null || query === void 0 ? void 0 : query.addEventListener("error", () => {
+        query?.addEventListener("error", () => {
             callback(false, -1);
         });
     }
@@ -46,12 +46,12 @@ export class TaskRepository extends Repository {
             return;
         }
         const objectStore = this.getObjectStore(TASK_TABLE, "readonly");
-        const query = objectStore === null || objectStore === void 0 ? void 0 : objectStore.get(id);
-        query === null || query === void 0 ? void 0 : query.addEventListener("success", () => {
+        const query = objectStore?.get(id);
+        query?.addEventListener("success", () => {
             const newTask = this.createTaskFromAny(query.result, user);
             callback(newTask != undefined, newTask);
         });
-        query === null || query === void 0 ? void 0 : query.addEventListener("error", () => {
+        query?.addEventListener("error", () => {
             callback(false, undefined);
         });
     }
@@ -64,9 +64,9 @@ export class TaskRepository extends Repository {
             return;
         }
         const objectStore = this.getObjectStore(TASK_TABLE, "readonly");
-        const cursorRequest = objectStore === null || objectStore === void 0 ? void 0 : objectStore.openCursor();
+        const cursorRequest = objectStore?.openCursor();
         const tasks = [];
-        cursorRequest === null || cursorRequest === void 0 ? void 0 : cursorRequest.addEventListener("success", (e) => {
+        cursorRequest?.addEventListener("success", (e) => {
             const cursor = e.target.result;
             if (cursor) {
                 // I used copilot to help revise this code after I experienced a bug which was being caused by
@@ -87,7 +87,7 @@ export class TaskRepository extends Repository {
     createTaskFromAny(result, user) {
         const task = result;
         if (task != undefined && task.user == user) {
-            const newTask = new Task(task.title, task.description, task.dueDate, task.priority, task.user);
+            const newTask = new Task(task.title, task.description, task.dueDate, task.priority, task.user, task.tags);
             newTask.createdDate = task.createdDate;
             newTask.priority = task.priority;
             newTask.id = task.id;
@@ -102,22 +102,22 @@ export class TaskRepository extends Repository {
             return;
         }
         const objectStore = this.getObjectStore(TASK_TABLE, "readwrite");
-        const request = objectStore === null || objectStore === void 0 ? void 0 : objectStore.put(task);
-        request === null || request === void 0 ? void 0 : request.addEventListener("success", () => {
+        const request = objectStore?.put(task);
+        request?.addEventListener("success", () => {
             callback(true);
         });
-        request === null || request === void 0 ? void 0 : request.addEventListener("error", () => {
+        request?.addEventListener("error", () => {
             callback(false);
         });
     }
     /** Remove the task with the given ID from the database */
     deleteTask(taskID, callback) {
         const objectStore = this.getObjectStore(TASK_TABLE, "readwrite");
-        const query = objectStore === null || objectStore === void 0 ? void 0 : objectStore.delete(taskID);
-        query === null || query === void 0 ? void 0 : query.addEventListener("success", () => {
+        const query = objectStore?.delete(taskID);
+        query?.addEventListener("success", () => {
             callback(true);
         });
-        query === null || query === void 0 ? void 0 : query.addEventListener("error", () => {
+        query?.addEventListener("error", () => {
             callback(false);
         });
     }

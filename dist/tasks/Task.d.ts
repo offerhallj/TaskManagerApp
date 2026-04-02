@@ -7,10 +7,14 @@ export declare class Task {
     status: TaskStatus;
     priority: TaskPriority;
     user: string;
-    constructor(title: string, description: string, dueDate: Date, priority: TaskPriority, user: string);
+    tags: string;
+    constructor(title: string, description: string, dueDate: Date, priority: TaskPriority, user: string, tags: string);
     get formattedDueDate(): string;
     get formattedCreatedDate(): string;
+    private getDateAsString;
     get isOverdue(): boolean;
+    getTagList(): string[];
+    setTagList(...tags: string[]): void;
 }
 export declare enum TaskStatus {
     ToDo = "To do",

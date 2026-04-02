@@ -5,10 +5,11 @@ export abstract class TaskElement implements UIElement {
     public readonly Task: Task;
     Element!: HTMLElement;
     
-    protected edit!: ((element: TaskElement) => void);
-    protected delete!: ((element: TaskElement) => void);
-    public set onEdit(callback: (element: TaskElement) => void) { this.edit = callback; }
-    public set onDelete(callback: (element: TaskElement) => void) { this.delete = callback; }
+    public onEdit!: ((element: TaskElement) => void);
+    public onDelete!: ((element: TaskElement) => void);
+    public edit(element: TaskElement): void { this.onEdit(element); }
+    public delete(element: TaskElement): void { this.onDelete(element); }
+
 
     constructor(task: Task) {
         this.Task = task;

@@ -11,14 +11,13 @@ export class TaskService {
         return TaskService._instance;
     }
     /** Create a new task and add it to the database */
-    createNewTask(title, description, due, priority, callback) {
+    createNewTask(title, description, due, priority, tags, callback) {
         const user = this.getUser();
         if (user == undefined) {
             callback(false, undefined);
             return;
         }
-        console.log(new Date(due));
-        const newTask = new Task(title, description, new Date(due), priority, user);
+        const newTask = new Task(title, description, this.getDate(due), priority, user, tags);
         repo.createTask(newTask, (r, id) => {
             newTask.id = id;
             callback(r, newTask);
@@ -41,8 +40,8 @@ export class TaskService {
         }
         repo.getTask(id, user, callback);
     }
-    editTask(id, title, description, due, priority, user, callback) {
-        const task = new Task(title, description, new Date(due), priority, user);
+    editTask(id, title, description, due, priority, user, tags, callback) {
+        const task = new Task(title, description, this.getDate(due), priority, user, tags);
         task.id = id;
         repo.updateTask(task, callback);
     }
@@ -62,6 +61,19 @@ export class TaskService {
             console.log("Error! You must be logged in to create a task.");
         }
         return username;
+    }
+    // I've implemented this method because I had a lot of issues with the way dates were converting to and from string values
+    // basically the timezone kept changing which kept throwing off the dates, so I'm creating a new date without an input
+    // to ensure it's local time, and then setting the oher values manually
+    getDate(dateString) {
+        const dateVals = dateString.split("-");
+        let date = new Date();
+        if (dateVals == undefined)
+            date;
+        date.setFullYear(parseInt(dateVals[0] != undefined ? dateVals[0] : "2000"));
+        date.setMonth(parseInt(dateVals[1] != undefined ? dateVals[1] : "01") - 1);
+        date.setDate(parseInt(dateVals[2] != undefined ? dateVals[2] : "01"));
+        return date;
     }
 }
 //# sourceMappingURL=TaskService.js.map

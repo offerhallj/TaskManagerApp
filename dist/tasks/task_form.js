@@ -1,4 +1,3 @@
-var _a;
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
 import { Task } from "./Task.js";
@@ -35,11 +34,12 @@ function populateEditFields(task) {
     priorityInput.value = task.priority;
     createdDate.value = task.formattedCreatedDate;
     statusInput.value = task.status;
+    tagsInput.value = task.tags;
 }
 /** Create a new task and add it to the view */
 function createTask(e) {
     e.preventDefault();
-    service.createNewTask(titleInput.value, descriptionInput.value, dueInput.value, priorityInput.value, (result, newTask) => {
+    service.createNewTask(titleInput.value, descriptionInput.value, dueInput.value, priorityInput.value, tagsInput.value, (result, newTask) => {
         if (result)
             redirect();
     });
@@ -49,10 +49,13 @@ function saveTask(e) {
     e.preventDefault();
     console.log(idInput.value);
     console.log(userInput.value);
-    service.editTask(parseInt(idInput.value), titleInput.value, descriptionInput.value, dueInput.value, priorityInput.value, userInput.value, (result) => {
+    service.editTask(parseInt(idInput.value), titleInput.value, descriptionInput.value, dueInput.value, priorityInput.value, userInput.value, tagsInput.value, (result) => {
         if (result)
             redirect();
     });
+}
+/** */
+function parseTags() {
 }
 /** Redirect to the tasks page */
 function redirect() {
@@ -67,7 +70,9 @@ const dueInput = document.getElementById("duedate");
 const createdDate = document.getElementById("createdate");
 const priorityInput = document.getElementById("priority");
 const statusInput = document.getElementById("status");
-(_a = document.querySelector("form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", (e) => {
+const tagsInput = document.getElementById("tags");
+tagsInput.addEventListener("input", parseTags);
+document.querySelector("form")?.addEventListener("submit", (e) => {
     const id = getCachedID();
     if (id < 0)
         createTask(e);

@@ -15,13 +15,11 @@ export class TaskService {
     }
 
     /** Create a new task and add it to the database */
-    public createNewTask(title: string, description: string, due: string, priority: string, 
+    public createNewTask(title: string, description: string, due: string, priority: string, tags: string,
         callback: (result: boolean, newTask: Task | undefined) => void) {
         const user = this.getUser();
         if(user == undefined) { callback(false, undefined); return; }
-
-        console.log(new Date(due));
-        const newTask = new Task(title, description, new Date(due), <TaskPriority> priority, user);
+        const newTask = new Task(title, description, this.getDate(due), <TaskPriority> priority, user, tags);
 
         repo.createTask(newTask, (r, id) => {
             newTask.id = id;
@@ -44,8 +42,10 @@ export class TaskService {
         repo.getTask(id, user, callback);
     }
 
-    public editTask(id: number, title: string, description: string, due: string, priority: string, user: string, callback: (result: boolean) => void) {        
-        const task = new Task(title, description, new Date(due), <TaskPriority> priority, user);
+    public editTask(id: number, title: string, description: string, due: string, priority: string, user: string, tags: string,
+        callback: (result: boolean) => void) {        
+            
+        const task = new Task(title, description, this.getDate(due), <TaskPriority> priority, user, tags);
         task.id = id;
         repo.updateTask(task, callback);
     }
@@ -66,5 +66,18 @@ export class TaskService {
         }
 
         return username;
+    }
+
+    // I've implemented this method because I had a lot of issues with the way dates were converting to and from string values
+    // basically the timezone kept changing which kept throwing off the dates, so I'm creating a new date without an input
+    // to ensure it's local time, and then setting the oher values manually
+    private getDate(dateString: string): Date {
+        const dateVals = dateString.split("-");
+        let date = new Date();
+        if (dateVals == undefined) date;
+        date.setFullYear(parseInt(dateVals[0] != undefined ? dateVals[0] : "2000"));
+        date.setMonth(parseInt(dateVals[1] != undefined ? dateVals[1] : "01")-1);
+        date.setDate(parseInt(dateVals[2] != undefined ? dateVals[2] : "01"));
+        return date;
     }
 }

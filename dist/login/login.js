@@ -1,4 +1,3 @@
-var _a, _b;
 import { LoginService } from "./LoginService.js";
 import { User } from "../user/User.js";
 const loginService = LoginService.Instance;
@@ -7,8 +6,8 @@ const createPasswordInput = document.querySelector("#create-account-form #passwo
 const createEmailInput = document.querySelector("#create-account-form #email");
 const loginUsernameInput = document.querySelector("#login-form #username");
 const loginPasswordInput = document.querySelector("#login-form #password");
-(_a = document.getElementById("create-account-form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", createUser);
-(_b = document.getElementById("login-form")) === null || _b === void 0 ? void 0 : _b.addEventListener("submit", login);
+document.getElementById("create-account-form")?.addEventListener("submit", createUser);
+document.getElementById("login-form")?.addEventListener("submit", login);
 /** Create a new user and try to add it to the database */
 function createUser(e) {
     e.preventDefault();
