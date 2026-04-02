@@ -15,9 +15,9 @@ export class Observable {
         if (index >= 0)
             this._observers.splice(index, 1);
     }
-    notify(value, event) {
+    notify(event) {
         for (let fun of this._observers)
-            fun(value, event);
+            fun(event);
     }
 }
 //# sourceMappingURL=Observable.js.map

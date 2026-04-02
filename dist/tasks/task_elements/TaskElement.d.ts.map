@@ -1,0 +1,1 @@
+{"version":3,"file":"TaskElement.d.ts","sourceRoot":"","sources":["../../../src/tasks/task_elements/TaskElement.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,uCAAuC,CAAC;AACvE,OAAO,EAAE,IAAI,EAAE,MAAM,6BAA6B,CAAC;AAEnD,8BAAsB,WAAY,YAAW,SAAS;IAClD,SAAS,CAAC,KAAK,EAAE,IAAI,CAAC;gBAEV,IAAI,EAAE,IAAI;IAItB,QAAQ,CAAC,MAAM,IAAI,WAAW;CACjC"}

@@ -1,4 +1,4 @@
-import { Task, TaskPriority, TaskStatus } from "../../dist/tasks/Task.js";
+import { Task, TaskPriority } from "../../dist/tasks/Task.js";
 import { TaskRepository } from "../../dist/tasks/TaskRepository.js";
 import { LoginService } from "../../dist/login/LoginService.js";
 
