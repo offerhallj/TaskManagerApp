@@ -24,8 +24,11 @@ export function sort(header, elements, order) {
     }
 }
 export function canSort(header) {
-    if (header == TaskDetail.Actions)
-        return false;
+    switch (header) {
+        case TaskDetail.Actions:
+        case TaskDetail.ID:
+            return false;
+    }
     return true;
 }
 export var Order;

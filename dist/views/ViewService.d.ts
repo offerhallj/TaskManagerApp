@@ -3,7 +3,7 @@ export declare class ViewService {
     private static _instance;
     private _repo;
     static get Instance(): ViewService;
-    createView(view: View, callback: (result: boolean) => void): void;
+    createView(view: View, callback: (result: boolean, view: View | undefined) => void): void;
     saveView(): void;
     getView(): void;
     getAllViews(): void;

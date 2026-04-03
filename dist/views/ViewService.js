@@ -14,7 +14,7 @@ export class ViewService {
     createView(view, callback) {
         const user = this.getUser();
         if (user == undefined) {
-            callback(false);
+            callback(false, undefined);
             return;
         }
         view.user = user;

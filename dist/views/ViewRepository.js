@@ -20,12 +20,13 @@ export class ViewRepository extends Repository {
         if (this.delayExecution(() => this.createView(view, callback)))
             return;
         const objectStore = this.getObjectStore(VIEW_TABLE, "readwrite");
-        const query = objectStore?.add(view);
+        const query = objectStore?.put(view);
         query?.addEventListener("success", () => {
-            callback(true);
+            view.id = query.result;
+            callback(true, view);
         });
         query?.addEventListener("error", () => {
-            callback(false);
+            callback(false, undefined);
         });
     }
 }

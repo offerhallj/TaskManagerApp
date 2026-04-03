@@ -20,17 +20,18 @@ export class ViewRepository extends Repository<ViewRepository> {
         table?.createIndex("searchValue", "searchValue", { unique: false});
     }
 
-    public createView(view: View, callback: (result: boolean) => void): void {
+    public createView(view: View, callback: (result: boolean, view: View | undefined) => void): void {
         if (this.delayExecution(() => this.createView(view, callback))) return;
         const objectStore = this.getObjectStore(VIEW_TABLE, "readwrite");
-        const query = objectStore?.add(view);
+        const query = objectStore?.put(view);
 
         query?.addEventListener("success", () => {
-            callback(true);
+            view.id = query.result as number;
+            callback(true, view);
         })
         
         query?.addEventListener("error", () => {
-            callback(false);
+            callback(false, undefined);
         })
     }
 }

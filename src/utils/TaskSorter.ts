@@ -30,7 +30,11 @@ export function sort(header: TaskDetail, elements: TaskElement[], order: Order) 
 }
 
 export function canSort(header: TaskDetail): boolean {
-    if (header == TaskDetail.Actions) return false;
+    switch(header) {
+        case TaskDetail.Actions:
+        case TaskDetail.ID:
+            return false;
+    } 
     return true;
 }
 

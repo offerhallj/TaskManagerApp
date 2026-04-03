@@ -1,6 +1,6 @@
 import { TaskDetail } from "../task_elements/TaskDetail.js";
 import { TaskStatus, TaskPriority } from "../tasks/Task.js";
-import type { Order } from "../utils/TaskSorter.js";
+import { Order } from "../utils/TaskSorter.js";
 
 // I referenced this post to initiaize the map with initial values
 // https://stackoverflow.com/questions/41769955/initialize-a-map-containing-arrays-in-typescript
@@ -21,8 +21,8 @@ export class View {
         [TaskPriority.Low, true]
     ]);
 
-    public sortHeader: TaskDetail | undefined;
-    public sortOrder: Order | undefined;
+    public sortHeader: TaskDetail = TaskDetail.CreatedDate;
+    public sortOrder: Order = Order.Desc;
 
     public searchFilter: TaskDetail = TaskDetail.Title;
     public searchValue: string = "";

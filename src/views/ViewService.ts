@@ -13,9 +13,9 @@ export class ViewService {
         return ViewService._instance;
     }
 
-    createView(view: View, callback: (result: boolean) => void) {
+    createView(view: View, callback: (result: boolean, view: View | undefined) => void) {
         const user = this.getUser();
-        if (user == undefined) { callback(false); return; }
+        if (user == undefined) { callback(false, undefined); return; }
         view.user = user;
         this._repo.createView(view, callback);
     }
