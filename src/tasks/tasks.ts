@@ -2,9 +2,10 @@ import { TaskTableFactory, TaskDisplayType } from "../task_tables/TaskTableFacto
 import { TaskElementFactory } from "../task_elements/TaskElementFactory.js";
 import type { TaskHeader } from "../task_tables/TaskHeader.js";
 import { TaskElement } from "../task_elements/TaskElement.js";
+import { Order, sort } from "../utils/TaskSorter.js";
+import { TaskPriority, TaskStatus } from "./Task.js";
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
-import { Order, sort } from "../utils/TaskSorter.js";
 
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() { 
@@ -36,11 +37,6 @@ function drawTaskElements() {
     }
 }
 
-/** Add a single taskElement to the task table body  */
-function drawTaskElement(taskElement: TaskElement) {
-    taskTable.Body.appendChild(taskElement.Element);
-}
-
 /** Navigate to the taskform with the current task selected */
 function editTask(taskElement: TaskElement) {
     let task = taskElement.Task;
@@ -68,7 +64,6 @@ function createTask() {
     window.location.replace("/static/taskform.html");
 }
 
-
 function changeTableDisplay(type: TaskDisplayType) {
     console.log(type);
     tableFactory.setDisplayType(type);
@@ -85,6 +80,41 @@ function sortElements(header: TaskHeader, order: Order) {
     drawTaskElements();
 }
 
+// I used this resource to see how to iterate over an enum
+// https://blog.logrocket.com/iterate-over-enums-typescript/
+function drawPriorityFilter() {
+    priorityFilters.innerHTML = "";
+    for(let priority of Object.keys(TaskPriority)) {
+        createFilterElement(priorityFilters, priority as TaskPriority)
+    }
+}
+
+function drawStatusFilter() {
+    statusFilters.innerHTML = "";
+    for(let status of Object.keys(TaskStatus)) {
+        createFilterElement(statusFilters, status as TaskStatus)
+    }
+}
+
+function createFilterElement(parent: HTMLElement, value: TaskPriority | TaskStatus) {
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = value;
+    checkbox.checked = true;
+    let label = document.createElement("label");
+    label.textContent = value;
+    label.setAttribute("for", value);
+
+    checkbox.addEventListener("change", () => applyFilter(value, checkbox.checked));
+
+    parent.appendChild(checkbox);
+    parent.appendChild(label);
+}
+
+function applyFilter(value: TaskPriority | TaskStatus, checked: boolean) {
+    console.log(value + ":" + checked);
+}
+
 const service = TaskService.Instance;
 let taskElements: TaskElement[] = [];
 
@@ -93,9 +123,17 @@ const elementFactory = new TaskElementFactory(TaskDisplayType.Basic, editTask, d
 let taskTable = tableFactory.create();
 
 const taskTableContainer = document.getElementById("task-table-container") as HTMLElement;
+const priorityFilters = document.getElementById("priority-filter-container") as HTMLElement;
+const statusFilters = document.getElementById("status-filter-container") as HTMLElement;
+
 
 document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
 document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));
 
 document.getElementById("new-task")?.addEventListener("click", () => createTask());
 getAllTasks();
+
+document.addEventListener("DOMContentLoaded", () => {
+    drawPriorityFilter();
+    drawStatusFilter();
+})
