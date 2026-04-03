@@ -78,7 +78,8 @@ function prioritySort(a, b, order) {
     return 0;
 }
 function dateSort(a, b, order) {
-    console.log("here");
+    if (a.toDateString() == b.toDateString())
+        return 0;
     if (a > b)
         return orderFactor(order);
     else if (a < b)

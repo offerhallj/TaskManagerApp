@@ -14,6 +14,7 @@ export function isFilteredOut(task: Task) {
     switch (viewHolder.view.searchFilter) {
         case TaskHeader.Title: return isTextFiltered(task.title);
         case TaskHeader.Description: return isTextFiltered(task.description);
+        case TaskHeader.User: return isTextFiltered(task.user);
         case TaskHeader.Tags: return isTextFiltered(task.tags);
         case TaskHeader.DueDate: return isDateFiltered(task.dueDate.toDateString());
         case TaskHeader.CreatedDate: return isDateFiltered(task.createdDate.toDateString());

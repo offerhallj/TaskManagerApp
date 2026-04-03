@@ -5,6 +5,7 @@ export class DetailedTaskTable extends TaskTable {
         super();
         this.displayHeaders = [
             TaskHeader.Title,
+            TaskHeader.Description,
             TaskHeader.DueDate,
             TaskHeader.Priority,
             TaskHeader.Status,

@@ -4,6 +4,7 @@ import { TaskTable } from "./TaskTable.js";
 export class DetailedTaskTable extends TaskTable {
     readonly displayHeaders: TaskHeader[] = [
         TaskHeader.Title, 
+        TaskHeader.Description, 
         TaskHeader.DueDate, 
         TaskHeader.Priority, 
         TaskHeader.Status, 
