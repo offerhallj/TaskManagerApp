@@ -147,7 +147,10 @@ function filterBySearch(e: InputEvent) {
         searchBar.value = "";
     } 
 
-    else { viewHolder.view.searchValue = searchBar.value; }
+    else { 
+        viewHolder.view.searchValue = searchBar.value; 
+        if (searchBar.value.includes("{") && !searchBar.value.includes("}")) return;
+    }
 
     drawTaskElements();
 }

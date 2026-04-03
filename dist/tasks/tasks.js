@@ -135,6 +135,8 @@ function filterBySearch(e) {
     }
     else {
         viewHolder.view.searchValue = searchBar.value;
+        if (searchBar.value.includes("{") && !searchBar.value.includes("}"))
+            return;
     }
     drawTaskElements();
 }
