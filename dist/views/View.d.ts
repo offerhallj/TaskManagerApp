@@ -5,6 +5,7 @@ import { Order } from "../utils/TaskSorter.js";
 export declare class View {
     id: number | undefined;
     user: string;
+    title: string;
     statusFilters: Map<TaskStatus, boolean>;
     priorityFilters: Map<TaskPriority, boolean>;
     sortHeader: TaskDetail;

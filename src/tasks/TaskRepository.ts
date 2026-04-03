@@ -103,7 +103,7 @@ export class TaskRepository extends Repository<TaskRepository> {
         });
     }
 
-    public createTaskFromAny(result: any, user: string): Task | undefined{
+    public createTaskFromAny(result: any, user: string): Task | undefined {
         const task = result as Task;
 
         if (task != undefined && task.user == user) {

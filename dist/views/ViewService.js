@@ -20,11 +20,15 @@ export class ViewService {
         view.user = user;
         this._repo.createView(view, callback);
     }
-    saveView() {
+    saveView(view, callback) {
     }
-    getView() {
-    }
-    getAllViews() {
+    getAllViewsForUser(callback) {
+        const user = this.getUser();
+        if (user == undefined) {
+            callback(false, "No user found", []);
+            return;
+        }
+        this._repo.getAllViewsForUser(user, callback);
     }
     deleteView() {
     }

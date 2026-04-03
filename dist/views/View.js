@@ -7,6 +7,7 @@ import { Order } from "../utils/TaskSorter.js";
 export class View {
     constructor() {
         this.user = "";
+        this.title = "Dashboard";
         this.statusFilters = new Map([
             [TaskStatus.InProgress, true],
             [TaskStatus.Complete, true],

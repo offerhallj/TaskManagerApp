@@ -1,11 +1,46 @@
 import { ViewHolder } from "../views/ViewHolder.js";
 import { ViewService } from "./ViewService.js";
+import { View } from "./View.js";
+
 const viewHolder = ViewHolder.Instance;
 const viewService = ViewService.Instance;
+let viewsList: View[] = [];
 
-document.getElementById("save-view")?.addEventListener("click", () => { 
+function getAllViewsForUser() {
+    viewService.getAllViewsForUser((r, msg, views) => {
+        if (!r) { console.log(msg); return; }
+        console.log(views);
+        viewsList = views;
+        drawViewOptions();
+    });
+}
+
+function drawViewOptions() {
+    viewContainerNav.innerHTML = "";
+    for(let view of viewsList) {
+        const li = document.createElement("li");
+        li.textContent = view.title;
+        viewContainerNav.appendChild(li);
+    }
+}
+
+function createNewView() {
     viewService.createView(viewHolder.view, (r, v) => {
-        console.log(r);
-        if (v != undefined) viewHolder.setView(v);
+        if (!r || v == undefined) { console.log("Error: View could not be created"); return; }
+        viewHolder.setView(v);
+        viewsList.push(v);
+        drawViewOptions();
     })
-});
+}
+
+function saveCurrentView() {
+
+}
+
+document.getElementById("save-view")?.addEventListener("click", saveCurrentView);
+
+document.getElementById("new-view")?.addEventListener("click", createNewView);
+
+const viewContainerNav = document.getElementById("views-nav") as HTMLElement;
+
+getAllViewsForUser();

@@ -15,6 +15,7 @@ export class ViewRepository extends Repository {
         table?.createIndex("sortOrder", "sortOrder", { unique: false });
         table?.createIndex("searchFilter", "searchFilter", { unique: false });
         table?.createIndex("searchValue", "searchValue", { unique: false });
+        table?.createIndex("title", "title", { unique: false });
     }
     createView(view, callback) {
         if (this.delayExecution(() => this.createView(view, callback)))
@@ -28,6 +29,40 @@ export class ViewRepository extends Repository {
         query?.addEventListener("error", () => {
             callback(false, undefined);
         });
+    }
+    getAllViewsForUser(user, callback) {
+        if (this.delayExecution(() => this.getAllViewsForUser(user, callback)))
+            return;
+        const objectStore = this.getObjectStore(VIEW_TABLE, "readonly");
+        const cursorRequest = objectStore?.openCursor();
+        const views = [];
+        cursorRequest?.addEventListener("success", (e) => {
+            const cursor = e.target.result;
+            if (cursor) {
+                const newView = this.createViewFromAny(cursor.value, user);
+                if (newView != undefined)
+                    views.push(newView);
+                cursor.continue();
+                return;
+            }
+            callback(true, "Success", views);
+        });
+    }
+    createViewFromAny(result, user) {
+        const rawView = result;
+        if (rawView != undefined && rawView.user == user) {
+            const view = new View();
+            view.id = rawView.id;
+            view.user = rawView.user;
+            view.title = rawView.title;
+            view.statusFilters = rawView.statusFilters;
+            view.priorityFilters = rawView.priorityFilters;
+            view.sortHeader = rawView.sortHeader;
+            view.sortOrder = rawView.sortOrder;
+            view.searchFilter = rawView.searchFilter;
+            view.searchValue = rawView.searchValue;
+            return view;
+        }
     }
 }
 //# sourceMappingURL=ViewRepository.js.map

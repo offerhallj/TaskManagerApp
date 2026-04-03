@@ -20,16 +20,14 @@ export class ViewService {
         this._repo.createView(view, callback);
     }
 
-    saveView() {
+    saveView(view: View, callback: (result: boolean, msg: string, views: View) => void) {
 
     }
 
-    getView() {
-
-    }
-
-    getAllViews() {
-
+    getAllViewsForUser(callback: (result: boolean, msg: string, views: View[]) => void) {
+        const user = this.getUser();
+        if (user == undefined) {callback(false, "No user found", []); return; }
+        this._repo.getAllViewsForUser(user, callback);
     }
 
     deleteView() {

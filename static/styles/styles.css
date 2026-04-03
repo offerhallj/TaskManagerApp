@@ -91,18 +91,19 @@ main .sidebar nav {
 }
 
 .views-nav li {
+    padding: 12px 0;
     padding-left: 4px;
-    margin: 24px 0;
     font-size: 1.8rem;
+    width: 100%;
+    max-width: 216px;
+}
+
+.views-nav li:hover {
+    text-decoration: underline;
 }
 
 .views-nav li:first-of-type {
-    margin-top: 16px;
-}
-
-.views-nav li a {
-    display: block;
-    max-width: 160px;
+    padding-top: 8px;
 }
 
 /* ===== Task View ===== */

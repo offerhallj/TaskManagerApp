@@ -8,7 +8,8 @@ import { Order } from "../utils/TaskSorter.js";
 export class View {
     public id: number | undefined;
     public user: string = "";
-    
+    public title: string = "Dashboard";
+
     public statusFilters: Map<TaskStatus, boolean> = new Map<TaskStatus, boolean>([
         [TaskStatus.InProgress, true],
         [TaskStatus.Complete, true],
