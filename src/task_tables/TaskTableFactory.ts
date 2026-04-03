@@ -21,7 +21,6 @@ export class TaskTableFactory {
     }
 }
 
-
 export enum TaskDisplayType {
     Basic, Detailed, Compact
 }

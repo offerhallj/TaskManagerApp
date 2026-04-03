@@ -1,4 +1,5 @@
 import type { UIElement } from "../interfaces/UIElement.js";
+import { TaskHeader } from "./TaskHeader.js";
 
 export abstract class TaskTable implements UIElement {
     Element: HTMLElement;
@@ -10,14 +11,12 @@ export abstract class TaskTable implements UIElement {
 
     abstract create(): HTMLElement;
 
-    protected getTableWithHeaders(...headers: string[]): HTMLElement {
+    protected getTableWithHeaders(...headers: TaskHeader[]): HTMLElement {
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         const tr = document.createElement("tr");
         for (let header of headers) {
-            let th = document.createElement("th");
-            th.textContent = header;
-            tr.appendChild(th);
+            tr.appendChild(this.createHeaderElement(header));
         }
 
         thead.appendChild(tr);
@@ -25,5 +24,11 @@ export abstract class TaskTable implements UIElement {
         this.Body = document.createElement("tbody");
         table.appendChild(this.Body);
         return table;
+    }
+
+    protected createHeaderElement(header: TaskHeader): HTMLElement {
+        let th = document.createElement("th");
+        th.textContent = header;
+        return th;
     }
 }

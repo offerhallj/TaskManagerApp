@@ -1,5 +1,5 @@
 export declare class Task {
-    id: number | undefined;
+    id: number;
     title: string;
     description: string;
     createdDate: Date;

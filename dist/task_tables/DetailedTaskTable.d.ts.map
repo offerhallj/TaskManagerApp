@@ -1,1 +1,1 @@
-{"version":3,"file":"DetailedTaskTable.d.ts","sourceRoot":"","sources":["../../src/task_tables/DetailedTaskTable.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,gBAAgB,CAAC;AAE3C,qBAAa,iBAAkB,SAAQ,SAAS;IAC5C,MAAM,IAAI,WAAW;CAGxB"}
+{"version":3,"file":"DetailedTaskTable.d.ts","sourceRoot":"","sources":["../../src/task_tables/DetailedTaskTable.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAE,MAAM,gBAAgB,CAAC;AAE3C,qBAAa,iBAAkB,SAAQ,SAAS;IAC5C,MAAM,IAAI,WAAW;CAYxB"}
