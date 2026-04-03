@@ -16,8 +16,11 @@ export function sort(header, elements, order = Order.Asc) {
         case TaskHeader.Status:
             return elements.sort((a, b) => statusSort(a.Task, b.Task, order));
         case TaskHeader.Priority:
+            return elements.sort((a, b) => prioritySort(a.Task, b.Task, order));
         case TaskHeader.CreatedDate:
+            return elements.sort((a, b) => dateSort(a.Task.createdDate, b.Task.createdDate, order));
         case TaskHeader.DueDate:
+            return elements.sort((a, b) => dateSort(a.Task.dueDate, b.Task.dueDate, order));
     }
 }
 export function canSort(header) {
@@ -50,13 +53,37 @@ function alphaNumericSort(a, b, order) {
 }
 function statusSort(a, b, order) {
     if (a.status == b.status)
-        return alphaNumericSort(a.title, b.title, order);
-    if (a.status == TaskStatus.ToDo)
+        return 0;
+    if (a.status.toLowerCase() == TaskStatus.ToDo.toLowerCase())
         return -orderFactor(order);
-    if (b.status == TaskStatus.ToDo)
+    if (b.status.toLowerCase() == TaskStatus.ToDo.toLowerCase())
         return orderFactor(order);
-    if (a.status == TaskStatus.Complete)
+    if (a.status.toLowerCase() == TaskStatus.Complete.toLowerCase())
         return orderFactor(order);
-    return -orderFactor(order);
+    if (b.status.toLowerCase() == TaskStatus.Complete.toLowerCase())
+        return -orderFactor(order);
+    return 0;
+}
+function prioritySort(a, b, order) {
+    if (a.priority == b.priority)
+        return 0;
+    if (a.priority.toLowerCase() == TaskPriority.Low.toLowerCase())
+        return -orderFactor(order);
+    if (b.priority.toLowerCase() == TaskPriority.Low.toLowerCase())
+        return orderFactor(order);
+    if (a.priority.toLowerCase() == TaskPriority.High.toLowerCase())
+        return orderFactor(order);
+    if (b.priority.toLowerCase() == TaskPriority.High.toLowerCase())
+        return -orderFactor(order);
+    return 0;
+}
+function dateSort(a, b, order) {
+    console.log("here");
+    if (a > b)
+        return orderFactor(order);
+    else if (a < b)
+        return -orderFactor(order);
+    else
+        return 0;
 }
 //# sourceMappingURL=TaskSorter.js.map
