@@ -46,5 +46,12 @@ export class TaskTable {
             this.sort(header, order);
         });
     }
+    filterElements(elements) {
+        for (let element of elements) {
+            if (!element.isFilteredOut)
+                continue;
+            this.Body.removeChild(element.Element);
+        }
+    }
 }
 //# sourceMappingURL=TaskTable.js.map

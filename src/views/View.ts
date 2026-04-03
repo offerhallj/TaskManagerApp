@@ -15,6 +15,4 @@ export class View {
         [TaskPriority.Medium, true],
         [TaskPriority.Low, true]
     ]);
-
-
 }

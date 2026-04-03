@@ -1,4 +1,6 @@
+import { ViewHolder } from "../views/ViewHolder.js";
 import { Task } from "../tasks/Task.js";
+const viewHolder = ViewHolder.Instance;
 export class TaskElement {
     edit(element) { this.onEdit(element); }
     delete(element) { this.onDelete(element); }
@@ -29,6 +31,15 @@ export class TaskElement {
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => this.delete(this));
         return deleteButton;
+    }
+    get isFilteredOut() {
+        console.log(this.Task.priority);
+        console.log(viewHolder.view);
+        if (viewHolder.view.priorityFilters.get(this.Task.priority) == false)
+            return true;
+        if (viewHolder.view.statusFilters.get(this.Task.status) == false)
+            return true;
+        return false;
     }
 }
 //# sourceMappingURL=TaskElement.js.map

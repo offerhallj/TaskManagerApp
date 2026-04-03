@@ -1,5 +1,5 @@
 export class Task {
-    public id: number = -1;
+    public id: number | undefined;
     public title: string = "";
     public description: string = "";
     public createdDate: Date = new Date();

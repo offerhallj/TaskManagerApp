@@ -1,4 +1,5 @@
 import type { UIElement } from "../interfaces/UIElement.js";
+import type { TaskElement } from "../task_elements/TaskElement.js";
 import { canSort, Order } from "../utils/TaskSorter.js";
 import { TaskHeader } from "./TaskHeader.js";
 
@@ -62,5 +63,12 @@ export abstract class TaskTable implements UIElement {
             TaskTable._activeHeaderElement = th;
             this.sort(header, order);
         });
+    }
+
+    public filterElements(elements: TaskElement[]) {
+        for (let element of elements) {
+            if (!element.isFilteredOut) continue;
+            this.Body.removeChild(element.Element);
+        }
     }
 }

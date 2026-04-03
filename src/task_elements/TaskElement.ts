@@ -1,6 +1,8 @@
 import type { UIElement } from "../interfaces/UIElement.js";
+import { ViewHolder } from "../views/ViewHolder.js";
 import { Task } from "../tasks/Task.js";
 
+const viewHolder = ViewHolder.Instance;
 export abstract class TaskElement implements UIElement {
     public readonly Task: Task;
     Element!: HTMLElement;
@@ -44,5 +46,15 @@ export abstract class TaskElement implements UIElement {
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => this.delete(this));
         return deleteButton;
+    }
+
+    public get isFilteredOut(): boolean {
+        console.log(this.Task.priority);
+        console.log(viewHolder.view);
+
+
+        if (viewHolder.view.priorityFilters.get(this.Task.priority) == false) return true;
+        if (viewHolder.view.statusFilters.get(this.Task.status) == false) return true;
+        return false;
     }
 }

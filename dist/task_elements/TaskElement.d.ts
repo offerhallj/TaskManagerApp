@@ -13,5 +13,6 @@ export declare abstract class TaskElement implements UIElement {
     protected createButtonCell(): HTMLElement;
     protected createEditButton(): HTMLElement;
     protected createDeleteButton(): HTMLElement;
+    get isFilteredOut(): boolean;
 }
 //# sourceMappingURL=TaskElement.d.ts.map

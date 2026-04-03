@@ -6,6 +6,7 @@ import { Order, sort } from "../utils/TaskSorter.js";
 import { TaskPriority, TaskStatus } from "./Task.js";
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
+import { ViewHolder } from "../views/ViewHolder.js";
 import { View } from "../views/View.js";
 
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
@@ -34,8 +35,11 @@ function drawTaskElements() {
     const body = taskTable.Body;
     body.innerHTML = "";
     for (let task of taskElements) {
+        if (task.isFilteredOut) continue;
         body.appendChild(task.Element);
     }
+
+    // taskTable.filterElements(taskElements);
 }
 
 /** Navigate to the taskform with the current task selected */
@@ -85,19 +89,26 @@ function sortElements(header: TaskHeader, order: Order) {
 // https://blog.logrocket.com/iterate-over-enums-typescript/
 function drawPriorityFilter() {
     priorityFilters.innerHTML = "";
-    for(let priority of Object.keys(TaskPriority)) {
-        createFilterElement(priorityFilters, priority as TaskPriority)
+    for(let priority of Object.values(TaskPriority)) {
+        createFilterElement(priorityFilters, priority as TaskPriority, (isChecked) => {
+            viewHolder.view.priorityFilters.set(priority as TaskPriority, isChecked);
+            drawTaskElements();
+        })
     }
 }
 
 function drawStatusFilter() {
     statusFilters.innerHTML = "";
-    for(let status of Object.keys(TaskStatus)) {
-        createFilterElement(statusFilters, status as TaskStatus)
+    for(let status of Object.values(TaskStatus)) {
+        createFilterElement(statusFilters, status as TaskStatus, (isChecked) => {
+            viewHolder.view.statusFilters.set(status as TaskStatus, isChecked);
+            console.log(viewHolder.view.statusFilters.get(status as TaskStatus));
+            drawTaskElements();
+        })
     }
 }
 
-function createFilterElement(parent: HTMLElement, value: TaskPriority | TaskStatus) {
+function createFilterElement(parent: HTMLElement, value: TaskPriority | TaskStatus, checkboxEvent: (isChecked: boolean) => void) {
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = value;
@@ -106,17 +117,10 @@ function createFilterElement(parent: HTMLElement, value: TaskPriority | TaskStat
     label.textContent = value;
     label.setAttribute("for", value);
 
-    checkbox.addEventListener("change", () => applyFilter(value, checkbox.checked));
+    checkbox.addEventListener("change", () => checkboxEvent(checkbox.checked));
 
     parent.appendChild(checkbox);
     parent.appendChild(label);
-}
-
-function applyFilter(value: TaskPriority | TaskStatus, checked: boolean) {
-    for(let element of taskElements) {
-
-        console.log(value + ":" + checked);
-    }
 }
 
 const service = TaskService.Instance;
@@ -130,7 +134,8 @@ const taskTableContainer = document.getElementById("task-table-container") as HT
 const priorityFilters = document.getElementById("priority-filter-container") as HTMLElement;
 const statusFilters = document.getElementById("status-filter-container") as HTMLElement;
 
-const view: View = new View();
+const viewHolder = ViewHolder.Instance;
+viewHolder.setView(new View);
 
 document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
 document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));

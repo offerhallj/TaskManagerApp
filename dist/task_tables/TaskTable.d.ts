@@ -1,4 +1,5 @@
 import type { UIElement } from "../interfaces/UIElement.js";
+import type { TaskElement } from "../task_elements/TaskElement.js";
 import { Order } from "../utils/TaskSorter.js";
 import { TaskHeader } from "./TaskHeader.js";
 export declare abstract class TaskTable implements UIElement {
@@ -12,5 +13,6 @@ export declare abstract class TaskTable implements UIElement {
     protected getTableWithHeaders(...headers: TaskHeader[]): HTMLElement;
     protected createHeaderElement(header: TaskHeader): HTMLElement;
     private addHeaderSort;
+    filterElements(elements: TaskElement[]): void;
 }
 //# sourceMappingURL=TaskTable.d.ts.map
