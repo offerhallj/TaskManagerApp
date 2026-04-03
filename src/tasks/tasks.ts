@@ -6,6 +6,7 @@ import { Order, sort } from "../utils/TaskSorter.js";
 import { TaskPriority, TaskStatus } from "./Task.js";
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
+import { View } from "../views/View.js";
 
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() { 
@@ -112,7 +113,10 @@ function createFilterElement(parent: HTMLElement, value: TaskPriority | TaskStat
 }
 
 function applyFilter(value: TaskPriority | TaskStatus, checked: boolean) {
-    console.log(value + ":" + checked);
+    for(let element of taskElements) {
+
+        console.log(value + ":" + checked);
+    }
 }
 
 const service = TaskService.Instance;
@@ -126,6 +130,7 @@ const taskTableContainer = document.getElementById("task-table-container") as HT
 const priorityFilters = document.getElementById("priority-filter-container") as HTMLElement;
 const statusFilters = document.getElementById("status-filter-container") as HTMLElement;
 
+const view: View = new View();
 
 document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
 document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));
