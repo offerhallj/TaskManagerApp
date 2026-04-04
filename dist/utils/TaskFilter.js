@@ -1,15 +1,15 @@
 import { TaskDetail } from "../task_elements/TaskDetail.js";
 import { ViewHolder } from "../views/ViewHolder.js";
 import { Task } from "../tasks/Task.js";
-const viewHolder = ViewHolder.Instance;
 export function isFilteredOut(task) {
+    const viewHolder = ViewHolder.Instance;
     // handle basic filters first
-    if (viewHolder.view.priorityFilters.get(task.priority) == false)
+    if (viewHolder.rView.priorityFilters.get(task.priority) == false)
         return true;
-    if (viewHolder.view.statusFilters.get(task.status) == false)
+    if (viewHolder.rView.statusFilters.get(task.status) == false)
         return true;
     // handle search filters
-    switch (viewHolder.view.searchFilter) {
+    switch (viewHolder.rView.searchFilter) {
         case TaskDetail.Title: return isTextFiltered(task.title);
         case TaskDetail.Description: return isTextFiltered(task.description);
         case TaskDetail.User: return isTextFiltered(task.user);
@@ -21,6 +21,7 @@ export function isFilteredOut(task) {
 }
 export function canFilter(header) {
     switch (header) {
+        case TaskDetail.ID:
         case TaskDetail.Actions:
         case TaskDetail.Status:
         case TaskDetail.Priority:
@@ -30,12 +31,14 @@ export function canFilter(header) {
     }
 }
 function isTextFiltered(text) {
-    if (viewHolder.view.searchFilter == undefined)
+    const viewHolder = ViewHolder.Instance;
+    if (viewHolder.rView.searchFilter == undefined)
         return false;
-    return !text.toLowerCase().includes(viewHolder.view.searchValue.toLowerCase().trim());
+    return !text.toLowerCase().includes(viewHolder.rView.searchValue.toLowerCase().trim());
 }
 function isDateFiltered(text) {
-    let searchFilter = viewHolder.view.searchValue.trim();
+    const viewHolder = ViewHolder.Instance;
+    let searchFilter = viewHolder.rView.searchValue.trim();
     if (searchFilter == "")
         return false;
     if (searchFilter.includes("{"))

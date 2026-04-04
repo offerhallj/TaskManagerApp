@@ -5,12 +5,23 @@ import { View } from "./View.js";
 const viewHolder = ViewHolder.Instance;
 const viewService = ViewService.Instance;
 viewHolder.subscribe(onNewView);
+
+viewHolder.onViewIsChanged = (b) => { 
+    if (b) viewTitle.textContent = `${viewHolder.rView.title} *`;
+    if (!b) viewTitle.textContent = viewHolder.rView.title;
+};
+
 let viewsList: View[] = [];
 
 function getAllViewsForUser() {
     viewService.getAllViewsForUser((r, msg, views) => {
         if (!r) { console.log(msg); return; }
-        console.log(views);
+        if (viewsList == undefined || viewsList.length == 0) {
+            viewHolder.setView(new View());
+            createNewView();
+            return;
+        }
+
         viewsList = views;
         drawViewOptions();
         if (viewsList[0] != undefined)
@@ -24,11 +35,14 @@ function drawViewOptions() {
         const li = document.createElement("li");
         li.textContent = view.title;
         viewContainerNav.appendChild(li);
+        li.addEventListener("click", () => {
+            viewHolder.setView(view);
+        })
     }
 }
 
 function createNewView() {
-    viewService.createView(viewHolder.view, (r, v) => {
+    viewService.createView(viewHolder.rView, (r, v) => {
         if (!r || v == undefined) { console.log("Error: View could not be created"); return; }
         viewHolder.setView(v);
         viewsList.push(v);
@@ -45,9 +59,7 @@ function onNewView(view: View) {
 }
 
 document.getElementById("save-view")?.addEventListener("click", saveCurrentView);
-
 document.getElementById("new-view")?.addEventListener("click", createNewView);
-
 const viewContainerNav = document.getElementById("views-nav") as HTMLElement;
 const viewTitle = document.getElementById("view-title") as HTMLElement;
 

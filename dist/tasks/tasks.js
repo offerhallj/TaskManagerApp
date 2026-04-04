@@ -2,12 +2,11 @@ import { TaskElementFactory, TaskDisplayType } from "../task_elements/TaskElemen
 import { TaskDetail } from "../task_elements/TaskDetail.js";
 import { TaskElement } from "../task_elements/TaskElement.js";
 import { canSort, Order, sort } from "../utils/TaskSorter.js";
-import { Task, TaskPriority, TaskStatus } from "./Task.js";
+import { TaskPriority, TaskStatus } from "./Task.js";
 import { ViewHolder } from "../views/ViewHolder.js";
 import { canFilter } from "../utils/TaskFilter.js";
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
-import { View } from "../views/View.js";
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() {
     taskElements.splice(0, taskElements.length);
@@ -22,7 +21,7 @@ function getAllTasks() {
         }
         // if the viewholder loaded a view before we loaded our tasks, draw the tasks
         // otherwise, wait for the viewholder to load
-        if (viewHolder.view != undefined) {
+        if (viewHolder.rView != undefined) {
             drawTaskElements();
         }
     });
@@ -81,7 +80,7 @@ function drawPriorityFilter() {
     priorityFilters.innerHTML = "";
     for (let priority of Object.values(TaskPriority)) {
         createFilterElement(priorityFilters, priority, (isChecked) => {
-            viewHolder.view.priorityFilters.set(priority, isChecked);
+            viewHolder.rwView.priorityFilters.set(priority, isChecked);
             drawTaskElements();
         });
     }
@@ -90,8 +89,8 @@ function drawStatusFilter() {
     statusFilters.innerHTML = "";
     for (let status of Object.values(TaskStatus)) {
         createFilterElement(statusFilters, status, (isChecked) => {
-            viewHolder.view.statusFilters.set(status, isChecked);
-            console.log(viewHolder.view.statusFilters.get(status));
+            viewHolder.rwView.statusFilters.set(status, isChecked);
+            console.log(viewHolder.rwView.statusFilters.get(status));
             drawTaskElements();
         });
     }
@@ -139,16 +138,22 @@ function createOptionForTaskDetail(detail) {
 }
 function filterBySearch(e) {
     if (e.target.id == searchFilterOptions.id) {
-        viewHolder.view.searchFilter = searchFilterOptions.value;
-        viewHolder.view.searchValue = "";
+        viewHolder.rwView.searchFilter = searchFilterOptions.value;
+        viewHolder.rwView.searchValue = "";
         searchBar.setAttribute("placeholder", `Filter by ${searchFilterOptions.value}`);
         searchBar.value = "";
     }
     else {
-        viewHolder.view.searchValue = searchBar.value;
+        viewHolder.rwView.searchValue = searchBar.value;
         if (searchBar.value.includes("{") && !searchBar.value.includes("}"))
             return;
     }
+    drawTaskElements();
+}
+function onNewView(view) {
+    sortOptions.value = `${view.sortHeader},${view.sortOrder}`;
+    searchFilterOptions.value = view.searchFilter;
+    searchBar.value = view.searchValue;
     drawTaskElements();
 }
 const service = TaskService.Instance;
@@ -161,8 +166,7 @@ const sortOptions = document.getElementById("sort-options");
 const searchFilterOptions = document.getElementById("search-options");
 const searchBar = document.getElementById("search-bar");
 const viewHolder = ViewHolder.Instance;
-viewHolder.subscribe((v) => drawTaskElements());
-// viewHolder.setView(new View);
+viewHolder.subscribe(onNewView);
 document.getElementById("search-form")?.addEventListener("input", filterBySearch);
 document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
 document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));

@@ -2,16 +2,15 @@ import { TaskDetail } from "../task_elements/TaskDetail.js";
 import { ViewHolder } from "../views/ViewHolder.js";
 import { Task } from "../tasks/Task.js";
 
-const viewHolder = ViewHolder.Instance;
 
 export function isFilteredOut(task: Task) {
-    
+    const viewHolder = ViewHolder.Instance;
     // handle basic filters first
-    if (viewHolder.view.priorityFilters.get(task.priority) == false) return true;
-    if (viewHolder.view.statusFilters.get(task.status) == false) return true;
+    if (viewHolder.rView.priorityFilters.get(task.priority) == false) return true;
+    if (viewHolder.rView.statusFilters.get(task.status) == false) return true;
 
     // handle search filters
-    switch (viewHolder.view.searchFilter) {
+    switch (viewHolder.rView.searchFilter) {
         case TaskDetail.Title: return isTextFiltered(task.title);
         case TaskDetail.Description: return isTextFiltered(task.description);
         case TaskDetail.User: return isTextFiltered(task.user);
@@ -25,6 +24,7 @@ export function isFilteredOut(task: Task) {
 
 export function canFilter(header: TaskDetail): boolean {
     switch (header) {
+        case TaskDetail.ID:
         case TaskDetail.Actions:
         case TaskDetail.Status:
         case TaskDetail.Priority:
@@ -35,12 +35,14 @@ export function canFilter(header: TaskDetail): boolean {
 }
 
 function isTextFiltered(text: string): boolean {
-    if (viewHolder.view.searchFilter == undefined) return false;
-    return !text.toLowerCase().includes(viewHolder.view.searchValue.toLowerCase().trim());
+    const viewHolder = ViewHolder.Instance;
+    if (viewHolder.rView.searchFilter == undefined) return false;
+    return !text.toLowerCase().includes(viewHolder.rView.searchValue.toLowerCase().trim());
 }
 
 function isDateFiltered(text: string): boolean {
-    let searchFilter = viewHolder.view.searchValue.trim();
+    const viewHolder = ViewHolder.Instance;
+    let searchFilter = viewHolder.rView.searchValue.trim();
     if (searchFilter == "") return false;
     if (searchFilter.includes("{")) searchFilter = translateDateKeyword(searchFilter);
     searchFilter = searchFilter.toLowerCase();

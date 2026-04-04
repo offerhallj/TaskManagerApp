@@ -27,4 +27,6 @@ export class View {
 
     public searchFilter: TaskDetail = TaskDetail.Title;
     public searchValue: string = "";
+
+    public isChanged: boolean = false;
 }

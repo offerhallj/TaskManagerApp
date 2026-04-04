@@ -18,7 +18,7 @@ export class ViewRepository extends Repository<ViewRepository> {
         table?.createIndex("sortOrder", "sortOrder", { unique: false});
         table?.createIndex("searchFilter", "searchFilter", { unique: false});
         table?.createIndex("searchValue", "searchValue", { unique: false});
-        table?.createIndex("title", "title", { unique: false});
+        table?.createIndex("title", "title", { unique: true});
     }
 
     public createView(view: View, callback: (result: boolean, view: View | undefined) => void): void {
@@ -53,7 +53,7 @@ export class ViewRepository extends Repository<ViewRepository> {
                 cursor.continue();
                 return;
             }
-            
+
             callback(true, "Success", views);
         });
     }

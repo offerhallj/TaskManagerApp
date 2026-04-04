@@ -12,5 +12,6 @@ export declare class View {
     sortOrder: Order;
     searchFilter: TaskDetail;
     searchValue: string;
+    isChanged: boolean;
 }
 //# sourceMappingURL=View.d.ts.map

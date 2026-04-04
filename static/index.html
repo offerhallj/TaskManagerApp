@@ -28,15 +28,17 @@
         </div>    
         <div class="task-view">
             <h2 id="view-title">Dashboard</h2>
+            <button id="save-view">Edit View</button>
+            <button id="save-view">Save View</button>
+            <button id="new-view">Create New View</button>
+            <button id="delete-view">Delete View</button>
+            
             <div id="search-container">
                 <form id="search-form">
                     <input type="text" id="search-bar" placeholder="Search in Title">
                     <select id="search-options"></select>
                 </form>
             </div>
-            
-            <button id="save-view">Save View</button>
-            <button id="new-view">Create New View</button>
 
             <select id="sort-options">
                 <option>H</option>
@@ -56,8 +58,8 @@
         </div>
     </main>
 </body>
-<script type="module" src="../dist/views/views.js"></script>
 <script type="module" src="../dist/login/validateLogin.js"></script>
+<script type="module" src="../dist/views/views.js"></script>
 <script type="module" src="../dist/tasks/tasks.js"></script>
 <script type="module" src="../dist/app.js"></script>
 </html>

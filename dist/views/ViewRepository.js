@@ -15,7 +15,7 @@ export class ViewRepository extends Repository {
         table?.createIndex("sortOrder", "sortOrder", { unique: false });
         table?.createIndex("searchFilter", "searchFilter", { unique: false });
         table?.createIndex("searchValue", "searchValue", { unique: false });
-        table?.createIndex("title", "title", { unique: false });
+        table?.createIndex("title", "title", { unique: true });
     }
     createView(view, callback) {
         if (this.delayExecution(() => this.createView(view, callback)))

@@ -22,6 +22,7 @@ export class View {
         this.sortOrder = Order.Desc;
         this.searchFilter = TaskDetail.Title;
         this.searchValue = "";
+        this.isChanged = false;
     }
 }
 //# sourceMappingURL=View.js.map
