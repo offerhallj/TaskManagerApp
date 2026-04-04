@@ -77,8 +77,9 @@ function changeTableDisplay(type: TaskDisplayType) {
 function sortElements(value: string) {
     let detail = value.split(",")[0] as TaskDetail;
     let order = value.split(",")[1] as Order;
-    console.log(detail + ", " + order);
     sort(detail, taskElements, order);
+    viewHolder.rwView.sortHeader = detail;
+    viewHolder.rwView.sortOrder = order;    
     drawTaskElements();
 }
 

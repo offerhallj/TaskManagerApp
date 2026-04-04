@@ -18,7 +18,8 @@ export class ViewRepository extends Repository<ViewRepository> {
         table?.createIndex("sortOrder", "sortOrder", { unique: false});
         table?.createIndex("searchFilter", "searchFilter", { unique: false});
         table?.createIndex("searchValue", "searchValue", { unique: false});
-        table?.createIndex("title", "title", { unique: true});
+        table?.createIndex("title", "title", { unique: false});
+        table?.createIndex("displayType", "displayType", { unique: false});
     }
 
     public createView(view: View, callback: (result: boolean, view: View | undefined) => void): void {
@@ -38,7 +39,6 @@ export class ViewRepository extends Repository<ViewRepository> {
 
     public saveView(view: View, callback: (r: boolean, msg: string) => void): void {
         if (this.delayExecution(() => this.saveView(view, callback))) return;
-        console.log("hr");
 
         const objectStore = this.getObjectStore(VIEW_TABLE, "readwrite");
         const query = objectStore?.put(view);
@@ -74,6 +74,21 @@ export class ViewRepository extends Repository<ViewRepository> {
         });
     }
     
+    public deleteView(id: number, callback: (result: boolean, msg: string) => void) {
+        if (this.delayExecution(() => this.deleteView(id, callback))) return;
+
+        const objectStore = this.getObjectStore(VIEW_TABLE, "readwrite");
+        const query = objectStore?.delete(id);
+
+        query?.addEventListener("success", () => {
+            callback(true, "View successfully deleted");
+        })
+
+        query?.addEventListener("error", () => {
+            callback(false, "This view could not be deleted");
+        })
+    }
+
     private createViewFromAny(result: any, user: string): View | undefined {
         const rawView = result as View;
 

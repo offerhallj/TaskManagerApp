@@ -1,3 +1,4 @@
+import { TaskDisplayType } from "../task_elements/TaskElementFactory.js";
 import { TaskDetail } from "../task_elements/TaskDetail.js";
 import { TaskStatus, TaskPriority } from "../tasks/Task.js";
 import { Order } from "../utils/TaskSorter.js";
@@ -28,6 +29,8 @@ export class View {
     public searchFilter: TaskDetail = TaskDetail.Title;
     public searchValue: string = "";
 
+    public displayType: TaskDisplayType = TaskDisplayType.Basic;
+
     public isChanged: boolean = false;
 
     static newFromExistingView(view: View): View {
@@ -38,6 +41,7 @@ export class View {
         newView.sortOrder = view.sortOrder;
         newView.searchFilter = view.searchFilter;       
         newView.searchValue = view.searchValue;
+        newView.displayType = view.displayType;
 
         let todo = view.statusFilters.get(TaskStatus.ToDo);
         let prog = view.statusFilters.get(TaskStatus.InProgress);

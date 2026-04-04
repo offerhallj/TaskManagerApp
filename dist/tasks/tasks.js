@@ -70,8 +70,9 @@ function changeTableDisplay(type) {
 function sortElements(value) {
     let detail = value.split(",")[0];
     let order = value.split(",")[1];
-    console.log(detail + ", " + order);
     sort(detail, taskElements, order);
+    viewHolder.rwView.sortHeader = detail;
+    viewHolder.rwView.sortOrder = order;
     drawTaskElements();
 }
 // I used this resource to see how to iterate over an enum
