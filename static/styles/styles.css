@@ -4,9 +4,9 @@ html {
     font-size: 62.5%;
     --black: #0b0d13;
     --off-black: #272a33;
-    --dark-blue: #1f4079;
-    --mid-blue: #2d569c;
-    --light-blue: #748cab;
+    --dark-blue: #1a315c;
+    --mid-blue: #2f4c80;
+    --light-blue: #416da7;
     --off-white: #f0ebd8;   
 }
 
@@ -107,26 +107,31 @@ main .sidebar nav {
 
 .views-nav li {
     padding: 12px 0;
-    padding-left: 4px;
+    padding-left: 16px;
     font-size: 1.8rem;
-    width: 100%;
-    max-width: 216px;
-    transition: all 0.1s;
+    width: 90%;
+    transition: all 0.3s;
     border-radius: 0 16px 16px 0;
-}
-
-.views-nav li:hover {
-    text-decoration: underline;
+    background-color: var(--black);
 }
 
 .views-nav li.active {
     background-color: var(--off-black);
+    box-shadow: 0 2px 8px black;
+    width: 100%;
+}
+
+.views-nav li:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 8px black;
+    width: 105%;
+    background-color: var(--mid-blue);
 }
 
 /* ===== Task View ===== */
 main .task-view {
     flex: 1;
-    padding: 48px 32px;
+    padding: 48px 40px;
     position: relative;
 }
 
@@ -137,7 +142,8 @@ main .task-view {
 
 .task-view h2 {
     font-size: 3.2rem;
-    margin: 0;
+    margin: 4px 0;
+    font-weight: 400;
     padding-left: 8px;
 }
 
@@ -154,24 +160,23 @@ main .task-view {
     width: 200%;
     height: 200%;
     border-radius: 100%;
-    box-shadow: -64px -64px 0 var(--black);
+    box-shadow: -64px -64px 0 var(--black), inset 0 0px 10px var(--off-black);
 }
 
 .view-button-container {
     border-radius: 16px;  
     background-color: var(--dark-blue);
-  
     display: flex;
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    
     width: 160px;
     transition: all 0.3s;
 }
 
 .view-button-container:hover {
     background-color: var(--black);
+    box-shadow: 2px 2px 8px var(--off-black);
     width: 360px;
 }
 
@@ -186,19 +191,77 @@ main .task-view {
 #search-form {
     width: 100%;
     display: flex;
+    align-items: center;
     max-width: 75vw;
-    padding: 16px;
+    border-radius: 32px;
+    margin-bottom: 16px;
     background-color: var(--off-black);
-    border-radius: 16px;
+    box-shadow: 0 0 10px var(--light-blue), inset 0 1px 8px var(--black);
+}
+
+#search-form label {
+    font-size: 1.2rem;
+    padding-left: 16px;
+    margin: 0;
+    top: 8px;
+    position: absolute;
+}
+
+#search-form img {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    margin-left: 16px;
 }
 
 #search-bar {
     flex: 1;
-    background-color: transparent;
+    background-color:transparent;
+    color: var(--off-white);
+    padding: 24px 16px;
+    border-radius: 32px 0 0 32px;
     border: none;
     outline: none;
     font-size: 2.0rem;
+}
+
+.filter-option-container {
+    position: relative;
+    background-color: var(--black);
+    border-radius: 32px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: stretch;
+    padding-left: 16px;
+}
+
+#search-options {
+    border: none;
+    background-color: var(--black);
+    border-radius: 32px;
+    padding: 16px;
+    margin-right: 16px;
+    /* margin-top: 16px; */
+    width: 240px;
     color: var(--off-white);
+    outline: none;
+    font-size: 1.8rem;
+    flex: 1;
+}
+
+#search-options:active {
+}
+
+/* https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329;
 }
 
 /* ===== Task Elements ===== */
