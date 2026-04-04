@@ -467,6 +467,22 @@ input:-webkit-autofill:active{
     align-items: center;
     box-sizing: content-box;
     border: 2px solid var(--black);
+    min-height: 42px;
+}
+
+.action-button:has(select) {
+    background-color: var(--dark-blue);
+    border: 2px solid var(--light-blue);
+}
+
+.action-button select {
+    width: 100%;
+    outline: none;
+    border: none;
+    color: var(--off-white);
+    background-color: var(--dark-blue);
+    margin-left: 4px;
+    font-size: 1.6rem;
 }
 
 .action-button:hover {
@@ -475,9 +491,13 @@ input:-webkit-autofill:active{
     box-shadow: 0 0px 8px black;
 }
 
+.action-button:has(select):hover {
+    border: 2px solid var(--off-white);
+} 
+
 .action-button p {
     margin: 0;
-    margin-left: 16px;
+    margin-left: 8px;
 }
 
 .task-element.overdue {
@@ -498,4 +518,38 @@ input:-webkit-autofill:active{
 .task-element.due-today .header-container {
     border-bottom: 1px solid white;
     filter: invert(24%) sepia(42%) saturate(4970%) hue-rotate(359deg) brightness(101%) contrast(107%);
+}
+
+.task-element .compact-action-container {
+    flex: 1;
+    display: flex;
+    align-content: center;
+}
+
+.task-element.basic .compact-action-container * {
+    min-width: 0;
+}
+
+.task-element.compact .main-content {
+    padding: 0;
+}
+
+.task-element.compact .header-container {
+    border: none;
+    margin: 0;
+}
+
+
+
+.task-element.compact .compact-action-container .action-button:first-of-type {
+    min-width: 135px;
+}
+
+.task-element.compact .compact-action-container .action-button:not(:first-of-type) {
+    min-width: 0;
+    padding: 0 12px;
+}
+
+select {
+  cursor: pointer !important;
 }

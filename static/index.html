@@ -75,7 +75,7 @@
             <div id="task-container">
             </div>
 
-            <div class="task-element">
+            <div class="task-element detailed">
                 <div class="main-content">
                     <div class="header-container">
                         <h3>Title</h3>
@@ -108,13 +108,16 @@
                     </div>
                     <div class="action-button">
                         <img src="./icons/delete.svg"width="24" title="Delete this View">
-                        <p>To Do</p>
+                        <select id="task-priority-setter">
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Complete">Complete</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
-            
-            <div class="task-element due-today">
+            <div class="task-element basic overdue">
                 <div class="main-content">
                     <div class="header-container">
                         <h3>Title</h3>
@@ -123,7 +126,6 @@
                             <p>Due: Mon Apr 6th 2026</p>
                         </div>
                     </div>
-                    <p class="task-description">This is the description of the task</p>
                     <div class="task-detail-content">
                         <img src="./icons/clock.svg" width="20">
                         <p>Created: Mon Apr 6th 2026</p>
@@ -134,26 +136,30 @@
                         <img src="./icons/user.svg" width="20">
                         <p>User: Asd</p>
                     </div>
-                    <div class="tag-container"><small>Tag 1</small><small>Tag 2</small></div>
                 </div>
                 <div class="action-container">
-                    <div class="action-button">
-                        <img src="./icons/edit-square.svg"width="24" title="Edit this Task">
-                        <p>Edit</p>
-                    </div>
-                    <div class="action-button">
-                        <img src="./icons/delete.svg"width="24" title="Delete this Task">
-                        <p>Delete</p>
+                    <div class="compact-action-container">
+                        <div class="action-button">
+                            <img src="./icons/edit-square.svg"width="24" title="Edit this Task">
+                            <p>Edit</p>
+                        </div>
+                        <div class="action-button">
+                            <img src="./icons/delete.svg"width="24" title="Delete this Task">
+                            <p>Delete</p>
+                        </div>
                     </div>
                     <div class="action-button">
                         <img src="./icons/delete.svg"width="24" title="Delete this View">
-                        <p>To Do</p>
+                        <select id="task-priority-setter">
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Complete">Complete</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
-            
-            <div class="task-element overdue">
+            <div class="task-element compact overdue">
                 <div class="main-content">
                     <div class="header-container">
                         <h3>Title</h3>
@@ -162,31 +168,25 @@
                             <p>Due: Mon Apr 6th 2026</p>
                         </div>
                     </div>
-                    <p class="task-description">This is the description of the task</p>
-                    <div class="task-detail-content">
-                        <img src="./icons/clock.svg" width="20">
-                        <p>Created: Mon Apr 6th 2026</p>
-                        <img src="./icons/priority.svg" width="20">
-                        <p>Priority: High</p>
-                        <img src="./icons/checklist.svg" width="20">
-                        <p>Status: To do</p>
-                        <img src="./icons/user.svg" width="20">
-                        <p>User: Asd</p>
-                    </div>
-                    <div class="tag-container"><small>Tag 1</small><small>Tag 2</small></div>
                 </div>
                 <div class="action-container">
-                    <div class="action-button">
-                        <img src="./icons/edit-square.svg"width="24" title="Edit this Task">
-                        <p>Edit</p>
-                    </div>
-                    <div class="action-button">
-                        <img src="./icons/delete.svg"width="24" title="Delete this Task">
-                        <p>Delete</p>
-                    </div>
-                    <div class="action-button">
-                        <img src="./icons/delete.svg"width="24" title="Delete this View">
-                        <p>To Do</p>
+                    <div class="compact-action-container">
+                        <div class="action-button">
+                            <img src="./icons/delete.svg"width="24" title="Delete this View">
+                            <select id="task-priority-setter">
+                                <option value="To Do">To Do</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Complete">Complete</option>
+                            </select>
+                        </div>
+                        <div class="action-button">
+                            <img src="./icons/edit-square.svg"width="24" title="Edit this Task">
+                            <!-- <p>Edit</p> -->
+                        </div>
+                        <div class="action-button">
+                            <img src="./icons/delete.svg"width="24" title="Delete this Task">
+                            <!-- <p>Delete</p> -->
+                        </div>
                     </div>
                 </div>
             </div>
