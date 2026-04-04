@@ -1,7 +1,7 @@
 import { Observable } from "../interfaces/Observable.js";
 import type { View } from "./View.js";
 
-export class ViewHolder {
+export class ViewHolder extends Observable<View> {
     private static _instance: ViewHolder;
 
     static get Instance(): ViewHolder {
@@ -13,5 +13,7 @@ export class ViewHolder {
     get view(): View { return this._view;}
     public setView(view: View) {
         this._view = view;
+        
+        this.notify(view);
     }
 }

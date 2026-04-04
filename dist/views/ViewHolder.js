@@ -1,5 +1,5 @@
 import { Observable } from "../interfaces/Observable.js";
-export class ViewHolder {
+export class ViewHolder extends Observable {
     static get Instance() {
         if (ViewHolder._instance == null)
             ViewHolder._instance = new ViewHolder();
@@ -8,6 +8,7 @@ export class ViewHolder {
     get view() { return this._view; }
     setView(view) {
         this._view = view;
+        this.notify(view);
     }
 }
 //# sourceMappingURL=ViewHolder.js.map

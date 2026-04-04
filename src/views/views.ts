@@ -4,6 +4,7 @@ import { View } from "./View.js";
 
 const viewHolder = ViewHolder.Instance;
 const viewService = ViewService.Instance;
+viewHolder.subscribe(onNewView);
 let viewsList: View[] = [];
 
 function getAllViewsForUser() {
@@ -12,6 +13,8 @@ function getAllViewsForUser() {
         console.log(views);
         viewsList = views;
         drawViewOptions();
+        if (viewsList[0] != undefined)
+            viewHolder.setView(viewsList[0]);
     });
 }
 
@@ -37,10 +40,15 @@ function saveCurrentView() {
 
 }
 
+function onNewView(view: View) {
+    viewTitle.textContent = view.title;
+}
+
 document.getElementById("save-view")?.addEventListener("click", saveCurrentView);
 
 document.getElementById("new-view")?.addEventListener("click", createNewView);
 
 const viewContainerNav = document.getElementById("views-nav") as HTMLElement;
+const viewTitle = document.getElementById("view-title") as HTMLElement;
 
 getAllViewsForUser();

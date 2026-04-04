@@ -20,8 +20,11 @@ function getAllTasks() {
         for (let task of tasks) {
             taskElements.push(elementFactory.create(task));
         }
-        // finally, draw the taskElements and populate options
-        drawTaskElements();
+        // if the viewholder loaded a view before we loaded our tasks, draw the tasks
+        // otherwise, wait for the viewholder to load
+        if (viewHolder.view != undefined) {
+            drawTaskElements();
+        }
     });
 }
 /** Navigate to the taskform with the current task selected */
@@ -158,7 +161,8 @@ const sortOptions = document.getElementById("sort-options");
 const searchFilterOptions = document.getElementById("search-options");
 const searchBar = document.getElementById("search-bar");
 const viewHolder = ViewHolder.Instance;
-viewHolder.setView(new View);
+viewHolder.subscribe((v) => drawTaskElements());
+// viewHolder.setView(new View);
 document.getElementById("search-form")?.addEventListener("input", filterBySearch);
 document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
 document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));
