@@ -8,6 +8,7 @@ export declare class TaskService {
     getAllTasks(callback: (result: boolean, tasks: Task[]) => void): void;
     getTask(id: number, callback: (result: boolean, task: Task | undefined) => void): void;
     editTask(id: number, title: string, description: string, due: string, priority: string, user: string, tags: string, callback: (result: boolean) => void): void;
+    updateTask(task: Task, callback: (r: boolean, msg: string) => void): void;
     /** Remove a task from the database */
     deleteTask(task: Task, callback: (result: boolean) => void): void;
     /** Try to get the username for the current user; print an error if undefined and return the result */

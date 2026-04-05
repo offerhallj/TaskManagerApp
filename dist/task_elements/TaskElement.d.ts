@@ -7,8 +7,10 @@ export declare abstract class TaskElement implements UIElement {
     Element: HTMLElement;
     onEdit: ((element: TaskElement) => void);
     onDelete: ((element: TaskElement) => void);
+    onSetStatus: ((element: TaskElement) => void);
     edit(element: TaskElement): void;
     delete(element: TaskElement): void;
+    setStatus(element: TaskElement): void;
     constructor(task: Task);
     abstract create(): HTMLElement;
     protected createCellForValue(val: string): HTMLElement;

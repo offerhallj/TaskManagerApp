@@ -6,9 +6,10 @@ import { DueToday } from "./decorators/DueToday.js";
 import { TaskElement } from "./TaskElement.js";
 import { Task } from "../tasks/Task.js";
 export class TaskElementFactory {
-    constructor(type, onEdit, onDelete) {
+    constructor(type, onEdit, onDelete, onChangeStatus) {
         this._onEdit = onEdit;
         this._onDelete = onDelete;
+        this._onChangeStatus = onChangeStatus;
         this._type = type;
     }
     setDisplayType(type) {
@@ -27,6 +28,7 @@ export class TaskElementFactory {
         }
         newElement.onEdit = this._onEdit;
         newElement.onDelete = this._onDelete;
+        newElement.onSetStatus = this._onChangeStatus;
         if (task.isOverdue) {
             newElement = new OverdueTask(newElement);
         }

@@ -44,8 +44,8 @@ function editTask(taskElement: TaskElement) {
     // window.location.replace("/docs/taskform.html");
 }
 
-function setTaskStatus(taskElement: TaskElement, status: TaskStatus) {
-    
+function setTaskStatus(taskElement: TaskElement) {
+    service.updateTask(taskElement.Task, () => {});
 }
 
 /** Delete the selected task */
@@ -229,7 +229,7 @@ function onNewView(view: View) {
 const service = TaskService.Instance;
 let taskElements: TaskElement[] = [];
 
-const elementFactory = new TaskElementFactory(TaskDisplayType.Basic, editTask, deleteTask);
+const elementFactory = new TaskElementFactory(TaskDisplayType.Basic, editTask, deleteTask, setTaskStatus);
 
 const taskContainer = document.getElementById("task-container") as HTMLElement;
 const priorityFilters = document.getElementById("priority-filter-container") as HTMLElement;

@@ -4,7 +4,8 @@ export declare class TaskElementFactory {
     private _type;
     private _onEdit;
     private _onDelete;
-    constructor(type: TaskDisplayType, onEdit: (element: TaskElement) => void, onDelete: (element: TaskElement) => void);
+    private _onChangeStatus;
+    constructor(type: TaskDisplayType, onEdit: (element: TaskElement) => void, onDelete: (element: TaskElement) => void, onChangeStatus: (element: TaskElement) => void);
     setDisplayType(type: TaskDisplayType): void;
     create(task: Task): TaskElement;
     /** Convert an existing list of taskElements to a new list according to the current display type */

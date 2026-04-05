@@ -3,6 +3,7 @@ import { Task, TaskStatus } from "../tasks/Task.js";
 export class TaskElement {
     edit(element) { this.onEdit(element); }
     delete(element) { this.onDelete(element); }
+    setStatus(element) { this.onSetStatus(element); }
     constructor(task) {
         this.Task = task;
         // I realized that calling the create method in the constructor here was causing issues with the create method in overduetasks
@@ -150,6 +151,13 @@ export class TaskElement {
         select.appendChild(this.createStatusOption(TaskStatus.InProgress));
         select.appendChild(this.createStatusOption(TaskStatus.Complete));
         button.appendChild(select);
+        console.log(this.Task.status);
+        select.value = this.Task.status;
+        select.addEventListener("change", () => {
+            console.log(select.value);
+            this.Task.status = select.value;
+            this.setStatus(this);
+        });
         return button;
     }
     createStatusOption(status) {

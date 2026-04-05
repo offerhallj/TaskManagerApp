@@ -47,6 +47,14 @@ export class TaskService {
         task.id = id;
         repo.updateTask(task, callback);
     }
+    updateTask(task, callback) {
+        repo.updateTask(task, (r) => {
+            if (!r)
+                callback(r, "Failed to update task");
+            else
+                callback(r, "Update successful");
+        });
+    }
     /** Remove a task from the database */
     deleteTask(task, callback) {
         if (task.id == undefined) {

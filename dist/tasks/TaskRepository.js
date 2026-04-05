@@ -88,6 +88,7 @@ export class TaskRepository extends Repository {
         const task = result;
         if (task != undefined && task.user == user) {
             const newTask = new Task(task.title, task.description, task.dueDate, task.priority, task.user, task.tags);
+            newTask.status = task.status;
             newTask.createdDate = task.createdDate;
             newTask.priority = task.priority;
             newTask.id = task.id;

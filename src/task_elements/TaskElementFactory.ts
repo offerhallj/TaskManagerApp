@@ -10,12 +10,15 @@ export class TaskElementFactory {
     private _type: TaskDisplayType;
     private _onEdit: (element: TaskElement) => void;
     private _onDelete: (element: TaskElement) => void;
+    private _onChangeStatus: (element: TaskElement) => void;
 
     constructor(type: TaskDisplayType, 
         onEdit: (element: TaskElement) => void, 
-        onDelete: (element: TaskElement) => void) {
+        onDelete: (element: TaskElement) => void,
+        onChangeStatus: (element: TaskElement) => void) {
             this._onEdit = onEdit;
             this._onDelete = onDelete;
+            this._onChangeStatus = onChangeStatus;
             this._type = type;
     }
 
@@ -33,7 +36,8 @@ export class TaskElementFactory {
 
         newElement.onEdit = this._onEdit;
         newElement.onDelete = this._onDelete;
-
+        newElement.onSetStatus = this._onChangeStatus;
+        
         if (task.isOverdue) { newElement = new OverdueTask(newElement); }
         else if (task.isDueToday) { newElement = new DueToday(newElement); }
         return newElement;

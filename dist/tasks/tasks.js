@@ -39,7 +39,8 @@ function editTask(taskElement) {
     // formWindow.src = "./taskform.html";
     // window.location.replace("/docs/taskform.html");
 }
-function setTaskStatus(taskElement, status) {
+function setTaskStatus(taskElement) {
+    service.updateTask(taskElement.Task, () => { });
 }
 /** Delete the selected task */
 function deleteTask(taskElement) {
@@ -209,7 +210,7 @@ function onNewView(view) {
 }
 const service = TaskService.Instance;
 let taskElements = [];
-const elementFactory = new TaskElementFactory(TaskDisplayType.Basic, editTask, deleteTask);
+const elementFactory = new TaskElementFactory(TaskDisplayType.Basic, editTask, deleteTask, setTaskStatus);
 const taskContainer = document.getElementById("task-container");
 const priorityFilters = document.getElementById("priority-filter-container");
 const statusFilters = document.getElementById("status-filter-container");

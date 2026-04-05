@@ -11,9 +11,10 @@ export abstract class TaskElement implements UIElement {
     
     public onEdit!: ((element: TaskElement) => void);
     public onDelete!: ((element: TaskElement) => void);
+    public onSetStatus!: ((element: TaskElement) => void);
     public edit(element: TaskElement): void { this.onEdit(element); }
     public delete(element: TaskElement): void { this.onDelete(element); }
-
+    public setStatus(element: TaskElement): void { this.onSetStatus(element); }
 
     constructor(task: Task) {
         this.Task = task;
@@ -139,7 +140,7 @@ export abstract class TaskElement implements UIElement {
         const deleteButton = this.createActionButton("Delete", "./icons/delete.svg", () => this.delete(this), type != "compact");
         const editButton = this.createActionButton("Edit", "./icons/edit-square.svg", () => this.edit(this), type != "compact");
         const statusSelector = this.createStatusSetter("./icons/checklist.svg");
-        
+
         if (type != "detailed") {
             const compactContainer = this.createHTMLElement("div", "compact-action-container");
             parent.appendChild(compactContainer);
@@ -185,6 +186,13 @@ export abstract class TaskElement implements UIElement {
         select.appendChild(this.createStatusOption(TaskStatus.InProgress));
         select.appendChild(this.createStatusOption(TaskStatus.Complete));
         button.appendChild(select);
+        console.log(this.Task.status);
+        select.value = this.Task.status;
+        select.addEventListener("change", () => {
+            console.log(select.value);
+            this.Task.status = select.value as TaskStatus;
+            this.setStatus(this);
+        });
         return button;
     }
 

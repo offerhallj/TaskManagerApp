@@ -115,7 +115,7 @@ export class TaskRepository extends Repository<TaskRepository> {
                 task.user,
                 task.tags
             );
-
+            newTask.status = task.status;
             newTask.createdDate = task.createdDate;
             newTask.priority = task.priority;
             newTask.id = task.id;

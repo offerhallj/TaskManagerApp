@@ -52,6 +52,13 @@ export class TaskService {
         repo.updateTask(task, callback);
     }
 
+    public updateTask(task: Task, callback: (r: boolean, msg: string) => void) {
+        repo.updateTask(task, (r) => {
+            if (!r) callback(r, "Failed to update task");
+            else callback(r, "Update successful");
+        })
+    }
+
     /** Remove a task from the database */
     public deleteTask(task: Task , callback: (result: boolean) => void) {
         if (task.id == undefined) { callback(false); return; }
