@@ -7,41 +7,31 @@
     <link rel="stylesheet" href="/static/styles/styles.css">
 </head>
 <body>
-    <header>
-        Task Manager App
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html" id="logout-button">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <form class="content">
-            <input type="number" id="id" value="-1" class="hidden">
-            <input type="text" id="user" class="hidden">
-            <input type="text" id="createdate" class="hidden">
-            <input type="text" id="status" class="hidden">
-            <label for="title">Title</label>
-            <input type="text" id="title" required>
-            <label for="description">Description</label>
-            <textarea id="description" required></textarea>
-            <label for="duedate">Due Date</label>
-            <input type="date" id="duedate" required>
-            <label for="tags">Tags</label>
-            <!-- <input type="text" id="tags" class="hidden"> -->
-            <input type="text" id="tags">
-            <label for="priority">Priority</label>
-            <select id="priority" required>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-            <button type="submit">Save</button>
-        </form>
-    </main>
+    <form class="content task-form">
+        <h2 id="task-form-title">New Task</h2>
+        
+        <input type="number" id="id" value="-1" class="hidden">
+        <input type="text" id="user" class="hidden">
+        <input type="text" id="createdate" class="hidden">
+        <input type="text" id="status" class="hidden">
+        <label for="title">Title</label>
+        <input type="text" id="title" required>
+        <label for="description">Description</label>
+        <textarea id="description" required></textarea>
+        <label for="duedate">Due Date</label>
+        <input type="date" id="duedate" required>
+        <label for="tags">Tags</label>
+        <!-- <input type="text" id="tags" class="hidden"> -->
+        <input type="text" id="tags">
+        <label for="priority">Priority</label>
+        <select id="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <button type="submit">Save</button>
+    </form>
 </body>
-<script type="module" src="../dist/login/validateLogin.js"></script>
 <script type="module" src="../dist/tasks/task_form.js"></script>
 <script type="module" src="../dist/app.js"></script>
 </html>

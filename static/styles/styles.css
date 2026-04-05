@@ -108,6 +108,23 @@ form * {
     flex: 1;
 }
 
+form input,
+form textarea {
+    width: 100%;
+    background-color: var(--off-black);
+    color: var(--off-white);
+    outline: none;
+    border: none;
+    font-size: 1.6rem;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+form label {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
 /* ===== Views Menu ===== */
 main .sidebar {
     display: flex;
@@ -613,4 +630,43 @@ input:-webkit-autofill:active{
 
 select {
   cursor: pointer !important;
+}
+
+/* ===== Forms ===== */
+#form-window-container:not(.hidden) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #05051e88;
+    display: flex;
+    transition: all 0.3s;
+    overflow: hidden;
+    animation: fade-in 300ms;
+}
+
+.task-form {
+    border-bottom: 2px solid var(--mid-blue);
+    background-color: var(--black);
+    border-radius: 16px;
+    margin: auto;
+    width: 50%;
+    padding: 32px;
+    box-shadow: 0 0 16px black, 0 0 8px var(--light-blue);
+    background-color: var(--black);
+}
+
+.task-form h2 {
+    margin-top: 0;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100;
+    }
 }

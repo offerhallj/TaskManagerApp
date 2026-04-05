@@ -18,8 +18,10 @@ export class TaskService {
             return;
         }
         const newTask = new Task(title, description, this.getDate(due), priority, user, tags);
+        console.log(newTask);
         repo.createTask(newTask, (r, id) => {
             newTask.id = id;
+            console.log(id);
             callback(r, newTask);
         });
     }

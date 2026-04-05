@@ -8,7 +8,7 @@ import { canFilter } from "../utils/TaskFilter.js";
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
 import type { View } from "../views/View.js";
-import { BasicTaskElement } from "../task_elements/BasicTaskElement.js";
+import { tryGetSelectedTask } from "./task_form.js";
 
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() { 
@@ -38,7 +38,10 @@ function editTask(taskElement: TaskElement) {
     let task = taskElement.Task;
     if (task.id == undefined) return;
     sessionStorage.setItem(SESSION_TASK_KEY, task.id.toString());
-    window.location.replace("/static/taskform.html");
+    formWindowContainer.classList.remove("hidden");
+    tryGetSelectedTask();
+    // formWindow.src = "./taskform.html";
+    // window.location.replace("/static/taskform.html");
 }
 
 /** Delete the selected task */
@@ -57,7 +60,10 @@ function deleteTask(taskElement: TaskElement) {
 function createTask() {
     // clear the session storage
     sessionStorage.setItem("id", "-1");
-    window.location.replace("/static/taskform.html");
+    formWindowContainer.classList.remove("hidden");
+    tryGetSelectedTask();
+    // formWindow.src = "./taskform.html";
+    // window.location.replace("/static/taskform.html");
 }
 
 /** All all taskElements to the task table body */
@@ -240,6 +246,9 @@ const compactbtn = document.getElementById("compact-view")
 compactbtn?.addEventListener("click", (e) => changeTableDisplay(TaskDisplayType.Compact, compactbtn));
 const basicbtn = document.getElementById("basic-view")
 basicbtn?.addEventListener("click", (e) => changeTableDisplay(TaskDisplayType.Basic, basicbtn));
+
+const formWindowContainer = document.getElementById("form-window-container") as HTMLElement;
+const formWindow = document.getElementById("form-window") as HTMLIFrameElement;
 
 document.getElementById("new-task")?.addEventListener("click", () => createTask());
 sortOptions.addEventListener("change", () => sortElements(sortOptions.value));

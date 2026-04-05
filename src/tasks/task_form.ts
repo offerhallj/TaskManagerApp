@@ -10,7 +10,7 @@ function getCachedID(): number {
 }
 
 /** Try to get the cached task id from session storage and populate the edit fields */
-function tryGetSelectedTask() {
+export function tryGetSelectedTask() {
     const id = getCachedID();
     if (id < 0) return;
 
@@ -40,9 +40,7 @@ function populateEditFields(task: Task) {
 }
 
 /** Create a new task and add it to the view */
-function createTask(e: SubmitEvent) {
-    e.preventDefault();
-    
+function createTask() {   
     service.createNewTask(
         titleInput.value,
         descriptionInput.value,
@@ -56,8 +54,7 @@ function createTask(e: SubmitEvent) {
 }
 
 /** Save an edited task to the database */
-function saveTask(e: SubmitEvent) {
-    e.preventDefault();
+function saveTask() {
     console.log(idInput.value);
     console.log(userInput.value);
     service.editTask(
@@ -81,7 +78,8 @@ function parseTags() {
 
 /** Redirect to the tasks page */
 function redirect() {
-    window.location.replace("/static/index.html");
+    window.location.reload();
+    // window.location.replace("/static/index.html");
 }
 
 const service = TaskService.Instance;
@@ -98,10 +96,11 @@ const tagsInput = document.getElementById("tags") as HTMLInputElement;
 tagsInput.addEventListener("input", parseTags);
 
 
-document.querySelector("form")?.addEventListener("submit", (e) => {
+document.querySelector("form.task-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
     const id = getCachedID();
-    if (id < 0) createTask(e);
-    else saveTask(e);
+    if (id < 0) createTask();
+    else saveTask();
 })
 
 tryGetSelectedTask();

@@ -20,9 +20,11 @@ export class TaskService {
         const user = this.getUser();
         if(user == undefined) { callback(false, undefined); return; }
         const newTask = new Task(title, description, this.getDate(due), <TaskPriority> priority, user, tags);
-
+        console.log(newTask);
+        
         repo.createTask(newTask, (r, id) => {
             newTask.id = id;
+            console.log(id);
             callback(r, newTask)
         });
     }

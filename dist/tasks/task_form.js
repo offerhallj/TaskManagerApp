@@ -9,7 +9,7 @@ function getCachedID() {
     return parseInt(cachedID);
 }
 /** Try to get the cached task id from session storage and populate the edit fields */
-function tryGetSelectedTask() {
+export function tryGetSelectedTask() {
     const id = getCachedID();
     if (id < 0)
         return;
@@ -37,16 +37,14 @@ function populateEditFields(task) {
     tagsInput.value = task.tags;
 }
 /** Create a new task and add it to the view */
-function createTask(e) {
-    e.preventDefault();
+function createTask() {
     service.createNewTask(titleInput.value, descriptionInput.value, dueInput.value, priorityInput.value, tagsInput.value, (result, newTask) => {
         if (result)
             redirect();
     });
 }
 /** Save an edited task to the database */
-function saveTask(e) {
-    e.preventDefault();
+function saveTask() {
     console.log(idInput.value);
     console.log(userInput.value);
     service.editTask(parseInt(idInput.value), titleInput.value, descriptionInput.value, dueInput.value, priorityInput.value, userInput.value, tagsInput.value, (result) => {
@@ -59,7 +57,8 @@ function parseTags() {
 }
 /** Redirect to the tasks page */
 function redirect() {
-    window.location.replace("/static/index.html");
+    window.location.reload();
+    // window.location.replace("/static/index.html");
 }
 const service = TaskService.Instance;
 const idInput = document.getElementById("id");
@@ -72,12 +71,13 @@ const priorityInput = document.getElementById("priority");
 const statusInput = document.getElementById("status");
 const tagsInput = document.getElementById("tags");
 tagsInput.addEventListener("input", parseTags);
-document.querySelector("form")?.addEventListener("submit", (e) => {
+document.querySelector("form.task-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
     const id = getCachedID();
     if (id < 0)
-        createTask(e);
+        createTask();
     else
-        saveTask(e);
+        saveTask();
 });
 tryGetSelectedTask();
 //# sourceMappingURL=task_form.js.map

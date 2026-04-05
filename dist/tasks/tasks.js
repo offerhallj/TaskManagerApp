@@ -7,7 +7,7 @@ import { ViewHolder } from "../views/ViewHolder.js";
 import { canFilter } from "../utils/TaskFilter.js";
 import { SESSION_TASK_KEY } from "../global.js";
 import { TaskService } from "./TaskService.js";
-import { BasicTaskElement } from "../task_elements/BasicTaskElement.js";
+import { tryGetSelectedTask } from "./task_form.js";
 /** Retrieve all tasks for the current user from the database, convert them to taskElements, and draw them */
 function getAllTasks() {
     taskElements.splice(0, taskElements.length);
@@ -34,7 +34,10 @@ function editTask(taskElement) {
     if (task.id == undefined)
         return;
     sessionStorage.setItem(SESSION_TASK_KEY, task.id.toString());
-    window.location.replace("/static/taskform.html");
+    formWindowContainer.classList.remove("hidden");
+    tryGetSelectedTask();
+    // formWindow.src = "./taskform.html";
+    // window.location.replace("/static/taskform.html");
 }
 /** Delete the selected task */
 function deleteTask(taskElement) {
@@ -52,7 +55,10 @@ function deleteTask(taskElement) {
 function createTask() {
     // clear the session storage
     sessionStorage.setItem("id", "-1");
-    window.location.replace("/static/taskform.html");
+    formWindowContainer.classList.remove("hidden");
+    tryGetSelectedTask();
+    // formWindow.src = "./taskform.html";
+    // window.location.replace("/static/taskform.html");
 }
 /** All all taskElements to the task table body */
 function drawTaskElements() {
@@ -217,6 +223,8 @@ const compactbtn = document.getElementById("compact-view");
 compactbtn?.addEventListener("click", (e) => changeTableDisplay(TaskDisplayType.Compact, compactbtn));
 const basicbtn = document.getElementById("basic-view");
 basicbtn?.addEventListener("click", (e) => changeTableDisplay(TaskDisplayType.Basic, basicbtn));
+const formWindowContainer = document.getElementById("form-window-container");
+const formWindow = document.getElementById("form-window");
 document.getElementById("new-task")?.addEventListener("click", () => createTask());
 sortOptions.addEventListener("change", () => sortElements(sortOptions.value));
 getAllTasks();
