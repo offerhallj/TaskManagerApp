@@ -27,6 +27,7 @@ function getAllTasks() {
         // if the viewholder loaded a view before we loaded our tasks, draw the tasks
         // otherwise, wait for the viewholder to load
         if (viewHolder.rView != undefined) {
+            sort(viewHolder.rView.sortHeader, taskElements, viewHolder.rView.sortOrder);
             drawTaskElements();
         }
     });
@@ -211,6 +212,7 @@ function onNewView(view: View) {
     if (view.displayType == TaskDisplayType.Detailed) updateDisplay(view.displayType, detailedBtn!)    
     
     setFilterValues();
+    sort(view.sortHeader, taskElements, view.sortOrder);
     drawTaskElements();
 }
 

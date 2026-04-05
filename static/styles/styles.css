@@ -41,7 +41,7 @@ main {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
-    background: radial-gradient(var(--dark-grey), var(--dark-blue));     
+    background: radial-gradient(var(--dark-blue), var(--off-black));     
     /* background: radial-gradient(var(--mid-blue), var(--dark-blue));      */
 }
 
@@ -219,12 +219,12 @@ main .task-view {
 
 .view-button-container {
     border-radius: 16px;  
-    background-color: var(--dark-blue);
+    /* background-color: var(--dark-blue); */
     display: flex;
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    width: 180px;
+    width: 136px;
     transition: all 0.3s;
 }
 
@@ -240,6 +240,31 @@ main .task-view {
     margin: 0;
     margin-left: 16px;
 }
+
+.task-header {
+    align-items: center;
+    flex: 1;
+}
+
+.task-header .icon-button {
+    overflow: hidden;
+    align-items: center;
+    background-color: var(--black);
+    border-radius: 64px;
+    margin-left: 16px;
+    transform: all 0.3s;
+    width: fit-content;
+    max-width: 24px;
+}
+
+.task-header .icon-button a {
+    margin: 0 24px;
+}
+
+.task-header .icon-button:hover {
+    max-width: 500px;
+}
+
 
 /* ===== Search Container ===== */
 #search-form {

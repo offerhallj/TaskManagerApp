@@ -32,7 +32,7 @@
                 <div class="view-title-container">
                     <div class="view-button-container">
                         <img src="./icons/bookmark-check.svg" class="icon-button inactive" width="24" id="save-view" title="Save this View">
-                        <img src="./icons/bookmark-add.svg" class="icon-button" width="24" id="new-view" title="Create a new View"> 
+                        <!-- <img src="./icons/bookmark-add.svg" class="icon-button" width="24" id="new-view" title="Create a new View">  -->
                         <img src="./icons/edit-square.svg" class="icon-button" width="24" id="edit-view" title="Edit this View">
                         <img src="./icons/delete.svg" class="icon-button" width="24"  id="delete-view" title="Delete this View">
                         <p id="view-action">Test</p>
@@ -60,27 +60,41 @@
                 </div>
             </form>
   
-            <div class="view-options">
-                <div class="display-type-buttons">
-                    <img class="icon-button" src="./icons/compact.svg" width="20" id="compact-view">
-                    <img class="icon-button" src="./icons/basic.svg" width="20" id="basic-view">
-                    <img class="icon-button" src="./icons/detailed.svg" width="20" id="detailed-view">
+            <div class="flex space-between">
+                <div class="flex task-header">
+                    <h2>Tasklist</h2>
+                    <div class="icon-button flex" id="new-task">
+                        <img src="./icons/add.svg">
+                        <a>Create a New Task</a>
+                    </div>
                 </div>
-                <img src="./icons/sort.svg" class="sort-icon" width="24">
-                <div class="option-container sort-options-container">
-                    <label for="sort-options">Sort by</label>
-                    <select id="sort-options">
-                    </select>
+    
+                <div class="view-options">
+                    <div class="display-type-buttons">
+                        <img class="icon-button" src="./icons/compact.svg" width="20" id="compact-view">
+                        <img class="icon-button" src="./icons/basic.svg" width="20" id="basic-view">
+                        <img class="icon-button" src="./icons/detailed.svg" width="20" id="detailed-view">
+                    </div>
+                    <img src="./icons/sort.svg" class="sort-icon" width="24">
+                    <div class="option-container sort-options-container">
+                        <label for="sort-options">Sort by</label>
+                        <select id="sort-options">
+                        </select>
+                    </div>
                 </div>
             </div>
 
             
-            <input type="text" id="view-name">
-            <a href="/static/taskform.html" id="new-task">Create a New Task</a>
             <div id="task-container">
             </div>
+            <input type="text" id="view-name">
         </div>
     </main>
+    <aside>
+        <iframe>
+            
+        </iframe>
+    </aside>
 </body>
 <script type="module" src="../dist/login/validateLogin.js"></script>
 <script type="module" src="../dist/views/views.js"></script>

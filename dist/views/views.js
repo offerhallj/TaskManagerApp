@@ -7,10 +7,15 @@ let activeView = undefined;
 viewHolder.subscribe(onNewView);
 viewHolder.onViewIsChanged = (b) => updateViewTitle(b);
 function updateViewTitle(isViewChanged) {
-    if (isViewChanged)
+    let saveBtn = document.getElementById("save-view");
+    if (isViewChanged) {
         viewTitle.textContent = `${viewHolder.rView.title} *`;
-    if (!isViewChanged)
+        saveBtn?.classList.remove("inactive");
+    }
+    if (!isViewChanged) {
         viewTitle.textContent = viewHolder.rView.title;
+        saveBtn?.classList.add("inactive");
+    }
 }
 let viewsList = [];
 function getAllViewsForUser() {

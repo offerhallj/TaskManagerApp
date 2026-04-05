@@ -10,8 +10,16 @@ viewHolder.subscribe(onNewView);
 viewHolder.onViewIsChanged = (b) => updateViewTitle(b);
 
 function updateViewTitle(isViewChanged: boolean) {
-    if (isViewChanged) viewTitle.textContent = `${viewHolder.rView.title} *`;
-    if (!isViewChanged) viewTitle.textContent = viewHolder.rView.title;
+    let saveBtn = document.getElementById("save-view");
+    if (isViewChanged) {
+        viewTitle.textContent = `${viewHolder.rView.title} *`;
+        saveBtn?.classList.remove("inactive");
+    } 
+    
+    if (!isViewChanged) {
+        viewTitle.textContent = viewHolder.rView.title;
+        saveBtn?.classList.add("inactive");
+    } 
 }
 
 let viewsList: View[] = [];
