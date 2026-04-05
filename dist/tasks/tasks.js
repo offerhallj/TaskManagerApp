@@ -192,6 +192,7 @@ const viewHolder = ViewHolder.Instance;
 viewHolder.subscribe(onNewView);
 document.getElementById("search-form")?.addEventListener("input", filterBySearch);
 document.getElementById("detailed-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Detailed));
+document.getElementById("compact-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Compact));
 document.getElementById("basic-view")?.addEventListener("click", () => changeTableDisplay(TaskDisplayType.Basic));
 document.getElementById("new-task")?.addEventListener("click", () => createTask());
 sortOptions.addEventListener("change", () => sortElements(sortOptions.value));

@@ -6,17 +6,15 @@ export class DetailedTaskElement extends TaskElement {
         this.Element = this.create();
     }
     create() {
-        const tr = document.createElement("tr");
-        tr.appendChild(this.createCellForValue(this.Task.title));
-        tr.appendChild(this.createCellForValue(this.Task.description));
-        tr.appendChild(this.createCellForValue(this.Task.dueDate.toDateString()));
-        tr.appendChild(this.createCellForValue(this.Task.priority));
-        tr.appendChild(this.createCellForValue(this.Task.status));
-        tr.appendChild(this.createCellForValue(this.Task.tags));
-        tr.appendChild(this.createCellForValue(this.Task.createdDate.toDateString()));
-        tr.appendChild(this.createCellForValue(this.Task.user));
-        tr.appendChild(this.createButtonCell());
-        return tr;
+        const taskElement = this.createParentElement("detailed");
+        const mainContent = taskElement.querySelector('.main-content');
+        const tagElement = this.createTagElement();
+        const details = this.createDetailContent();
+        const desc = this.createTextElement("p", this.Task.description);
+        mainContent?.appendChild(desc);
+        mainContent?.appendChild(details);
+        mainContent?.appendChild(tagElement);
+        return taskElement;
     }
 }
 //# sourceMappingURL=DetailedTaskElement.js.map

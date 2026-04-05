@@ -2,7 +2,7 @@ import { TaskElement } from "./TaskElement.js";
 import { Task } from "../tasks/Task.js";
 import { TaskDetail } from "./TaskDetail.js";
 
-export class BasicTaskElement extends TaskElement {   
+export class CompactTaskElement extends TaskElement {   
     constructor(task: Task) {
         super(task);
         this.Element = this.create();
@@ -10,18 +10,11 @@ export class BasicTaskElement extends TaskElement {
         TaskElement.details = [
             TaskDetail.Title,
             TaskDetail.DueDate,
-            TaskDetail.Priority,
-            TaskDetail.Status,
-            TaskDetail.Tags
         ];
     }
 
     public create(): HTMLElement {
-        const taskElement = this.createParentElement("basic");
-        const mainContent = taskElement.querySelector('.main-content');
-        const tagElement = this.createTagElement();
-        mainContent?.appendChild(tagElement);
+        const taskElement = this.createParentElement("compact");
         return taskElement;
-
     }
 }

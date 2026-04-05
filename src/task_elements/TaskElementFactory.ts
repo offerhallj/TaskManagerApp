@@ -1,4 +1,5 @@
 import { DetailedTaskElement } from "./DetailedTaskElement.js";
+import { CompactTaskElement } from "./CompactTaskElement.js";
 import { OverdueTask } from "./decorators/OverdueTask.js";
 import { BasicTaskElement } from "./BasicTaskElement.js";
 import { DueToday } from "./decorators/DueToday.js";
@@ -26,6 +27,7 @@ export class TaskElementFactory {
         let newElement: TaskElement;
         switch (this._type) {
             case TaskDisplayType.Detailed: newElement = new DetailedTaskElement(task); break;   
+            case TaskDisplayType.Compact: newElement = new CompactTaskElement(task); break;   
             default: newElement = new BasicTaskElement(task)        
         }
 

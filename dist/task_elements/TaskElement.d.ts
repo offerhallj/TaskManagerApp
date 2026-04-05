@@ -16,5 +16,15 @@ export declare abstract class TaskElement implements UIElement {
     protected createEditButton(): HTMLElement;
     protected createDeleteButton(): HTMLElement;
     get isFilteredOut(): boolean;
+    protected createHTMLElement(element: string, ...classes: string[]): HTMLElement;
+    protected createImage(res: string, width: number, ...classes: string[]): HTMLImageElement;
+    protected createParentElement(type: string): HTMLElement;
+    protected createDetailContent(): HTMLElement;
+    protected createTagElement(): HTMLElement;
+    protected createTextElement(type: string, content: string): HTMLElement;
+    protected createActionContainer(type: string): HTMLElement;
+    protected createActionButton(label: string, rsc: string, action: () => void, withLabel?: boolean): HTMLElement;
+    protected createStatusSetter(rsc: string): HTMLElement;
+    private createStatusOption;
 }
 //# sourceMappingURL=TaskElement.d.ts.map
