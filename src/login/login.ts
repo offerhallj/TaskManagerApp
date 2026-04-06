@@ -9,8 +9,20 @@ const createEmailInput = document.querySelector("#create-account-form #email") a
 const loginUsernameInput = document.querySelector("#login-form #username") as HTMLInputElement;
 const loginPasswordInput = document.querySelector("#login-form #password") as HTMLInputElement;
 
-document.getElementById("create-account-form")?.addEventListener("submit", createUser);
-document.getElementById("login-form")?.addEventListener("submit", login);
+const createAccount = document.getElementById("create-account-form");
+createAccount?.addEventListener("submit", createUser);
+const loginForm = document.getElementById("login-form");
+loginForm?.addEventListener("submit", login);
+
+document.getElementById("goto-create")?.addEventListener("click", () => {
+    createAccount?.classList.remove("hidden");
+    loginForm?.classList.add("hidden");
+});
+
+document.getElementById("goto-login")?.addEventListener("click", () => {
+    createAccount?.classList.add("hidden");
+    loginForm?.classList.remove("hidden");
+});
 
 /** Create a new user and try to add it to the database */
 function createUser(e: SubmitEvent) {

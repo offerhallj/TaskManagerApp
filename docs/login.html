@@ -7,36 +7,46 @@
     <link rel="stylesheet" href="/docs/styles/styles.css">
 </head>
 <body>
-    <header>
-        Task Manager App
-        <nav>
-        </nav>
-    </header>
     <main>
-        <form id="login-form" class="content">
-            <fieldset>
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-                <button type="submit">Login</button>
-            </fieldset>
-        </form>
-        <form id="create-account-form" class="content">
-            <fieldset>
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
-                <button type="submit">Create Account</button>
-            </fieldset>
-        </form>
-
-        <p id="login-error" class="hidden"></p>
-        <p id="create-account-prompt">Don't have an account? <a id="show-create-account">Create one here</a></p>
-        <p id="login-prompt" class="hidden">Already have an account? <a id="show-login">Login here</a></p>
+        <div class="login-page">
+            <div class="floating-corner"><div></div></div>
+            <div class="floating-corner secondary"><div></div></div>
+            <div class="login-form-container">
+                <div class="logo">
+                    <img src="./icons/stacks-icon.svg" width="24">
+                    <h1>Task Manager</h1>
+                </div>
+                <form id="login-form" class="content">
+                    <fieldset>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </fieldset>
+                    <button type="submit" class="action-button">Login</button>
+                    <small>Don't have an account?</small>
+                    <div class="action-button secondary-button" id="goto-create">
+                        <a>Create an Account</a>
+                    </div>
+                </form>
+                <form id="create-account-form" class="content hidden">
+                    <fieldset>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </fieldset>
+                    <button type="submit" class="action-button">Create Account</button>
+                    <small>Already have an account?</small>
+                    <div class="action-button secondary-button" id="goto-login">
+                        <a>Login</a>
+                    </div>
+                </form>
+                <p id="login-error" class="hidden"></p>
+            </div>
+        </div>
     </main>
 </body>
 <script type="module" src="../dist/app.js"></script>
