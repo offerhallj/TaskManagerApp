@@ -135,7 +135,7 @@ main .sidebar {
     min-width: 10%;
     padding: 24px 0 32px 0;
     background-color: var(--black);
-    border-bottom-right-radius: 64px;
+    /* border-bottom-right-radius: 64px; */
     flex-basis: 200px;
     box-shadow: 0 5px 10px var(--off-black);
 }
@@ -193,7 +193,7 @@ main .sidebar small {
 
 .other-options {
     padding: 12px 0;
-    padding-left: 16px;
+    padding-left: 4px;
 }
 
 .other-options p {
@@ -858,4 +858,11 @@ button.action-button {
     padding-top: 16px;
     margin: 16px auto;
     text-align: center;
+}
+
+.other-options .action-button {
+    background-color: var(--off-black);
+    /* width: 100%; */
+    min-width: 0;
+    margin-right: 8px;
 }
