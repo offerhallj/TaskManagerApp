@@ -1,5 +1,7 @@
+/** An abstract implementation for a repository class which connects to IndexedDB */
 export class Repository {
     constructor() {
+        /** Indicates whether the database is accessible for queries */
         this._dbIsOpen = false;
         /** If a database function is called before the database is open, add the function to this list and invoke it once the database is opened */
         this._delayedExecution = [];
@@ -11,6 +13,7 @@ export class Repository {
         }
         this._delayedExecution.splice(0, this._delayedExecution.length - 1);
     }
+    /** Attempts to open the database; if the database does not exist, create one and call createTable() */
     openDatabase(table, version) {
         const request = window.indexedDB.open(table, version);
         request.addEventListener("error", () => {
@@ -38,6 +41,8 @@ export class Repository {
         const transaction = this._db?.transaction([table], method);
         return transaction?.objectStore(table);
     }
+    /** If the database is not open when a function is called in the repository,
+     * add the function to the deleayedExecution list so it can be performed when the database is open */
     delayExecution(fun) {
         if (!this._dbIsOpen) {
             this._delayedExecution.push(fun);

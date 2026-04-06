@@ -4,6 +4,7 @@ import { View } from "./View.js";
 
 const logService = LoginService.Instance;
 
+/** An intermediatery class conencting views.ts to the ViewRepository */
 export class ViewService {
     private static _instance: ViewService;
     private _repo: ViewRepository = new ViewRepository();

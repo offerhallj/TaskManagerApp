@@ -2,6 +2,7 @@ import { LoginService } from "../login/LoginService.js";
 import { ViewRepository } from "./ViewRepository.js";
 import { View } from "./View.js";
 const logService = LoginService.Instance;
+/** An intermediatery class conencting views.ts to the ViewRepository */
 export class ViewService {
     constructor() {
         this._repo = new ViewRepository();

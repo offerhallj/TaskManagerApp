@@ -1,3 +1,6 @@
+// This script define the functionality of the Views list in the sidebar of main app page, as well as accessing an altering some of the UI in the Task View.
+// Realistically, a lot of this code could and should have been implemented in some sort of ViewModel class, instead, to better seperate the UI code from other concerns
+
 import { ViewHolder } from "../views/ViewHolder.js";
 import { ViewService } from "./ViewService.js";
 import { View } from "./View.js";

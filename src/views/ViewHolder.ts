@@ -1,6 +1,7 @@
 import { Observable } from "../interfaces/Observable.js";
 import { View } from "./View.js";
 
+/** A Singleton class which holds a copy of the current View */
 export class ViewHolder extends Observable<View> {
     private static _instance: ViewHolder;
     static get Instance(): ViewHolder {
@@ -30,5 +31,7 @@ export class ViewHolder extends Observable<View> {
         this._view.isChanged = false;
     }
 
+    // This method is used to update the asterisk next to the view title in the UI, as well as to set the Save View button active
+    /** Define a function to be called when the view is changed */
     onViewIsChanged: ((val: boolean) => void) | undefined;
 }

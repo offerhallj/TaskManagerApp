@@ -1,11 +1,13 @@
 import { Repository } from "../repository.js";
 import { View } from "./View.js";
 const VIEW_TABLE = "view_table";
+/** Implements methods for connecting to the Views Table in the database */
 export class ViewRepository extends Repository {
     constructor() {
         super();
         this.openDatabase(VIEW_TABLE, 1);
     }
+    /** Create the Views table */
     createTable() {
         const table = this._db?.createObjectStore(VIEW_TABLE, { keyPath: "id", autoIncrement: true });
         table?.createIndex("user", "user", { unique: false });
@@ -18,6 +20,7 @@ export class ViewRepository extends Repository {
         table?.createIndex("title", "title", { unique: false });
         table?.createIndex("displayType", "displayType", { unique: false });
     }
+    /** Add a new view to the Views Table */
     createView(view, callback) {
         if (this.delayExecution(() => this.createView(view, callback)))
             return;
@@ -31,6 +34,7 @@ export class ViewRepository extends Repository {
             callback(false, undefined);
         });
     }
+    /** Update an existing view in the Views table */
     saveView(view, callback) {
         if (this.delayExecution(() => this.saveView(view, callback)))
             return;
@@ -43,6 +47,7 @@ export class ViewRepository extends Repository {
             callback(false, "Error: This view could not be updated");
         });
     }
+    /** Return all views for the given user */
     getAllViewsForUser(user, callback) {
         if (this.delayExecution(() => this.getAllViewsForUser(user, callback)))
             return;
@@ -61,6 +66,7 @@ export class ViewRepository extends Repository {
             callback(true, "Success", views);
         });
     }
+    /** Remove a view from the Views Table */
     deleteView(id, callback) {
         if (this.delayExecution(() => this.deleteView(id, callback)))
             return;
@@ -73,6 +79,7 @@ export class ViewRepository extends Repository {
             callback(false, "This view could not be deleted");
         });
     }
+    /** Create a new View from the result of a database query */
     createViewFromAny(result, user) {
         const rawView = result;
         if (rawView != undefined && rawView.user == user) {

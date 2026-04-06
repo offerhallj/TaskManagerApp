@@ -1,6 +1,7 @@
 import { TaskDetail } from "../task_elements/TaskDetail.js";
 import { ViewHolder } from "../views/ViewHolder.js";
 import { Task } from "../tasks/Task.js";
+/** Checks the current Task against the filters in the current View to determine if the task should be visible in the taskview or filtered out */
 export function isFilteredOut(task) {
     const viewHolder = ViewHolder.Instance;
     // handle basic filters first
@@ -19,6 +20,7 @@ export function isFilteredOut(task) {
     }
     return false;
 }
+/** Returns true if the provided TaskDetail is a valid filter in the searchbar */
 export function canFilter(header) {
     switch (header) {
         case TaskDetail.ID:
@@ -30,12 +32,18 @@ export function canFilter(header) {
             return true;
     }
 }
+/** Returns true if the given task detail (text) contains the searchValue in the View;
+ * Used for basic text fields (title, description, tag, etc.)
+*/
 function isTextFiltered(text) {
     const viewHolder = ViewHolder.Instance;
     if (viewHolder.rView.searchFilter == undefined)
         return false;
     return !text.toLowerCase().includes(viewHolder.rView.searchValue.toLowerCase().trim());
 }
+/** Returns true if the given task detail (text) contains the searchValue in the View
+ * Used for date fields (createdDate and dueDate)
+*/
 function isDateFiltered(text) {
     const viewHolder = ViewHolder.Instance;
     let searchFilter = viewHolder.rView.searchValue.trim();
@@ -50,6 +58,7 @@ function isDateFiltered(text) {
         return false;
     return true;
 }
+/** Returns the value of any keywords enclosed in curly braces in the searchbar */
 function translateDateKeyword(searchFilter) {
     if (searchFilter == "{today}") {
         let today = new Date().toDateString();

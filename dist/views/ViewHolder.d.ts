@@ -1,5 +1,6 @@
 import { Observable } from "../interfaces/Observable.js";
 import { View } from "./View.js";
+/** A Singleton class which holds a copy of the current View */
 export declare class ViewHolder extends Observable<View> {
     private static _instance;
     static get Instance(): ViewHolder;
@@ -9,6 +10,7 @@ export declare class ViewHolder extends Observable<View> {
     /** Access the view with intent only to read */
     get rView(): View;
     setView(view: View): void;
+    /** Define a function to be called when the view is changed */
     onViewIsChanged: ((val: boolean) => void) | undefined;
 }
 //# sourceMappingURL=ViewHolder.d.ts.map

@@ -3,12 +3,14 @@ import { View } from "./View.js";
 
 const VIEW_TABLE = "view_table";
 
+/** Implements methods for connecting to the Views Table in the database */
 export class ViewRepository extends Repository<ViewRepository> {
     constructor() {
         super();
         this.openDatabase(VIEW_TABLE, 1);
     }
 
+    /** Create the Views table */
     createTable(): void {
         const table = this._db?.createObjectStore(VIEW_TABLE, { keyPath: "id", autoIncrement:true});
         table?.createIndex("user", "user", { unique: false});
@@ -22,6 +24,7 @@ export class ViewRepository extends Repository<ViewRepository> {
         table?.createIndex("displayType", "displayType", { unique: false});
     }
 
+    /** Add a new view to the Views Table */
     public createView(view: View, callback: (result: boolean, view: View | undefined) => void): void {
         if (this.delayExecution(() => this.createView(view, callback))) return;
         const objectStore = this.getObjectStore(VIEW_TABLE, "readwrite");
@@ -37,6 +40,7 @@ export class ViewRepository extends Repository<ViewRepository> {
         })
     }
 
+    /** Update an existing view in the Views table */
     public saveView(view: View, callback: (r: boolean, msg: string) => void): void {
         if (this.delayExecution(() => this.saveView(view, callback))) return;
 
@@ -52,6 +56,7 @@ export class ViewRepository extends Repository<ViewRepository> {
         })
     }
 
+    /** Return all views for the given user */
     public getAllViewsForUser(user: string, callback: (result: boolean, msg: string, views: View[]) => void) {
         if (this.delayExecution(() => this.getAllViewsForUser(user, callback))) return;
 
@@ -74,6 +79,7 @@ export class ViewRepository extends Repository<ViewRepository> {
         });
     }
     
+    /** Remove a view from the Views Table */
     public deleteView(id: number, callback: (result: boolean, msg: string) => void) {
         if (this.delayExecution(() => this.deleteView(id, callback))) return;
 
@@ -89,6 +95,7 @@ export class ViewRepository extends Repository<ViewRepository> {
         })
     }
 
+    /** Create a new View from the result of a database query */
     private createViewFromAny(result: any, user: string): View | undefined {
         const rawView = result as View;
 

@@ -1,5 +1,6 @@
 import { Observable } from "../interfaces/Observable.js";
 import { View } from "./View.js";
+/** A Singleton class which holds a copy of the current View */
 export class ViewHolder extends Observable {
     static get Instance() {
         if (ViewHolder._instance == null)

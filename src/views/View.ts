@@ -33,6 +33,7 @@ export class View {
 
     public isChanged: boolean = false;
 
+    /** Create a new View from and existing View */
     static newFromExistingView(view: View): View {
         let newView = new View();
         newView.user = view.user;
@@ -42,7 +43,7 @@ export class View {
         newView.searchFilter = view.searchFilter;       
         newView.searchValue = view.searchValue;
         newView.displayType = view.displayType;
-
+        
         let todo = view.statusFilters.get(TaskStatus.ToDo);
         let prog = view.statusFilters.get(TaskStatus.InProgress);
         let comp = view.statusFilters.get(TaskStatus.Complete);

@@ -26,6 +26,7 @@ export class View {
         this.displayType = TaskDisplayType.Basic;
         this.isChanged = false;
     }
+    /** Create a new View from and existing View */
     static newFromExistingView(view) {
         let newView = new View();
         newView.user = view.user;

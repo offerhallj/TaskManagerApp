@@ -1,4 +1,5 @@
 import { View } from "./View.js";
+/** An intermediatery class conencting views.ts to the ViewRepository */
 export declare class ViewService {
     private static _instance;
     private _repo;

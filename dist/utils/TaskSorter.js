@@ -1,6 +1,7 @@
 import { TaskPriority, TaskStatus, Task } from "../tasks/Task.js";
 import { TaskElement } from "../task_elements/TaskElement.js";
 import { TaskDetail } from "../task_elements/TaskDetail.js";
+/** SOrts the given taskElement list according the speciied taskDetail and order */
 export function sort(header, elements, order) {
     switch (header) {
         case TaskDetail.ID:
@@ -23,6 +24,7 @@ export function sort(header, elements, order) {
             return elements.sort((a, b) => dateSort(a.Task.dueDate, b.Task.dueDate, order));
     }
 }
+/** Returns true if the given taskDetail is able to be sorted */
 export function canSort(header) {
     switch (header) {
         case TaskDetail.Actions:
@@ -31,6 +33,7 @@ export function canSort(header) {
     }
     return true;
 }
+/** Defines the order in which task elements are to be sorted */
 export var Order;
 (function (Order) {
     Order["Asc"] = "Asc";

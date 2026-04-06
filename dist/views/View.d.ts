@@ -15,6 +15,7 @@ export declare class View {
     searchValue: string;
     displayType: TaskDisplayType;
     isChanged: boolean;
+    /** Create a new View from and existing View */
     static newFromExistingView(view: View): View;
 }
 //# sourceMappingURL=View.d.ts.map
