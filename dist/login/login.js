@@ -41,6 +41,6 @@ function loginResponse(result) {
     if (!result)
         console.log("failed to login");
     else
-        window.location.replace("/index.html");
+        window.location.replace("../index.html");
 }
 //# sourceMappingURL=login.js.map

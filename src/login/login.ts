@@ -47,5 +47,5 @@ function login(e: SubmitEvent) {
 /** Handle the result of the createUser operation */
 function loginResponse(result: boolean) {
     if (!result) console.log("failed to login");
-    else window.location.replace("/index.html");
+    else window.location.replace("../index.html");
 }
