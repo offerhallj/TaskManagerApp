@@ -24,7 +24,7 @@ export class LoginService {
     logIn(username, password, callback) {
         repo.validateLoginCredentials(username, password, (result, auth) => {
             if (result) {
-                document.cookie = `${AUTHENTICATION}=user:${username},token:${auth};max-age=10000`;
+                document.cookie = `${AUTHENTICATION}=user:${username},token:${auth};path=/;max-age=10000`;
                 callback(true);
             }
             else {
