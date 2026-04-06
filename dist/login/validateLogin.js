@@ -10,7 +10,7 @@ function isLoggedInReponse(result) {
     // otherwise, redirect to the login page
     // redirect code was sourced from here
     // https://stackoverflow.com/questions/503093/how-do-i-redirect-to-another-webpage
-    window.location.replace("./docs/login.html");
+    window.location.replace("docs/login.html");
 }
 validateLogin();
 //# sourceMappingURL=validateLogin.js.map
