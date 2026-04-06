@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasks | Task Manager</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="docs/styles/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -13,25 +13,21 @@
     <main>
         <div class="sidebar">
             <div class="logo">
-                <img src="./icons/stacks-icon.svg" width="24">
+                <img src="docs/icons/stacks-icon.svg" width="24">
                 <h1>Task Manager</h1>
             </div>
             <small>Views</small>
             <nav>
-                <ul class="views-nav" id="views-nav">
-                    <li><a href="index.html">Dashboard</a></li>
-                    <li><a href="index.html">Homework</a></li>
-                    <li><a href="index.html">Due Today</a></li>
-                </ul>
+                <ul class="views-nav" id="views-nav"></ul>
                 <div class="add-view">
                     <div id="add-new-view" class="action-button">
-                        <img src="./icons/add.svg" width="20">
+                        <img src="docs/icons/add.svg" width="20">
                         <a>Add View</a>
                     </div>
                 </div>
                 <div class="other-options">
                     <p>User: </p>
-                    <a href="login.html" id="logout-button">Logout</a>
+                    <a href="docs/login.html" id="logout-button">Logout</a>
                 </div>
             </nav>
         </div>   
@@ -41,16 +37,16 @@
             <div class="flex space-between task-view-header">
                 <div class="view-title-container">
                     <div class="view-button-container">
-                        <img src="./icons/bookmark-check.svg" class="icon-button inactive" width="24" id="save-view" title="Save this View">
-                        <img src="./icons/edit-square.svg" class="icon-button" width="24" id="edit-view" title="Edit this View">
-                        <img src="./icons/delete.svg" class="icon-button" width="24"  id="delete-view" title="Delete this View">
+                        <img src="docs/icons/bookmark-check.svg" class="icon-button inactive" width="24" id="save-view" title="Save this View">
+                        <img src="docs/icons/edit-square.svg" class="icon-button" width="24" id="edit-view" title="Edit this View">
+                        <img src="docs/icons/delete.svg" class="icon-button" width="24"  id="delete-view" title="Delete this View">
                         <p id="view-action"></p>
                     </div>
                     <h2 id="view-title">Dashboard</h2>
                     <div id="view-title-input" class="hidden">
                         <input type="text" id="view-name" placeholder="New View Title">
-                        <img src="./icons/check.svg" class="icon-button" width="20" id="save-view-title">
-                        <img src="./icons/close.svg" class="icon-button" width="20" id="cancel-view-title">
+                        <img src="docs/icons/check.svg" class="icon-button" width="20" id="save-view-title">
+                        <img src="docs/icons/close.svg" class="icon-button" width="20" id="cancel-view-title">
                     </div>
                 </div>
                 <div class="filter-options-container">
@@ -78,18 +74,18 @@
                 <div class="flex task-header">
                     <h2>Tasklist</h2>
                     <div class="icon-button flex" id="new-task">
-                        <img src="./icons/add.svg">
+                        <img src="docs/icons/add.svg">
                         <a>Create a New Task</a>
                     </div>
                 </div>
     
                 <div class="view-options">
                     <div class="display-type-buttons">
-                        <img class="icon-button" src="./icons/compact.svg" width="20" id="compact-view">
-                        <img class="icon-button" src="./icons/basic.svg" width="20" id="basic-view">
-                        <img class="icon-button" src="./icons/detailed.svg" width="20" id="detailed-view">
+                        <img class="icon-button" src="docs/icons/compact.svg" width="20" id="compact-view">
+                        <img class="icon-button" src="docs/icons/basic.svg" width="20" id="basic-view">
+                        <img class="icon-button" src="docs/icons/detailed.svg" width="20" id="detailed-view">
                     </div>
-                    <img src="./icons/sort.svg" class="sort-icon" width="24">
+                    <img src="docs/icons/sort.svg" class="sort-icon" width="24">
                     <div class="option-container sort-options-container">
                         <label for="sort-options">Sort by</label>
                         <select id="sort-options">
@@ -107,7 +103,7 @@
             <form class="task-form">
                 <div class="flex space-between">
                     <h2 id="task-form-title">New Task</h2>
-                    <img src="./icons/add.svg" class="icon-button" id="close-form-btn">
+                    <img src="docs/icons/add.svg" class="icon-button" id="close-form-btn">
                 </div>
                 <input type="number" id="id" value="-1" class="hidden">
                 <input type="text" id="user" class="hidden">
@@ -138,9 +134,9 @@
         </div>
     </main>
 </body>
-<script type="module" src="../dist/login/validateLogin.js"></script>
-<script type="module" src="../dist/views/views.js"></script>
-<script type="module" src="../dist/tasks/tasks.js"></script>
-<script type="module" src="../dist/tasks/task_form.js"></script>
-<script type="module" src="../dist/app.js"></script>
+<script type="module" src="dist/login/validateLogin.js"></script>
+<script type="module" src="dist/views/views.js"></script>
+<script type="module" src="dist/tasks/tasks.js"></script>
+<script type="module" src="dist/tasks/task_form.js"></script>
+<script type="module" src="dist/app.js"></script>
 </html>
