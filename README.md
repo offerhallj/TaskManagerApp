@@ -108,7 +108,7 @@ With this implementation, different TaskElements can be easily created for in th
 *A Compact Task Element*
 ![a compact task](images/compact-task.png)
 
-*A Compact Task Element*
+*A Basic Task Element*
 ![a basic task](images/basic-task.png)
 
 *A Detailed Task Element*
@@ -130,8 +130,89 @@ This app can be accessed live at the following link: https://offerhallj.github.i
 To install a local version, simply download or clone the respository and open index.html in a browser. 
 
 ## Summary of the Project
+The Task Manager app provides users with a intuitive interface to create and manage simple tasks. 
 
+The app has 3 primary functions:
+- Creating accounts and logging in
+- Creating, viewing, editing, and deleting tasks
+- Organizing and filtering tasks, saving organization and filtering options as Views, and switching between, editing, and deleting views
 
+### Creating Accounts and Logging In
+![The login page](images/login-page.png)
+*The login page*
+
+If a user is not currently logged into the app, any attempt to access the app's main page will be redirected to the login page. From here, users can enter their credentials to login, or click the Create an Account button to create a new user account. Once the account is created, the user will automatically be logged in.
+
+**Note that each account must have a unique username and email address provided.**
+
+### Creating, Viewing, Editing, and Deleting Tasks
+![An empty dashboard](images/empty-dashboard.png)
+*An empty dashboard*
+
+When the user first creates an account, they will be met with an empty Dashboard. This Dashboard is the user's first View (which will be discussed in more depth later.)
+
+To add a task, the user must click the "+" icon beside the Tasklist header.
+
+![Create a New Task](images/create-task-button.png)
+
+*The "+" button will expand when hovered over*
+
+#### The Taskform
+
+![The Task Form](images/taskform.png)
+
+After clicking the "+" button, the Task Form will appear. User can create a new task by entering the required information and clicking the save button. Users can exit the Task Form without saving by presing the X or Cancel buttons.
+
+**Note: All fields on the Task Form are required except for the Tags field. If the user does choose to include tags, tags should be seperated with a comma.**
+
+#### Editing and Deleting Tasks
+
+![A new task](images/a-new-task.png)
+
+Once the task has been saved, it will be visible on the user's Task List (provided no filtration settings filter it out.) With the task now visible in the list, user's can use the Action Buttons to the right of the task details to perform additional actions.
+
+The Edit button will reopen the Task Form with the details of the current task pre-populated in the input fields. Users can alter the details and press Save to update the task, or press the X or Cancel buttons to cancel the edit.
+
+The Delete button will remove the task from the tasklist.
+
+The Status Dropdown (labeled To do in the screenshot above) will allow the user to quickly change the status of the Task. 
+
+### Sorting and Filtering Tasks
+![Sorting and filtration options](images/sort-and-filter.png)
+
+Above the Tasklist, users can find the View's sorting and filtration options.
+
+At the top are the Priority and Status filters. Clicking any of these options will filter out any tasks in the Tasklist which have the selected priority or status. For example, clicking "Complete" will remove any Tasks marked as "Complete" from the Tasklist; clicking "Low" will remove any Tasks with a priority set to Low from the Tasklist.
+
+Below the Priority and status options is the Searchbar. Users can select which task detail they wish to filter from the dropdown list to the right of the searchbar, and can type into the searchbar to filter out all tasks from the Tasklist which *do not* contain the entered value in the chosen field. For example, if the user chooses to filter by Tags and enters "homework" into the searchbar, any task which *does not* have a tag containing the word "homework" will be removed from the Tasklist.
+
+**Note: Tasks filtered out of the Tasklist are not deleted, they are simply not visible while the filtration options are applied. To see all tasks which the user has created, simply set all filtration options to their default state.**
+
+The order in which tasks appear in the Tasklist can be set using the "Sort by" dropdown option below the Searchbar.
+
+#### Viewing Task Details
+By default, all tasks added to the Tasklist are displayed in Basic format. User can alter the display of the tasks by clickin one of the three buttons to the left of the "Sort by" dropdown menu. The farthest button to the left will display all task elements as *compact,* the center button will display them as *basic,* and the right-most button will display them as *detailed.*
+
+*A Compact Task Element*
+![a compact task](images/compact-task.png)
+
+*A Basic Task Element*
+![a basic task](images/basic-task.png)
+
+*A Detailed Task Element*
+![a detailed task](images/detailed-task.png)
+
+### Saving, Editing, and Creating Views
+![Saving the view](images/saving-view.png)
+Any change made to the sorting, filtering, or display settings in the current view will be undone when the page is reloaded. To make those changes permanent, the View must be saved. In the top-left of the screen, the user will see an asterisk (*) next to the View's title if changes have been made which need to be saved. Users can click the "Save this View" button above the view title to save any pending changes to the view. Once saved, these changes will be applied every time the view is loaded.
+
+![Editing a view](images/editing-view.png)
+
+If the user wishes to change the name of the current view, users can click on the "Edit this View" options to the right of the save option. Clicking this button will convert the View title into a text field which the user can type a new name into. Once the user has entered their desired name, they can click the checkmark button to save the change. If the uses wishes to cancel the change, the can click the X button.
+
+To add a new View to the app, users can click the "+ Add View" button in the bottom corner of the View list. Doing so will create a new view with the current filtering, sorting, and display options already applied.
+
+If the user created a view by mistake, or simply wishes to clean up the View list, they can select the View from the list and click the Delete this View button above the View Title to remove the View from the app.
 
 ## Contrubutions
 This project was created entirely by Jared Hall for DGL-104 at North Island College.
